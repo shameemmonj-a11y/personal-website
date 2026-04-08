@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[ Your Name ] — A Mind in Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --bg2: #0f0f0f;
+    --bg3: #141414;
+    --amber: #d4891a;
+    --amber-light: #f0a830;
+    --amber-dim: #8a5a0a;
+    --text: #e8e0d4;
+    --text-muted: #7a7268;
+    --text-dim: #3d3830;
+    --border: #1e1c18;
+    --border-warm: #2a2520;
+    --ff-display: 'Playfair Display', Georgia, serif;
+    --ff-mono: 'IBM Plex Mono', 'Courier New', monospace;
+    --ff-body: 'Crimson Pro', Georgia, serif;
+    --section-pad: 120px 0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-body);
+    font-size: 19px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.92);
+    border-color: var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-name {
+    font-family: var(--ff-mono);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--amber);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--amber-light); }
+
+  /* ── SECTIONS SHARED ── */
+  section {
+    padding: var(--section-pad);
+    position: relative;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  .container-wide {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .section-label {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 40px;
+    background: var(--amber-dim);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--ff-display);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  /* ── LANDING ── */
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  #landing::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,137,26,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .landing-inner {
+    max-width: 900px;
+  }
+  .landing-eyebrow {
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .landing-name {
+    font-family: var(--ff-display);
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .landing-name em {
+    font-style: italic;
+    color: var(--amber-light);
+  }
+  .landing-tagline {
+    font-family: var(--ff-body);
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+  .landing-cta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+  .btn-ghost {
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber-dim);
+    padding: 14px 28px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .btn-ghost:hover {
+    background: rgba(212,137,26,0.08);
+    border-color: var(--amber);
+  }
+
+  /* animated cursor line */
+  .cursor-blink::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: var(--amber);
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── QUICK SNAPSHOT ── */
+  #snapshot {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-warm);
+  }
+  .snapshot-cell {
+    padding: 36px 28px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .snapshot-cell:last-child { border-right: none; }
+  .snapshot-cell-title {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    margin-bottom: 20px;
+  }
+  .snapshot-cell ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .snapshot-cell li {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.4;
+    padding-left: 14px;
+    position: relative;
+  }
+  .snapshot-cell li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--amber-dim);
+    font-size: 12px;
+  }
+  .snapshot-quote {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .snapshot-project {
+    font-size: 15px;
+    color: var(--amber-light);
+    font-family: var(--ff-mono);
+  }
+  .snapshot-project span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 6px;
+    font-family: var(--ff-body);
+  }
+
+  /* ── HOW I THINK ── */
+  #think { background: var(--bg); }
+  .philosophy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+  .philosophy-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    align-items: start;
+    transition: all 0.2s;
+  }
+  .philosophy-item:hover { background: rgba(255,255,255,0.01); }
+  .philosophy-num {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    padding-top: 4px;
+  }
+  .philosophy-text h3 {
+    font-family: var(--ff-display);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .philosophy-text p {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .changed-mind {
+    margin-top: 64px;
+    padding: 40px;
+    border: 1px solid var(--border-warm);
+    background: var(--bg2);
+  }
+  .changed-mind h3 {
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 24px;
+  }
+  .changed-item {
+    display: grid;
+    grid-template-columns: 1fr 32px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 16px;
+  }
+  .changed-item:last-child { border-bottom: none; }
+  .changed-before { color: var(--text-muted); font-style: italic; }
+  .changed-arrow { color: var(--amber); text-align: center; font-size: 18px; }
+  .changed-after { color: var(--text); }
+
+  /* ── CURRENTLY ── */
+  #currently {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .currently-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-top: 48px;
+  }
+  .currently-card {
+    background: var(--bg2);
+    padding: 32px 28px;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .currently-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .currently-card:hover { background: var(--bg3); }
+  .currently-card:hover::before { opacity: 1; }
+  .cc-amber::before { background: var(--amber); }
+  .cc-teal::before { background: #1a9e8a; }
+  .cc-blue::before { background: #2a7fd4; }
+  .cc-green::before { background: #4a9e3a; }
+  .cc-rose::before { background: #b84a6a; }
+  .cc-violet::before { background: #7a5ac8; }
+  .currently-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .currently-label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .currently-value {
+    font-family: var(--ff-display);
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .currently-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-family: var(--ff-mono);
+  }
+  .live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3fa;
+    margin-right: 6px;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1);}
+    50%{opacity:0.5;transform:scale(0.8);}
+  }
+
+  /* ── MUSICAL BENCH ── */
+  #music { background: var(--bg); }
+  .music-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 48px;
+  }
+  .instrument-card {
+    border: 1px solid var(--border-warm);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .instrument-card::after {
+    content: attr(data-instrument);
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-size: 96px;
+    opacity: 0.04;
+    font-family: var(--ff-display);
+    pointer-events: none;
+    line-height: 1;
+    color: var(--amber-light);
+  }
+  .instrument-name {
+    font-family: var(--ff-display);
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .instrument-since {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--amber-dim);
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+  }
+  .progress-track {
+    background: var(--border);
+    height: 3px;
+    border-radius: 2px;
+    margin: 20px 0 8px;
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--amber-dim), var(--amber-light));
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .wip-list {
+    margin-top: 24px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .wip-list li {
+    font-size: 15px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wip-badge {
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    background: rgba(212,137,26,0.12);
+    color: var(--amber-dim);
+    padding: 2px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── FUEL ── */
+  #fuel {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .meal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+  .meal-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .meal-num {
+    font-family: var(--ff-mono);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--text-dim);
+    line-height: 1;
+  }
+  .meal-name {
+    font-family: var(--ff-display);
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .meal-note {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .meal-time {
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+
+  /* ── ENTERTAINMENT ── */
+  #entertainment { background: var(--bg); }
+  .show-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .show-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .show-card:hover { transform: translateY(-4px); }
+  .show-poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    display: flex;
+    align-items: flex-end;
+    padding: 24px 20px;
+    position: relative;
+  }
+  .show-poster-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .show-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 40%, transparent 100%);
+    z-index: 1;
+  }
+  .show-content { position: relative; z-index: 2; }
+  .show-tag {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    display: inline-block;
+  }
+  .show-title {
+    font-family: var(--ff-display);
+    font-size: 24px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .show-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+  /* Mr. Robot theme */
+  .theme-robot .show-poster-bg { background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 40%, #2d0808 100%); }
+  .theme-robot .show-tag { background: rgba(180,30,30,0.25); color: #e04040; }
+  /* Breaking Bad theme */
+  .theme-bb .show-poster-bg { background: linear-gradient(135deg, #0a0d05 0%, #1a2808 50%, #0d1a05 100%); }
+  .theme-bb .show-tag { background: rgba(80,160,20,0.25); color: #80c030; }
+  /* Generic dark theme */
+  .theme-dark .show-poster-bg { background: linear-gradient(135deg, #070a14 0%, #0d1428 50%, #07080f 100%); }
+  .theme-dark .show-tag { background: rgba(40,80,180,0.25); color: #6090e0; }
+  .theme-anime .show-poster-bg { background: linear-gradient(135deg, #0a050f 0%, #1a0828 50%, #280538 100%); }
+  .theme-anime .show-tag { background: rgba(140,40,200,0.25); color: #c060e0; }
+  .theme-game .show-poster-bg { background: linear-gradient(135deg, #050a0a 0%, #082828 50%, #050f10 100%); }
+  .theme-game .show-tag { background: rgba(20,150,140,0.25); color: #40c0b8; }
+  .theme-warm .show-poster-bg { background: linear-gradient(135deg, #0f0805 0%, #281a07 50%, #180f03 100%); }
+  .theme-warm .show-tag { background: rgba(200,120,20,0.25); color: #e09030; }
+
+  .book-quotes {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .book-quote-card {
+    padding: 32px;
+    border-left: 3px solid var(--amber-dim);
+    background: var(--bg2);
+  }
+  .book-quote-text {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+  .book-quote-author {
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    color: var(--amber-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── PROJECTS LAB ── */
+  #projects { background: var(--bg2); border-top: 1px solid var(--border); }
+  .projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+  .project-item {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .project-left {}
+  .project-name {
+    font-family: var(--ff-display);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .project-status {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+  .status-wip { color: var(--amber); border-color: var(--amber-dim); }
+  .status-done { color: #4a9e3a; border-color: rgba(74,158,58,0.4); }
+  .status-paused { color: var(--text-muted); border-color: var(--border); }
+  .project-problem {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .project-right {}
+  .project-section {
+    margin-bottom: 16px;
+  }
+  .project-section-title {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    margin-bottom: 6px;
+  }
+  .project-section-text {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  /* ── JOURNAL ── */
+  #journal { background: var(--bg); }
+  .journal-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+  .journal-entry {
+    padding: 36px 40px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    position: relative;
+    background: rgba(14,13,11,0.5);
+    transition: border-color 0.2s;
+  }
+  .journal-entry:hover { border-color: var(--border-warm); }
+  .journal-date {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--amber-dim);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .journal-text {
+    font-family: var(--ff-body);
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .journal-tag {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── HOBBIES ── */
+  #hobbies {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .hobby-card {
+    padding: 36px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .hobby-card:hover {
+    border-color: var(--border-warm);
+    transform: translateY(-2px);
+  }
+  .hobby-emoji {
+    font-size: 32px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .hobby-name {
+    font-family: var(--ff-display);
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .hobby-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  .hobby-level {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+  }
+  .level-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .level-dot.filled { background: var(--amber); }
+
+  /* ── FUTURE PURSUITS ── */
+  #future { background: var(--bg); }
+  .pursuits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .pursuit-card {
+    border: 1px dashed var(--border-warm);
+    padding: 36px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  .pursuit-card:hover {
+    border-color: var(--amber-dim);
+    background: rgba(212,137,26,0.02);
+  }
+  .pursuit-label {
+    font-family: var(--ff-mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .pursuit-name {
+    font-family: var(--ff-display);
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .pursuit-note {
+    font-size: 15px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .pursuit-corner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* ── STANDUP ── */
+  #standup {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .bit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .bit-card {
+    padding: 28px 32px;
+    border-left: 2px solid var(--amber-dim);
+    background: var(--bg3);
+  }
+  .bit-tag {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--amber-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .bit-text {
+    font-family: var(--ff-display);
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .bit-punchline {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* ── FUTURE SELF ── */
+  #future-self { background: var(--bg); }
+  .vision-block {
+    margin-top: 56px;
+    padding: 56px 64px;
+    border: 1px solid var(--border-warm);
+    background: linear-gradient(135deg, rgba(212,137,26,0.03) 0%, transparent 60%);
+    position: relative;
+  }
+  .vision-block::before {
+    content: '"';
+    position: absolute;
+    top: -40px;
+    left: 40px;
+    font-family: var(--ff-display);
+    font-size: 160px;
+    color: var(--text-dim);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .vision-text {
+    font-family: var(--ff-display);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .vision-text strong {
+    font-weight: 400;
+    color: var(--amber-light);
+    font-style: normal;
+  }
+
+  /* ── RABBIT HOLES ── */
+  #rabbitholes {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .hole-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 48px;
+  }
+  .hole-item {
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+  }
+  .hole-topic {
+    font-family: var(--ff-display);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .hole-depth {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    color: var(--amber-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .hole-details {}
+  .hole-spark {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .hole-questions {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .hole-questions li {
+    font-family: var(--ff-mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-left: 16px;
+    position: relative;
+  }
+  .hole-questions li::before {
+    content: '?';
+    position: absolute;
+    left: 0;
+    color: var(--amber-dim);
+  }
+
+  /* ── FAILURES ── */
+  #failures { background: var(--bg); }
+  .failure-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+  .failure-card {
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .failure-card::before {
+    content: 'F';
+    position: absolute;
+    top: -16px;
+    left: 20px;
+    font-family: var(--ff-display);
+    font-size: 80px;
+    color: var(--text-dim);
+    opacity: 0.3;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .failure-title {
+    font-family: var(--ff-display);
+    font-size: 20px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+  }
+  .failure-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .lesson-tag {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--amber);
+    padding: 6px 12px;
+    background: rgba(212,137,26,0.08);
+    display: inline-block;
+    line-height: 1.4;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 64px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    background: var(--bg2);
+  }
+  .footer-name {
+    font-family: var(--ff-display);
+    font-size: 48px;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .footer-sub {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    #landing { padding: 0 24px; }
+    .snapshot-grid { grid-template-columns: 1fr 1fr; }
+    .snapshot-cell:nth-child(3), .snapshot-cell:nth-child(4) { border-top: 1px solid var(--border); }
+    .currently-grid { grid-template-columns: 1fr 1fr; }
+    .music-split { grid-template-columns: 1fr; }
+    .show-cards { grid-template-columns: 1fr; }
+    .book-quotes { grid-template-columns: 1fr; }
+    .project-item { grid-template-columns: 1fr; gap: 24px; }
+    .hobbies-grid { grid-template-columns: 1fr; }
+    .pursuits-grid { grid-template-columns: 1fr; }
+    .failure-grid { grid-template-columns: 1fr; }
+    .hole-item { grid-template-columns: 1fr; gap: 16px; }
+    .vision-block { padding: 36px 28px; }
+    .philosophy-item { grid-template-columns: 1fr; gap: 8px; }
+    .changed-item { grid-template-columns: 1fr 24px 1fr; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="main-nav">
+  <a class="nav-name" href="#landing">[ YourName ]</a>
+  <ul class="nav-links">
+    <li><a href="#think">Think</a></li>
+    <li><a href="#currently">Currently</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#entertainment">Entertainment</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journal">Journal</a></li>
+    <li><a href="#future-self">Future</a></li>
+  </ul>
+</nav>
+
+<!-- ── LANDING ── -->
+<section id="landing">
+  <div class="landing-inner">
+    <div class="landing-eyebrow">Engineering student · Builder · Human</div>
+    <h1 class="landing-name">
+      Your <em>Name</em>
+    </h1>
+    <p class="landing-tagline cursor-blink">
+      A mind in constant motion — building things, breaking things,<br>
+      and trying to make sense of both.
+    </p>
+    <div class="landing-cta">
+      <a href="#snapshot" class="btn-ghost">10 min to know me</a>
+      <a href="#projects" class="btn-ghost">See what I'm building</a>
+      <a href="#journal" class="btn-ghost">Read my thoughts</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUICK SNAPSHOT ── -->
+<section id="snapshot">
+  <div class="container">
+    <div class="section-label">If you only have 10 minutes</div>
+    <div class="snapshot-grid reveal">
+      <div class="snapshot-cell">
+        <div class="snapshot-cell-title">3 Things I Believe</div>
+        <ul>
+          <li>Consistency beats intensity — always</li>
+          <li>Most problems are people problems</li>
+          <li>Discomfort is where growth lives</li>
+        </ul>
+      </div>
+      <div class="snapshot-cell">
+        <div class="snapshot-cell-title">3 Deep Interests</div>
+        <ul>
+          <li>How systems think (AI, law, biology)</li>
+          <li>Making music with my hands</li>
+          <li>The intersection of story and truth</li>
+        </ul>
+      </div>
+      <div class="snapshot-cell">
+        <div class="snapshot-cell-title">One Quote</div>
+        <p class="snapshot-quote">"Above all, don't lie to yourself. The man who lies to himself and listens to his own lie comes to a point where he cannot distinguish truth."</p>
+        <br><small style="font-family:var(--ff-mono);font-size:11px;color:var(--text-dim);">— Dostoevsky</small>
+      </div>
+      <div class="snapshot-cell">
+        <div class="snapshot-cell-title">Current Project</div>
+        <p class="snapshot-project">Late Night Jotter
+          <span>A tool for capturing ideas at 2am without waking up enough to ruin the idea</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW I THINK ── -->
+<section id="think">
+  <div class="container">
+    <div class="section-label">How I Think</div>
+    <h2 style="font-size:clamp(36px,5vw,56px); font-weight:400; max-width:600px; line-height:1.2;" class="reveal">
+      The beliefs and<br><em>mental models</em><br>I actually use.
+    </h2>
+
+    <div class="philosophy-list">
+      <div class="philosophy-item reveal">
+        <div class="philosophy-num">01 — belief</div>
+        <div class="philosophy-text">
+          <h3>Compounding is real, and mostly invisible</h3>
+          <p>Whether it's exercise, knowledge, or relationships — the gains from consistency are almost undetectable day-to-day and shocking year-over-year. This is why I distrust intensity bursts and trust slow, ugly, consistent effort.</p>
+        </div>
+      </div>
+      <div class="philosophy-item reveal">
+        <div class="philosophy-num">02 — model</div>
+        <div class="philosophy-text">
+          <h3>First principles over frameworks</h3>
+          <p>Frameworks are other people's first principles, packaged for convenience. I use them as a starting point, but I want to know why the framework works — or doesn't — before I trust it with anything important.</p>
+        </div>
+      </div>
+      <div class="philosophy-item reveal">
+        <div class="philosophy-num">03 — belief</div>
+        <div class="philosophy-text">
+          <h3>Honesty is a skill, not just a value</h3>
+          <p>Most people value honesty but are bad at it — with themselves especially. I try to practice the kind that's uncomfortable: saying what you actually think, not what fits the moment.</p>
+        </div>
+      </div>
+      <div class="philosophy-item reveal">
+        <div class="philosophy-num">04 — obsession</div>
+        <div class="philosophy-text">
+          <h3>Right now: How systems fail</h3>
+          <p>Engineering, law, institutions — everything complex eventually fails. I'm obsessed with the patterns in *how* they fail. Usually it's not the catastrophic thing. It's the quiet accumulation of small, reasonable decisions that each made sense alone.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="changed-mind reveal">
+      <h3>Things I've Changed My Mind About</h3>
+      <div class="changed-item">
+        <div class="changed-before">Motivation is what you need to start</div>
+        <div class="changed-arrow">→</div>
+        <div class="changed-after">Systems are. Motivation is just the spark.</div>
+      </div>
+      <div class="changed-item">
+        <div class="changed-before">Working harder is always the answer</div>
+        <div class="changed-arrow">→</div>
+        <div class="changed-after">Working on the right thing beats working harder on the wrong one.</div>
+      </div>
+      <div class="changed-item">
+        <div class="changed-before">Intelligence = success</div>
+        <div class="changed-arrow">→</div>
+        <div class="changed-after">Consistency + curiosity + follow-through > raw IQ, almost every time.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CURRENTLY ── -->
+<section id="currently">
+  <div class="container-wide">
+    <div class="section-label">Currently Dashboard</div>
+    <p style="color:var(--text-muted);font-size:15px;font-family:var(--ff-mono);margin-bottom:8px;">
+      <span class="live-dot"></span>Last updated: April 2025
+    </p>
+    <div class="currently-grid reveal">
+      <div class="currently-card cc-amber">
+        <span class="currently-label">Learning</span>
+        <div class="currently-value">Systems Design</div>
+        <div class="currently-sub">+ distributed systems patterns</div>
+      </div>
+      <div class="currently-card cc-teal">
+        <span class="currently-label">Building</span>
+        <div class="currently-value">Late Night Jotter</div>
+        <div class="currently-sub">mobile idea capture app</div>
+      </div>
+      <div class="currently-card cc-blue">
+        <span class="currently-label">Reading</span>
+        <div class="currently-value">The Brothers Karamazov</div>
+        <div class="currently-sub">Dostoevsky — page 312</div>
+      </div>
+      <div class="currently-card cc-rose">
+        <span class="currently-label">Listening</span>
+        <div class="currently-value">Arctic Monkeys era deep dive</div>
+        <div class="currently-sub">+ learning their guitar parts</div>
+      </div>
+      <div class="currently-card cc-violet">
+        <span class="currently-label">Training</span>
+        <div class="currently-value">Muay Thai</div>
+        <div class="currently-sub">3x/week · working on teep</div>
+      </div>
+      <div class="currently-card cc-green">
+        <span class="currently-label">Climbing</span>
+        <div class="currently-value">V4 → V5 transition</div>
+        <div class="currently-sub">footwork is the bottleneck</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MUSICAL BENCH ── -->
+<section id="music">
+  <div class="container">
+    <div class="section-label">The Musical Bench</div>
+    <h2 style="font-size:clamp(32px,4vw,48px); font-weight:400; margin-bottom:8px;" class="reveal">
+      Learning slowly.<br><em>Enjoying every bit of it.</em>
+    </h2>
+
+    <div class="music-split reveal">
+      <div class="instrument-card" data-instrument="Guitar">
+        <div class="instrument-name">Guitar</div>
+        <div class="instrument-since">Started · 2022</div>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.65;">
+          The thing about guitar is the gap between what you hear in your head and what comes out your fingers. Closing that gap is the whole game. I'm somewhere in the middle.
+        </p>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:45%"></div>
+        </div>
+        <div class="progress-labels">
+          <span>Beginner</span>
+          <span>45%</span>
+          <span>Fluent</span>
+        </div>
+        <p style="font-family:var(--ff-mono);font-size:11px;color:var(--amber-dim);margin-top:20px;margin-bottom:8px;letter-spacing:0.12em;">WORK IN PROGRESS</p>
+        <ul class="wip-list">
+          <li><span class="wip-badge">learning</span> Sultans of Swing solo</li>
+          <li><span class="wip-badge">polishing</span> Fingerpicking patterns</li>
+          <li><span class="wip-badge">next</span> Write an original piece</li>
+        </ul>
+      </div>
+
+      <div class="instrument-card" data-instrument="Piano">
+        <div class="instrument-name">Piano</div>
+        <div class="instrument-since">Started · 2023</div>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.65;">
+          Piano teaches you discipline in a way guitar doesn't demand. Both hands doing different things, simultaneously, while reading music. It's humbling in the best way.
+        </p>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:28%"></div>
+        </div>
+        <div class="progress-labels">
+          <span>Beginner</span>
+          <span>28%</span>
+          <span>Fluent</span>
+        </div>
+        <p style="font-family:var(--ff-mono);font-size:11px;color:var(--amber-dim);margin-top:20px;margin-bottom:8px;letter-spacing:0.12em;">WORK IN PROGRESS</p>
+        <ul class="wip-list">
+          <li><span class="wip-badge">learning</span> Moonlight Sonata (1st mvmt)</span></li>
+          <li><span class="wip-badge">practice</span> Chord inversions daily</li>
+          <li><span class="wip-badge">dream</span> Play something I wrote</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUEL ── -->
+<section id="fuel">
+  <div class="container">
+    <div class="section-label">The 15-Minute Fuel</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:16px;" class="reveal">
+      Engineering student meals:<br><em>fast, real, and actually good.</em>
+    </h2>
+    <p style="color:var(--text-muted);font-size:16px;max-width:480px;" class="reveal">No recipes with 37 ingredients. These are the meals I actually make when I have a deadline in 3 hours and need to eat something that isn't sadness.</p>
+
+    <div class="meal-list reveal">
+      <div class="meal-item">
+        <div class="meal-num">01</div>
+        <div>
+          <div class="meal-name">Egg fried rice — the "clean out the fridge" edition</div>
+          <div class="meal-note">Soy sauce is the secret, don't skip it. Whatever's in the fridge is the rest.</div>
+        </div>
+        <div class="meal-time">~10 min</div>
+      </div>
+      <div class="meal-item">
+        <div class="meal-num">02</div>
+        <div>
+          <div class="meal-name">Chicken + roasted sweet potato</div>
+          <div class="meal-note">Batch cook both on Sunday. The rest of the week is automated.</div>
+        </div>
+        <div class="meal-time">~15 min</div>
+      </div>
+      <div class="meal-item">
+        <div class="meal-num">03</div>
+        <div>
+          <div class="meal-name">Avocado toast with a fried egg on top</div>
+          <div class="meal-note">Underrated. Most people make it wrong. Don't mush the avocado — slice it.</div>
+        </div>
+        <div class="meal-time">~8 min</div>
+      </div>
+      <div class="meal-item">
+        <div class="meal-num">04</div>
+        <div>
+          <div class="meal-name">Canned tuna + pasta aglio e olio</div>
+          <div class="meal-note">This sounds bad and tastes great. Trust the process.</div>
+        </div>
+        <div class="meal-time">~12 min</div>
+      </div>
+      <div class="meal-item">
+        <div class="meal-num">05</div>
+        <div>
+          <div class="meal-name">Greek yogurt bowl</div>
+          <div class="meal-note">Honey + granola + banana. More filling than it looks. 2 minutes flat.</div>
+        </div>
+        <div class="meal-time">~2 min</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ENTERTAINMENT ── -->
+<section id="entertainment">
+  <div class="container-wide">
+    <div class="section-label">Entertainment</div>
+    <h2 style="font-size:clamp(32px,4vw,48px);font-weight:400;margin-bottom:48px;" class="reveal">
+      Things I watch, play,<br><em>and disappear into.</em>
+    </h2>
+
+    <div class="show-cards reveal">
+      <div class="show-card">
+        <div class="show-poster theme-robot">
+          <div class="show-poster-bg"></div>
+          <div class="show-overlay"></div>
+          <div class="show-content">
+            <div class="show-tag">TV · Thriller</div>
+            <div class="show-title">Mr. Robot</div>
+            <div class="show-desc">The most honest show about isolation, identity, and the gap between who you are and who you perform. Elliot's internal monologue is too real.</div>
+          </div>
+        </div>
+      </div>
+      <div class="show-card">
+        <div class="show-poster theme-bb">
+          <div class="show-poster-bg"></div>
+          <div class="show-overlay"></div>
+          <div class="show-content">
+            <div class="show-tag">TV · Drama</div>
+            <div class="show-title">Breaking Bad</div>
+            <div class="show-desc">A masterclass in how small compromises stack up until you can't recognize yourself. Walter White is a cautionary tale I think about more than I'd like to admit.</div>
+          </div>
+        </div>
+      </div>
+      <div class="show-card">
+        <div class="show-poster theme-anime">
+          <div class="show-poster-bg"></div>
+          <div class="show-overlay"></div>
+          <div class="show-content">
+            <div class="show-tag">Anime · Action</div>
+            <div class="show-title">Attack on Titan</div>
+            <div class="show-desc">Starts as action, ends as a meditation on freedom, cycles of hatred, and whether good intentions can excuse terrible outcomes. No easy answers.</div>
+          </div>
+        </div>
+      </div>
+      <div class="show-card">
+        <div class="show-poster theme-dark">
+          <div class="show-poster-bg"></div>
+          <div class="show-overlay"></div>
+          <div class="show-content">
+            <div class="show-tag">Movie · Sci-Fi</div>
+            <div class="show-title">Interstellar</div>
+            <div class="show-desc">First watch for the visuals. Second watch to cry. Third watch to actually understand the physics. I've now watched it four times.</div>
+          </div>
+        </div>
+      </div>
+      <div class="show-card">
+        <div class="show-poster theme-game">
+          <div class="show-poster-bg"></div>
+          <div class="show-overlay"></div>
+          <div class="show-content">
+            <div class="show-tag">Game · RPG</div>
+            <div class="show-title">The Witcher 3</div>
+            <div class="show-desc">No game has made me feel like my choices actually mattered as much as this one. The morally grey decisions still bother me.</div>
+          </div>
+        </div>
+      </div>
+      <div class="show-card">
+        <div class="show-poster theme-warm">
+          <div class="show-poster-bg"></div>
+          <div class="show-overlay"></div>
+          <div class="show-content">
+            <div class="show-tag">Book · Fiction</div>
+            <div class="show-title">The Brothers Karamazov</div>
+            <div class="show-desc">Dostoevsky arguing with himself for 900 pages about faith, doubt, free will, and what it means to be a good person. Hasn't been resolved yet. Currently re-reading.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-quotes reveal" style="margin-top:64px;">
+      <div class="book-quote-card">
+        <div class="book-quote-text">"Above all, don't lie to yourself. The man who lies to himself and listens to his own lie comes to a point where he cannot distinguish the truth within him."</div>
+        <div class="book-quote-author">— Dostoevsky, The Brothers Karamazov</div>
+      </div>
+      <div class="book-quote-card">
+        <div class="book-quote-text">"We accept the love we think we deserve."</div>
+        <div class="book-quote-author">— Stephen Chbosky, The Perks of Being a Wallflower</div>
+      </div>
+      <div class="book-quote-card">
+        <div class="book-quote-text">"I am not afraid of storms, for I am learning how to sail my ship."</div>
+        <div class="book-quote-author">— Louisa May Alcott, Little Women</div>
+      </div>
+      <div class="book-quote-card">
+        <div class="book-quote-text">"The obstacle in the path becomes the path. Never forget, within every obstacle is an opportunity to improve our condition."</div>
+        <div class="book-quote-author">— Ryan Holiday, The Obstacle is the Way</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS LAB ── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Projects Lab</div>
+    <h2 style="font-size:clamp(32px,4vw,48px);font-weight:400;" class="reveal">
+      What I'm building.<br><em>Honest post-mortems included.</em>
+    </h2>
+
+    <div class="projects-grid">
+      <div class="project-item reveal">
+        <div class="project-left">
+          <div class="project-name">Late Night Jotter</div>
+          <div class="project-status status-wip">In Progress</div>
+          <p class="project-problem">"I keep having ideas at 2am and losing them by morning."</p>
+        </div>
+        <div class="project-right">
+          <div class="project-section">
+            <div class="project-section-title">Why I Made It</div>
+            <div class="project-section-text">Every note app I tried required too much friction. By the time I unlocked my phone, opened the app, chose a notebook, I'd already lost the raw form of the idea. I wanted one tap to thought.</div>
+          </div>
+          <div class="project-section">
+            <div class="project-section-title">What Didn't Work</div>
+            <div class="project-section-text">My first version tried to do too much — organization, tagging, AI summarization. It became exactly the bloated thing I was trying to escape. Had to strip it to the bone.</div>
+          </div>
+          <div class="project-section">
+            <div class="project-section-title">What I Learned</div>
+            <div class="project-section-text">Constraints are features. The moment you add "just one more thing," you've lost the plot. The best tool for a job is usually the dumbest one that does it.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-left">
+          <div class="project-name">Wristband Alarm</div>
+          <div class="project-status status-paused">Paused</div>
+          <p class="project-problem">"What if an alarm vibrated you awake instead of screaming at you?"</p>
+        </div>
+        <div class="project-right">
+          <div class="project-section">
+            <div class="project-section-title">The Concept</div>
+            <div class="project-section-text">A vibration-based alarm that wakes only you — not your roommate, not your partner. Hardware meets sleep science. Wanted to use gradual intensity increase instead of sudden vibration.</div>
+          </div>
+          <div class="project-section">
+            <div class="project-section-title">What Stalled It</div>
+            <div class="project-section-text">Battery life. Getting the haptic pattern right without draining a wearable battery in 4 hours was the wall I haven't climbed yet. Also: existing smartwatches do 70% of this already.</div>
+          </div>
+          <div class="project-section">
+            <div class="project-section-title">What I Learned</div>
+            <div class="project-section-text">Always check if the thing already exists before building it. Research the hardware constraints before falling in love with the idea.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-left">
+          <div class="project-name">Scale Alarm</div>
+          <div class="project-status status-done">Shipped (V1)</div>
+          <p class="project-problem">"I forget to weigh myself but I'm tracking fitness progress."</p>
+        </div>
+        <div class="project-right">
+          <div class="project-section">
+            <div class="project-section-title">What It Does</div>
+            <div class="project-section-text">Integrates with a smart scale via API and sends a morning reminder only on days you haven't logged. Simple. Solves one thing. Doesn't try to be a full health app.</div>
+          </div>
+          <div class="project-section">
+            <div class="project-section-title">What Didn't Work</div>
+            <div class="project-section-text">The API authentication was a nightmare — the scale manufacturer's docs were outdated by 2 versions. Spent 3x longer than the actual feature development.</div>
+          </div>
+          <div class="project-section">
+            <div class="project-section-title">What I Learned</div>
+            <div class="project-section-text">Third-party APIs are a liability you take on. Document everything from day one. What feels like "just plumbing" often becomes the whole project.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── JOURNAL ── -->
+<section id="journal">
+  <div class="container">
+    <div class="section-label">Late Night Thoughts</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
+      Raw. Unedited.<br><em>Written at weird hours.</em>
+    </h2>
+
+    <div class="journal-entries">
+      <div class="journal-entry reveal">
+        <div class="journal-date">April 3, 2025 · 1:47 AM</div>
+        <div class="journal-tag">on work</div>
+        <div class="journal-text">I keep confusing busy with productive. Filled 8 hours today. Maybe built 40 minutes of actual value. The rest was motion that felt like progress but wasn't. I need to get better at telling the difference before I waste the next 4 years the same way.</div>
+      </div>
+      <div class="journal-entry reveal">
+        <div class="journal-date">March 28, 2025 · 11:22 PM</div>
+        <div class="journal-tag">on learning</div>
+        <div class="journal-text">Guitar practice tonight was different. For maybe 20 minutes, my hands stopped thinking and just played. I'm told that's the goal — when skill becomes muscle memory and disappears as a barrier. Tonight I caught a glimpse of what that feels like. I want more of it.</div>
+      </div>
+      <div class="journal-entry reveal">
+        <div class="journal-date">March 19, 2025 · 2:11 AM</div>
+        <div class="journal-tag">on identity</div>
+        <div class="journal-text">Who I am versus who I'm becoming versus who I'm trying to become — these feel like three different people right now. I don't think that's a bad thing. I just need to make sure the one doing the steering is the one I trust.</div>
+      </div>
+      <div class="journal-entry reveal">
+        <div class="journal-date">March 11, 2025 · 12:58 AM</div>
+        <div class="journal-tag">on failure</div>
+        <div class="journal-text">Failed the first pass on a project today. Honestly, the failure was in the planning, not the execution — I knew the thing wasn't right but built it anyway because stopping felt like quitting. It's not quitting. Sometimes stopping early is just good engineering.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOBBIES ── -->
+<section id="hobbies">
+  <div class="container">
+    <div class="section-label">Hobbies</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
+      The things I do<br><em>when no one's watching.</em>
+    </h2>
+    <div class="hobbies-grid reveal">
+      <div class="hobby-card">
+        <span class="hobby-emoji">🎸</span>
+        <div class="hobby-name">Guitar</div>
+        <div class="hobby-desc">Self-taught, slowly. The calluses are finally worth it. Currently obsessed with fingerstyle and getting my right hand cleaner. There's something meditative about playing the same riff for 45 minutes.</div>
+        <div class="hobby-level">
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot"></div>
+          <div class="level-dot"></div>
+        </div>
+      </div>
+      <div class="hobby-card">
+        <span class="hobby-emoji">🎹</span>
+        <div class="hobby-name">Piano</div>
+        <div class="hobby-desc">The younger instrument in my life. Harder to pick up than guitar but probably more important for understanding music theory. My left hand is embarrassingly uncoordinated. Working on it.</div>
+        <div class="hobby-level">
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot"></div>
+          <div class="level-dot"></div>
+          <div class="level-dot"></div>
+        </div>
+      </div>
+      <div class="hobby-card">
+        <span class="hobby-emoji">🥊</span>
+        <div class="hobby-name">Muay Thai</div>
+        <div class="hobby-desc">3x a week. This is the best physical thing I've done for my mental health. Something about learning to take and give hits in a controlled environment resets something in my brain. It's also genuinely hard, which I need.</div>
+        <div class="hobby-level">
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot"></div>
+          <div class="level-dot"></div>
+        </div>
+      </div>
+      <div class="hobby-card">
+        <span class="hobby-emoji">📓</span>
+        <div class="hobby-name">Journaling</div>
+        <div class="hobby-desc">The practice that has changed me the most. Writing is thinking with a record. I'm a different person than I was 2 years ago and I think journaling is a big reason — it forces me to actually have thoughts instead of just reacting.</div>
+        <div class="hobby-level">
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot filled"></div>
+          <div class="level-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUTURE PURSUITS ── -->
+<section id="future">
+  <div class="container">
+    <div class="section-label">Future Pursuits</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:8px;" class="reveal">
+      Coming eventually.<br><em>(On the list.)</em>
+    </h2>
+    <p style="color:var(--text-muted);font-size:16px;margin-bottom:48px;font-style:italic;" class="reveal">Things I think about more than makes sense given I haven't started them yet.</p>
+    <div class="pursuits-grid reveal">
+      <div class="pursuit-card">
+        <div class="pursuit-label">Coming soon</div>
+        <div class="pursuit-name">Photography</div>
+        <div class="pursuit-note">I have a specific visual style in my head — candid, documentary, natural light. I just need to stop talking about it and get a camera.</div>
+        <div class="pursuit-corner">→ soon</div>
+      </div>
+      <div class="pursuit-card">
+        <div class="pursuit-label">Someday</div>
+        <div class="pursuit-name">Game Design</div>
+        <div class="pursuit-note">I play games analytically — always asking why a mechanic works or doesn't. Eventually I want to build one. Story-driven. Morally complicated. Shorter than I'd actually want to make it.</div>
+        <div class="pursuit-corner">→ one day</div>
+      </div>
+      <div class="pursuit-card">
+        <div class="pursuit-label">Terrifying but also</div>
+        <div class="pursuit-name">Stand-Up Comedy</div>
+        <div class="pursuit-note">I have material. I just need to do the thing. Open mics exist. I have no excuse. This is on the list for this year and I keep moving the deadline.</div>
+        <div class="pursuit-corner">→ this year (maybe)</div>
+      </div>
+      <div class="pursuit-card">
+        <div class="pursuit-label">The long game</div>
+        <div class="pursuit-name">Write a Book</div>
+        <div class="pursuit-note">Non-fiction, probably. About systems thinking and why smart people make dumb decisions at scale. Or fiction. I genuinely don't know yet. Both feel right.</div>
+        <div class="pursuit-corner">→ eventually</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STANDUP ── -->
+<section id="standup">
+  <div class="container">
+    <div class="section-label">Stand-Up in Progress</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:8px;" class="reveal">Bits I'm working on.</h2>
+    <p style="color:var(--text-muted);font-size:15px;font-style:italic;margin-bottom:48px;" class="reveal">These are rough. That's the point.</p>
+    <div class="bit-list reveal">
+      <div class="bit-card">
+        <div class="bit-tag">Observation · Engineering life</div>
+        <div class="bit-text">"Engineering school teaches you to solve problems that have solutions. Real life is mostly problems that don't."</div>
+        <div class="bit-punchline">Still workshopping the punchline. The setup feels right.</div>
+      </div>
+      <div class="bit-card">
+        <div class="bit-tag">Personal · Learning guitar</div>
+        <div class="bit-text">"I've been learning guitar for two years. I've also been telling people I'm learning guitar for two years. The learning is going well. The telling people is going better."</div>
+        <div class="bit-punchline">This one usually lands. Audiences recognize themselves in it.</div>
+      </div>
+      <div class="bit-card">
+        <div class="bit-tag">Observation · Productivity culture</div>
+        <div class="bit-text">"The 5AM club, the cold showers, the journaling, the meditation, the workout — I'm spending so much time optimizing my life that I don't have time to live it."</div>
+        <div class="bit-punchline">Written this after a genuinely packed morning routine. Too real to not be a bit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUTURE SELF ── -->
+<section id="future-self">
+  <div class="container">
+    <div class="section-label">My Future Self</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:16px;" class="reveal">
+      The life I'm<br><em>building toward.</em>
+    </h2>
+
+    <div class="vision-block reveal">
+      <div class="vision-text">
+        <p>I want to wake up knowing what I'm working on and <strong>why it matters</strong>. Not in a vague "makes the world better" way — in the specific, grounded way of someone who built something real with real people and can point at it.</p>
+        <br>
+        <p>I want a home that has a <strong>good piano in it</strong> and a shelf I'm slightly embarrassed by because of how many books are on it. I want to be someone whose friends call when something big happens — not because I have answers, but because I listen and I'm honest.</p>
+        <br>
+        <p>I want to have <strong>taken the stage</strong> at least once with a microphone and made strangers laugh at something I wrote. I want to have written something — a book, a long essay, anything — that I'm genuinely proud of.</p>
+        <br>
+        <p>I want to be <strong>physically capable</strong> in a way that makes me feel at home in my body. Muay Thai, climbing, whatever it is — I want to be the kind of person who moves well through the world.</p>
+        <br>
+        <p>Mostly I want to look back and know that the decisions I made were <strong>actually mine</strong> — not made from fear, not made to impress someone, not made on autopilot. Made with thought, and owned completely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RABBIT HOLES ── -->
+<section id="rabbitholes">
+  <div class="container">
+    <div class="section-label">Rabbit Holes I've Gone Down</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
+      Topics I've explored<br><em>probably too deeply.</em>
+    </h2>
+
+    <div class="hole-list">
+      <div class="hole-item reveal">
+        <div>
+          <div class="hole-topic">AI & Alignment</div>
+          <div class="hole-depth">depth: deep</div>
+        </div>
+        <div class="hole-details">
+          <div class="hole-spark">Started because I wanted to understand what I was building with. Ended up reading alignment papers at 2am and thinking too hard about mesa-optimization. What started as "how does GPT work" became "can we even define what we want AI to do."</div>
+          <ul class="hole-questions">
+            <li>Is alignment actually solvable, or just manageable?</li>
+            <li>What happens to identity when AI can simulate people convincingly?</li>
+            <li>Who decides what "aligned" even means?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hole-item reveal">
+        <div>
+          <div class="hole-topic">Law & Systems</div>
+          <div class="hole-depth">depth: medium</div>
+        </div>
+        <div class="hole-details">
+          <div class="hole-spark">Started after a contract dispute I witnessed made no intuitive sense until I understood how contract law actually works. Spent weeks reading case law and realizing that the law is less a system of truth and more a system of precedent and argumentation.</div>
+          <ul class="hole-questions">
+            <li>How do you design a legal system that evolves without losing coherence?</li>
+            <li>Is there a "correct" interpretation of a law, or just defended ones?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="hole-item reveal">
+        <div>
+          <div class="hole-topic">Sleep Science</div>
+          <div class="hole-depth">depth: medium</div>
+        </div>
+        <div class="hole-details">
+          <div class="hole-spark">Went in because I was sleeping terribly. Came out with a genuine appreciation for how much cognitive function is just "did you sleep" disguised as talent. The research on sleep debt is either motivating or terrifying depending on the day.</div>
+          <ul class="hole-questions">
+            <li>Can you actually "bank" sleep or is that a myth?</li>
+            <li>What's the minimum effective dose of sleep for different task types?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAILURES ── -->
+<section id="failures">
+  <div class="container-wide">
+    <div class="section-label">Failures & Lessons</div>
+    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
+      The stuff that didn't work.<br><em>Which is most of it.</em>
+    </h2>
+    <div class="failure-grid reveal">
+      <div class="failure-card">
+        <div class="failure-title">Quit something too early</div>
+        <div class="failure-desc">Left a project 80% done because I'd solved the interesting problem and the rest was just work. Shipped nothing. Learned that the last 20% is actually where all the value is, and it's supposed to feel boring.</div>
+        <div class="lesson-tag">Lesson: Finishing is a skill. Practice it.</div>
+      </div>
+      <div class="failure-card">
+        <div class="failure-title">Over-engineered a simple problem</div>
+        <div class="failure-desc">Built a system with 4 layers of abstraction for something a spreadsheet would have handled. Spent 3 weeks on architecture that served no one. The best solution is usually the one you can explain in a sentence.</div>
+        <div class="lesson-tag">Lesson: Understand the problem before falling in love with the solution.</div>
+      </div>
+      <div class="failure-card">
+        <div class="failure-title">Mistook activity for progress</div>
+        <div class="failure-desc">Had weeks where I was "busy" constantly but measurably moved nothing forward. Scheduled busyness. The illusion of momentum without the reality. Still fight this. Probably always will.</div>
+        <div class="lesson-tag">Lesson: Measure outcomes, not hours.</div>
+      </div>
+      <div class="failure-card">
+        <div class="failure-title">Learned to code alone for too long</div>
+        <div class="failure-desc">Spent months reinventing things that existed, avoiding forums and documentation because asking felt like failure. It doesn't. It's the job. Pride was the tax I paid for slower growth.</div>
+        <div class="lesson-tag">Lesson: Asking well is a skill, not a weakness.</div>
+      </div>
+      <div class="failure-card">
+        <div class="failure-title">Didn't speak up in a group project</div>
+        <div class="failure-desc">Saw the approach was wrong early. Said nothing. Watched it fail in the way I expected. "I told you so" in my own head is worth exactly nothing. Speaking up is the job.</div>
+        <div class="lesson-tag">Lesson: Saying the uncomfortable thing early is kindness.</div>
+      </div>
+      <div class="failure-card">
+        <div class="failure-title">Let consistency slip for "one week"</div>
+        <div class="failure-desc">Missed a week of guitar. Then two. Then six. Habits don't die dramatically — they quietly don't show up one day, and then again, and then you realize you've become someone who used to play guitar.</div>
+        <div class="lesson-tag">Lesson: Never miss twice. The second miss is the habit breaking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container" style="text-align:center;">
+    <div class="footer-name">Your Name</div>
+    <div class="footer-sub">A mind in motion · Made with honest intentions</div>
+    <div style="margin-top:32px;font-family:var(--ff-mono);font-size:11px;color:var(--text-dim);">
+      built by me · for me · for whoever finds it useful
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Progress bars animate when visible
+  const progressBars = document.querySelectorAll('.progress-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = el.style.width;
+        el.style.width = '0%';
+        setTimeout(() => { el.style.width = target; }, 200);
+        barObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  progressBars.forEach(bar => barObserver.observe(bar));
+
+  // Easter egg
+  let konamiCode = [];
+  const target = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  document.addEventListener('keydown', e => {
+    konamiCode.push(e.key);
+    konamiCode = konamiCode.slice(-10);
+    if (konamiCode.join() === target.join()) {
+      const msg = document.createElement('div');
+      msg.style.cssText = 'position:fixed;bottom:40px;left:50%;transform:translateX(-50%);background:#141414;border:1px solid #d4891a;color:#d4891a;font-family:IBM Plex Mono,monospace;font-size:13px;padding:16px 28px;z-index:9999;letter-spacing:0.1em;';
+      msg.textContent = '// you found it. you know what this means.';
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 4000);
+    }
+  });
+</script>
+</body>
+</html>
