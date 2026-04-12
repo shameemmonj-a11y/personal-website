@@ -40,6 +40,7 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);font-weight:500;display:block;margin-bottom:1.1rem;}
 .deco{pointer-events:none;user-select:none;display:block;}
 /* HOME */
+  /* ── HOME: CURRENTLY ── */
   .currently-block {
     background: var(--cream-dark);
     border-left: 3px solid var(--gold);
@@ -82,6 +83,7 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     background: var(--gold);
     flex-shrink: 0;
   }
+
   /* ── MAXIMS ── */
   .maxim-list { list-style: none; }
   .maxim-list li {
@@ -94,6 +96,50 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     line-height: 1.4;
   }
   .maxim-list li:last-child { border-bottom: none; }
+
+  .screen {
+    display: none;
+    opacity: 0;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+    transition: opacity 0.35s ease;
+    min-height: 80vh;
+  }
+  .screen.active {
+    display: block;
+  }
+  .screen.visible {
+    opacity: 1;
+  }
+  p { 
+    color: var(--ink-mid); 
+    margin-bottom: 1.1rem; 
+    font-size: 0.96rem; 
+    max-width: 62ch; 
+  }
+
+  .lead {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 52ch;
+  }
+  .label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+  .section-rule {
+    border: none;
+    border-top: 1px solid var(--cream-dark);
+    margin: 2.5rem 0;
+  }
 /* PHILOSOPHY */
 .mlist{list-style:none;}
 .mi{display:flex;gap:1.5rem;align-items:baseline;padding:1.2rem 0;border-bottom:1px solid var(--cd);}
@@ -273,35 +319,6 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     <li><span class="habit-dot"></span>Cook at least three times a week from scratch</li>
   </ul>
 </section>
-
-<!-- ═══ PHILOSOPHY ═══ -->
-<section id="tab-philosophy" class="screen">
-  <h1>Philosophy</h1>
-  <p>Beliefs and mental models — concise, updated whenever I change my mind.</p>
-
-  <div style="float:right;margin:0 0 1rem 1.5rem;opacity:0.13;">
-    <svg width="26" height="40" viewBox="0 0 26 40" fill="none">
-      <line x1="13" y1="38" x2="13" y2="3" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
-      <path d="M13 11 C8 7 2 9 2 9 C2 9 5 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-      <path d="M13 11 C18 7 24 9 24 9 C24 9 21 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-    </svg>
-  </div>
-
-  <ul class="mlist" style="margin-top:1.5rem;clear:both;">
-    <li class="mi"><span class="mn">i.</span><span class="mt">Most confusion is a naming problem in disguise.</span></li>
-    <li class="mi"><span class="mn">ii.</span><span class="mt">The person who asks "why" twice understands more than the one who asked once and stopped.</span></li>
-    <li class="mi"><span class="mn">iii.</span><span class="mt">Rigor and wonder are not opposites — they are the same impulse, facing different directions.</span></li>
-    <li class="mi"><span class="mn">iv.</span><span class="mt">Speed is usually the enemy of understanding; slowness is usually the enemy of doing. Both traps are real.</span></li>
-    <li class="mi"><span class="mn">v.</span><span class="mt">If you can't explain it without the jargon, you don't know it yet.</span></li>
-    <li class="mi"><span class="mn">vi.</span><span class="mt">Systems that reward performance tend to destroy the love of the thing being performed.</span></li>
-    <li class="mi"><span class="mn">vii.</span><span class="mt">Boredom is information. It means you need harder problems, not easier distractions.</span></li>
-    <li class="mi"><span class="mn">viii.</span><span class="mt">Almost every skill compounds. The question is whether you started.</span></li>
-    <li class="mi"><span class="mn">ix.</span><span class="mt">Dopamine is not a reward — it is a prediction. Hack the prediction, not the reward.</span></li>
-    <li class="mi"><span class="mn">x.</span><span class="mt">The notebook is not for recording what you know. It is for finding out what you think.</span></li>
-    <li class="mi"><span class="mn">xi.</span><span class="mt">To be a beginner again, in everything — this is the highest aspiration I can name.</span></li>
-  </ul>
-</section>
-
 <!-- ═══ PROJECTS ═══ -->
 <section id="tab-projects" class="screen">
   <h1>Projects</h1>
