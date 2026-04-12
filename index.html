@@ -40,17 +40,65 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);font-weight:500;display:block;margin-bottom:1.1rem;}
 .deco{pointer-events:none;user-select:none;display:block;}
 /* HOME */
+/* HOME - Updated to match screenshot */
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--if);
+  font-weight: 500;
+  display: block;
+  margin: 3.5rem 0 1.2rem 0;
+}
+
+.currently-card {
+  background: #EBE5D9; /* A custom shade to match the image's box */
+  border-left: 3px solid var(--gold);
+  padding: 2.2rem 2.4rem;
+  border-radius: 3px;
+}
+
+.this-week-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 1.8rem;
+  font-weight: 500;
+}
+
+.curr-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  margin-bottom: 0.9rem;
+  align-items: baseline;
+}
+
+.curr-label {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--if);
+}
+
+.curr-val {
+  font-size: 1rem;
+  color: var(--ink);
+}
+
 .habit-list { list-style: none; }
 .habit-list li {
-  padding: 0.7rem 0;
-  border-bottom: 1px solid var(--cream-dark);
-  font-size: 0.92rem;
-  color: var(--ink-mid);
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--cd); /* Creates the ruled line look */
+  font-size: 1rem;
+  color: var(--im);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
-.habit-list li:last-child { border-bottom: none; }
+.habit-list li:first-child { border-top: 1px solid var(--cd); } /* Top line for the first habit */
+
 .habit-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
@@ -193,49 +241,47 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 </nav>
 
 <!-- ═══ HOME ═══ -->
-<section id="tab-home" class="screen active">
-  <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
-  <p>Based in College Station. Studying Electrical Engineering. Currently interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
+<span class="section-label">Currently</span>
 
-  <hr class="section-rule">
+  <div class="currently-card">
+    <span class="this-week-title">This Week</span>
+    
+    <div class="curr-row">
+      <span class="curr-label">Reading</span>
+      <span class="curr-val">The Double – Dostoevsky</span>
+    </div>
 
-  <!-- CURRENTLY – Global Component -->
-  <span class="label">Currently</span>
-  <div class="currently-block" id="currently-global">
-    <span class="label">This week</span>
-    <div class="currently-item">
-      <span class="c-type">Reading</span>
-      <span>The Double - Dostoevsky</span>
+    <div class="curr-row">
+      <span class="curr-label">Building</span>
+      <span class="curr-val">Late Night Jotter</span>
     </div>
-    <div class="currently-item">
-      <span class="c-type">Building</span>
-      <span>Late Night Jotter</span>
+
+    <div class="curr-row">
+      <span class="curr-label">Learning</span>
+      <span class="curr-val">Farsi, Guitar, Muay Thai</span>
     </div>
-    <div class="currently-item">
-      <span class="c-type">Learning</span>
-      <span>Farsi, Guitar, Muay Thai</span>
+
+    <div class="curr-row">
+      <span class="curr-label">Watching</span>
+      <span class="curr-val">N/A</span>
     </div>
-    <div class="currently-item">
-      <span class="c-type">Watching</span>
-      <span>N/A</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Listening</span>
-      <span>N/A</span>
+
+    <div class="curr-row">
+      <span class="curr-label">Listening</span>
+      <span class="curr-val">N/A</span>
     </div>
   </div>
 
-  <hr class="section-rule">
-  <span class="label">Current Habits</span>
+  <span class="section-label">Current Habits</span>
+
   <ul class="habit-list">
-    <li><span class="habit-dot"></span>Morning reading — 30 minutes before screens</li>
-    <li><span class="habit-dot"></span>Anki flashcards: Farsi vocabulary and EE formulas</li>
-    <li><span class="habit-dot"></span>Weekly essay or note published here</li>
-    <li><span class="habit-dot"></span>One hardware project per month</li>
-    <li><span class="habit-dot"></span>Run every other day, no headphones</li>
-    <li><span class="habit-dot"></span>Cook at least three times a week from scratch</li>
+    <li><span class="habit-dot"></span> Morning reading — 30 minutes before screens</li>
+    <li><span class="habit-dot"></span> Anki flashcards: Farsi vocabulary and EE formulas</li>
+    <li><span class="habit-dot"></span> Weekly essay or note published here</li>
+    <li><span class="habit-dot"></span> One hardware project per month</li>
+    <li><span class="habit-dot"></span> Run every other day, no headphones</li>
+    <li><span class="habit-dot"></span> Cook at least three times a week from scratch</li>
   </ul>
-</section>
 
 <!-- ═══ PHILOSOPHY ═══ -->
 <section id="tab-philosophy" class="screen">
