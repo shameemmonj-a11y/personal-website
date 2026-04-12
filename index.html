@@ -3,1168 +3,731 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Name — Digital Garden</title>
+<title>Shameem Monjazeb</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --cream: #F5F1E8;
-    --cream-dark: #EDE8DC;
-    --ink: #1C1814;
-    --ink-mid: #3D3630;
-    --ink-light: #7A7268;
-    --ink-faint: #B5AFA5;
-    --gold: #9C7C38;
-    --gold-light: #D4B97A;
-    --serif: 'EB Garamond', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-    --max: 780px;
-    --tab-height: 52px;
-  }
-
-  html, body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
-  header {
-    padding: 2.5rem var(--max) 0;
-    max-width: calc(var(--max) + 6rem);
-    margin: 0 auto;
-    padding: 3rem 3rem 0;
-  }
-  .site-name {
-    font-family: var(--serif);
-    font-size: clamp(1.6rem, 4vw, 2.2rem);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    margin-bottom: 0.2rem;
-  }
-  .site-tagline {
-    font-size: 0.82rem;
-    color: var(--ink-light);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 300;
-  }
-
-  /* ── NAVIGATION ── */
-  nav {
-    max-width: calc(var(--max) + 6rem);
-    margin: 2rem auto 0;
-    padding: 0 3rem;
-    border-bottom: 1px solid var(--cream-dark);
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  nav::-webkit-scrollbar { display: none; }
-
-  .nav-tab {
-    font-family: var(--sans);
-    font-size: 0.78rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-light);
-    padding: 0.85rem 1.1rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: color 0.2s, border-color 0.2s;
-    white-space: nowrap;
-  }
-  .nav-tab:hover { color: var(--ink); }
-  .nav-tab.active {
-    color: var(--ink);
-    border-bottom-color: var(--ink);
-    font-weight: 500;
-  }
-
-  /* ── CONTENT AREA ── */
-  main {
-    max-width: calc(var(--max) + 6rem);
-    margin: 0 auto;
-    padding: 0 3rem;
-  }
-
-  .screen {
-    display: none;
-    opacity: 0;
-    padding-top: 3.5rem;
-    padding-bottom: 5rem;
-    transition: opacity 0.35s ease;
-    min-height: 80vh;
-  }
-  .screen.active {
-    display: block;
-  }
-  .screen.visible {
-    opacity: 1;
-  }
-
-  /* ── TYPOGRAPHY ── */
-  h1, h2, h3 {
-    font-family: var(--serif);
-    font-weight: 500;
-    color: var(--ink);
-    line-height: 1.2;
-  }
-  h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.2rem; font-style: italic; }
-  h2 { font-size: 1.45rem; margin-bottom: 1rem; margin-top: 2.8rem; }
-  h3 { font-size: 1.15rem; margin-bottom: 0.6rem; margin-top: 1.8rem; }
-
-  p { color: var(--ink-mid); margin-bottom: 1.1rem; font-size: 0.96rem; max-width: 62ch; }
-
-  .lead {
-    font-family: var(--serif);
-    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-    line-height: 1.55;
-    color: var(--ink);
-    margin-bottom: 2rem;
-    max-width: 52ch;
-  }
-
-  .section-rule {
-    border: none;
-    border-top: 1px solid var(--cream-dark);
-    margin: 2.5rem 0;
-  }
-
-  /* ── LABEL ── */
-  .label {
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    font-weight: 500;
-    display: block;
-    margin-bottom: 1.2rem;
-  }
-
-  /* ── HOME: CURRENTLY ── */
-  .currently-block {
-    background: var(--cream-dark);
-    border-left: 3px solid var(--gold);
-    padding: 1.4rem 1.6rem;
-    margin: 2rem 0;
-    border-radius: 0 6px 6px 0;
-  }
-  .currently-block .label { margin-bottom: 0.8rem; color: var(--gold); }
-  .currently-item {
-    display: flex;
-    gap: 0.6rem;
-    align-items: baseline;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--ink-mid);
-  }
-  .currently-item .c-type {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-    min-width: 80px;
-  }
-
-  /* ── HOME: HABITS ── */
-  .habit-list { list-style: none; }
-  .habit-list li {
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    font-size: 0.92rem;
-    color: var(--ink-mid);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .habit-list li:last-child { border-bottom: none; }
-  .habit-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  /* ── MAXIMS ── */
-  .maxim-list { list-style: none; }
-  .maxim-list li {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-style: italic;
-    color: var(--ink);
-    padding: 0.85rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    line-height: 1.4;
-  }
-  .maxim-list li:last-child { border-bottom: none; }
-
-  /* ── PROJECTS: COURSE MODULE ── */
-  .course-card {
-    border: 1px solid var(--cream-dark);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-  }
-  .course-header {
-    padding: 1rem 1.3rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: transparent;
-    border: none;
-    width: 100%;
-    text-align: left;
-    transition: background 0.15s;
-  }
-  .course-header:hover { background: var(--cream-dark); }
-  .course-header-text { font-family: var(--serif); font-size: 1rem; color: var(--ink); font-weight: 500; }
-  .course-header-sub { font-size: 0.78rem; color: var(--ink-faint); margin-top: 0.15rem; }
-  .course-chevron { color: var(--ink-faint); font-size: 0.75rem; transition: transform 0.2s; }
-  .course-card.open .course-chevron { transform: rotate(180deg); }
-  .course-body { display: none; padding: 0 1.3rem 1.2rem; }
-  .course-card.open .course-body { display: block; }
-  .module-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    font-size: 0.87rem;
-    color: var(--ink-mid);
-  }
-  .module-row:last-child { border-bottom: none; }
-  .module-num {
-    font-family: var(--serif);
-    font-size: 0.8rem;
-    color: var(--ink-faint);
-    min-width: 26px;
-  }
-  .module-tag {
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 2px 7px;
-    border-radius: 3px;
-    margin-left: auto;
-  }
-  .tag-done { background: #E8F0E0; color: #4A6B35; }
-  .tag-current { background: #FDF0D5; color: #8A6220; }
-  .tag-soon { background: var(--cream-dark); color: var(--ink-faint); }
-
-  .manifesto {
-    border-left: 2px solid var(--gold-light);
-    padding: 1rem 1.4rem;
-    margin: 2rem 0;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.98rem;
-    color: var(--ink-mid);
-    max-width: 55ch;
-  }
-
-  /* ── WRITING LIST ── */
-  .essay-list { list-style: none; }
-  .essay-row {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.15s;
-  }
-  .essay-row:hover { opacity: 0.7; }
-  .essay-title { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
-  .essay-meta { font-size: 0.78rem; color: var(--ink-faint); white-space: nowrap; }
-
-  /* ── ENTERTAINMENT: SUB-NAV ── */
-  .sub-nav {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--cream-dark);
-    margin-bottom: 2.5rem;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .sub-nav::-webkit-scrollbar { display: none; }
-  .sub-tab {
-    font-family: var(--sans);
-    font-size: 0.76rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    padding: 0.6rem 0.9rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: color 0.2s, border-color 0.2s;
-    white-space: nowrap;
-  }
-  .sub-tab:hover { color: var(--ink-mid); }
-  .sub-tab.active { color: var(--ink); border-bottom-color: var(--gold); }
-
-  .ent-panel { display: none; }
-  .ent-panel.active { display: block; }
-
-  /* ── STATUS SECTION ── */
-  .status-section { margin-bottom: 2.5rem; }
-  .status-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    font-weight: 500;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--cream-dark);
-  }
-
-  /* ── PICTURE CARDS ── */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 1rem;
-  }
-  .pic-card {
-    position: relative;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: default;
-    transition: transform 0.2s;
-    background: var(--cream-dark);
-    aspect-ratio: 2/3;
-  }
-  .pic-card:hover { transform: translateY(-3px); }
-  .pic-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: saturate(0.85);
-  }
-  .pic-card .card-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    background: linear-gradient(to top, rgba(28,24,20,0.88) 0%, transparent 100%);
-    padding: 1.5rem 0.6rem 0.6rem;
-  }
-  .pic-card .card-title {
-    font-family: var(--serif);
-    font-size: 0.78rem;
-    color: #F5F1E8;
-    line-height: 1.3;
-    font-weight: 400;
-  }
-  .pic-card .card-sub {
-    font-size: 0.65rem;
-    color: rgba(245,241,232,0.6);
-    margin-top: 0.1rem;
-    letter-spacing: 0.04em;
-  }
-
-  /* Placeholder card with just text */
-  .pic-card-placeholder {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0.75rem;
-    background: var(--cream-dark);
-    border: 1px dashed var(--ink-faint);
-    border-radius: 6px;
-    aspect-ratio: 2/3;
-    cursor: default;
-    transition: transform 0.2s;
-  }
-  .pic-card-placeholder:hover { transform: translateY(-3px); }
-  .pic-card-placeholder .card-title {
-    font-family: var(--serif);
-    font-size: 0.8rem;
-    color: var(--ink);
-    line-height: 1.3;
-  }
-  .pic-card-placeholder .card-sub {
-    font-size: 0.65rem;
-    color: var(--ink-faint);
-    margin-top: 0.2rem;
-  }
-
-  /* ── FOOD ── */
-  .food-entry {
-    padding: 1.2rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-    align-items: start;
-  }
-  .food-entry:last-child { border-bottom: none; }
-  .food-name { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
-  .food-note { font-size: 0.84rem; color: var(--ink-mid); margin-top: 0.2rem; }
-  .food-tag {
-    font-size: 0.66rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 3px;
-    background: var(--cream-dark);
-    color: var(--ink-light);
-    white-space: nowrap;
-  }
-
-  /* ── FUTURE ── */
-  .future-item {
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-  }
-  .future-item:last-child { border-bottom: none; }
-  .future-horizon {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
-  }
-  .future-title { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); margin-bottom: 0.3rem; }
-  .future-note { font-size: 0.87rem; color: var(--ink-mid); }
-
-  /* ── PROJECT CARD ── */
-  .project-card {
-    border: 1px solid var(--cream-dark);
-    border-radius: 8px;
-    padding: 1.3rem 1.5rem;
-    margin-bottom: 1rem;
-    transition: border-color 0.2s;
-  }
-  .project-card:hover { border-color: var(--ink-faint); }
-  .project-title { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); margin-bottom: 0.3rem; }
-  .project-desc { font-size: 0.87rem; color: var(--ink-mid); max-width: 52ch; }
-  .project-status {
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-top: 0.6rem;
-  }
-
-  /* ── HOBBIES ── */
-  .hobby-row {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    display: flex;
-    gap: 1rem;
-    align-items: baseline;
-  }
-  .hobby-name { font-family: var(--serif); font-size: 1rem; color: var(--ink); min-width: 140px; }
-  .hobby-note { font-size: 0.87rem; color: var(--ink-mid); }
-
-  @media (max-width: 600px) {
-    header, nav, main { padding-left: 1.2rem; padding-right: 1.2rem; }
-    .card-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.7rem; }
-    .essay-row { grid-template-columns: 1fr; gap: 0.2rem; }
-    .hobby-row { flex-direction: column; gap: 0.2rem; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cream:#F5F1E8;--cm:#EDE8DC;--cd:#E2DBCF;
+  --ink:#1A1714;--im:#3A3530;--il:#7A7268;--if:#B2AB9F;
+  --gold:#8A6B2A;--gl:#C9A85C;
+  --serif:'EB Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --w:820px;
+}
+html,body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.75;min-height:100vh;-webkit-font-smoothing:antialiased;}
+.shell{max-width:calc(var(--w) + 5rem);margin:0 auto;padding:0 2.8rem;}
+header{padding-top:3rem;padding-bottom:1.8rem;border-bottom:1px solid var(--cd);display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;}
+.site-name{font-family:var(--serif);font-size:clamp(1.7rem,4vw,2.4rem);font-weight:500;letter-spacing:-0.015em;color:var(--ink);line-height:1;}
+.site-tagline{font-size:0.72rem;color:var(--if);letter-spacing:0.15em;text-transform:uppercase;font-weight:300;margin-top:0.4rem;}
+.hd{flex-shrink:0;opacity:0.22;}
+nav{display:flex;gap:0;border-bottom:1px solid var(--cd);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+nav::-webkit-scrollbar{display:none;}
+.nav-tab{font-family:var(--sans);font-size:0.7rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--if);background:none;border:none;border-bottom:2px solid transparent;padding:0.85rem 1rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+.nav-tab:hover{color:var(--im);}
+.nav-tab.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:500;}
+.screen{display:none;opacity:0;padding:3.5rem 0 6rem;min-height:82vh;transition:opacity .38s ease;}
+.screen.active{display:block;}
+.screen.visible{opacity:1;}
+h1{font-family:var(--serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:500;font-style:italic;color:var(--ink);line-height:1.1;margin-bottom:0.6rem;}
+h2{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--ink);margin-bottom:0.8rem;margin-top:2.8rem;}
+h3{font-family:var(--serif);font-size:1.1rem;font-weight:500;color:var(--ink);margin-bottom:0.4rem;margin-top:1.6rem;}
+p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
+.lead{font-family:var(--serif);font-size:clamp(1.1rem,2.5vw,1.38rem);line-height:1.55;color:var(--ink);max-width:50ch;margin-bottom:2rem;}
+.rule{border:none;border-top:1px solid var(--cd);margin:2.6rem 0;}
+.ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);font-weight:500;display:block;margin-bottom:1.1rem;}
+.deco{pointer-events:none;user-select:none;display:block;}
+/* HOME */
+.lead-row{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:0.5rem;}
+.tw-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-top:0.5rem;}
+@media(max-width:680px){.tw-grid{grid-template-columns:1fr;}}
+@media(max-width:860px) and (min-width:681px){.tw-grid{grid-template-columns:1fr 1fr;}}
+.wc{border:1px solid var(--cd);border-radius:5px;padding:1.2rem 1.4rem;position:relative;}
+.wc.pri{background:var(--cm);border-color:var(--ink);}
+.wc.pri::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--ink);border-radius:5px 0 0 5px;}
+.wcl{font-size:0.61rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--if);margin-bottom:0.8rem;display:block;}
+.wc.pri .wcl{color:var(--im);}
+.we{font-family:var(--serif);font-size:0.95rem;color:var(--im);padding:0.4rem 0;border-bottom:1px solid var(--cd);display:flex;align-items:baseline;gap:0.6rem;}
+.we:last-child{border-bottom:none;}
+.wd{width:4px;height:4px;border-radius:50%;background:var(--if);flex-shrink:0;margin-top:0.55rem;}
+.wc.pri .wd{background:var(--im);}
+.wct{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--if);min-width:72px;flex-shrink:0;}
+.hlist{list-style:none;}
+.hlist li{padding:0.65rem 0;border-bottom:1px solid var(--cd);font-size:0.9rem;color:var(--im);display:flex;align-items:center;gap:0.75rem;}
+.hlist li:last-child{border-bottom:none;}
+.hdot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+/* LEARNING */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:1.5rem;}
+@media(max-width:700px){.pillars{grid-template-columns:1fr;}}
+.pillar{border-top:2px solid var(--ink);padding-top:1.2rem;}
+.pl{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);margin-bottom:0.9rem;display:block;}
+.pillar h3{font-size:1.18rem;margin-top:0;}
+.pillar p{font-size:0.85rem;color:var(--im);max-width:100%;}
+.pbar{display:flex;gap:3px;margin-top:1rem;}
+.pip{height:3px;flex:1;border-radius:2px;background:var(--cd);}
+.pip.on{background:var(--ink);}
+.plabel{font-size:0.68rem;color:var(--if);margin-top:0.4rem;}
+.cdg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:0.5rem;}
+.cdc{border:1px solid var(--cd);border-radius:5px;padding:1rem 1.2rem;}
+.cde{font-family:var(--serif);font-size:0.95rem;color:var(--ink);}
+/* PHILOSOPHY */
+.mlist{list-style:none;}
+.mi{display:flex;gap:1.5rem;align-items:baseline;padding:1.2rem 0;border-bottom:1px solid var(--cd);}
+.mi:last-child{border-bottom:none;}
+.mn{font-family:var(--serif);font-style:italic;font-size:0.8rem;color:var(--if);min-width:22px;flex-shrink:0;}
+.mt{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,2.2vw,1.2rem);color:var(--ink);line-height:1.45;}
+/* PROJECTS */
+.pcard{border:1px solid var(--cd);border-radius:5px;padding:1.2rem 1.4rem;margin-bottom:0.9rem;transition:border-color .2s;}
+.pcard:hover{border-color:var(--if);}
+.ptitle{font-family:var(--serif);font-size:1.08rem;color:var(--ink);margin-bottom:0.25rem;}
+.pdesc{font-size:0.86rem;color:var(--im);max-width:55ch;}
+.pstat{font-size:0.64rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-top:0.55rem;font-weight:500;}
+.mfsto{border-left:2px solid var(--gl);padding:1rem 1.4rem;margin:1.8rem 0;font-family:var(--serif);font-style:italic;font-size:0.97rem;color:var(--im);max-width:55ch;}
+/* COURSE ACCORDION */
+.crs{border:1px solid var(--cd);border-radius:5px;margin-bottom:0.65rem;overflow:hidden;}
+.crsh{width:100%;text-align:left;background:none;border:none;padding:1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s;}
+.crsh:hover{background:var(--cm);}
+.crst{font-family:var(--serif);font-size:0.98rem;color:var(--ink);font-weight:500;}
+.crss{font-size:0.76rem;color:var(--if);margin-top:0.12rem;}
+.chv{font-size:0.68rem;color:var(--if);transition:transform .22s;flex-shrink:0;}
+.crs.open .chv{transform:rotate(180deg);}
+.crsb{display:none;padding:0 1.3rem 1rem;}
+.crs.open .crsb{display:block;}
+.lr{display:flex;align-items:center;gap:0.65rem;padding:0.5rem 0;border-bottom:1px solid var(--cd);font-size:0.86rem;color:var(--im);}
+.lr:last-child{border-bottom:none;}
+.ln{font-family:var(--serif);font-style:italic;color:var(--if);min-width:26px;font-size:0.79rem;}
+.lt{margin-left:auto;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;white-space:nowrap;}
+.td{background:#E4ECD9;color:#47622E;}
+.tc{background:var(--cm);color:var(--ink);border:1px solid var(--ink);}
+.ts{background:var(--cm);color:var(--if);}
+/* WRITING */
+.elist{list-style:none;}
+.er{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--cd);text-decoration:none;color:inherit;transition:opacity .15s;}
+.er:hover{opacity:0.6;}
+.etitle{font-family:var(--serif);font-size:1.05rem;color:var(--ink);}
+.esub{font-size:0.8rem;color:var(--if);margin-top:0.15rem;}
+.edate{font-size:0.76rem;color:var(--if);white-space:nowrap;font-family:var(--serif);font-style:italic;}
+.soc{border-bottom:1px solid var(--cd);}
+.soct{width:100%;text-align:left;background:none;border:none;padding:1rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;}
+.soct:hover .soctl{opacity:0.6;}
+.soctl{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--ink);transition:opacity .15s;}
+.socm{font-size:0.74rem;color:var(--if);white-space:nowrap;font-family:var(--serif);font-style:italic;}
+.soce{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);transition:transform .2s;flex-shrink:0;}
+.soc.open .soce{transform:rotate(45deg);}
+.socb{display:none;padding:0.3rem 0 1.3rem;font-family:var(--serif);font-size:0.97rem;line-height:1.85;color:var(--im);max-width:58ch;}
+.soc.open .socb{display:block;}
+/* HOBBIES */
+.hr2{display:grid;grid-template-columns:150px 1fr;gap:1rem;align-items:start;padding:0.9rem 0;border-bottom:1px solid var(--cd);}
+@media(max-width:520px){.hr2{grid-template-columns:1fr;gap:0.2rem;}}
+.hn{font-family:var(--serif);font-size:1rem;color:var(--ink);}
+.hno{font-size:0.86rem;color:var(--im);}
+.fhc{border:1px dashed var(--cd);border-radius:5px;padding:1rem 1.3rem;margin-bottom:0.7rem;display:flex;gap:1rem;align-items:flex-start;}
+.fhi{font-size:1.1rem;line-height:1;flex-shrink:0;opacity:0.4;margin-top:0.2rem;}
+.fhn{font-family:var(--serif);font-size:1rem;color:var(--ink);margin-bottom:0.2rem;}
+.fhno{font-size:0.84rem;color:var(--im);}
+/* ENTERTAINMENT */
+.subnav{display:flex;border-bottom:1px solid var(--cd);margin-bottom:2.5rem;overflow-x:auto;scrollbar-width:none;}
+.subnav::-webkit-scrollbar{display:none;}
+.sbt{font-size:0.69rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);background:none;border:none;border-bottom:2px solid transparent;padding:0.65rem 0.85rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+.sbt:hover{color:var(--im);}
+.sbt.active{color:var(--ink);border-bottom-color:var(--gold);font-weight:500;}
+.ep{display:none;}
+.ep.active{display:block;}
+.ssl{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--if);font-weight:500;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--cd);}
+.ss{margin-bottom:2.5rem;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.85rem;}
+.tc2{display:flex;flex-direction:column;justify-content:flex-end;padding:0.75rem;background:var(--cm);border:1px solid var(--cd);border-radius:4px;aspect-ratio:2/3;transition:transform .22s;}
+.tc2:hover{transform:translateY(-4px);}
+.tc2 .ct{font-family:var(--serif);font-size:0.8rem;color:var(--ink);line-height:1.3;}
+.tc2 .cs{font-size:0.64rem;color:var(--if);margin-top:0.2rem;}
+/* FOOD / RECIPE CARDS */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem;margin-top:0.8rem;}
+@media(max-width:640px){.rgrid{grid-template-columns:1fr;}}
+.rcard{border:1px solid var(--cd);border-radius:6px;overflow:hidden;background:var(--cream);transition:box-shadow .22s,transform .22s;}
+.rcard:hover{box-shadow:0 6px 24px rgba(26,23,20,.09);transform:translateY(-2px);}
+.rimg{width:100%;aspect-ratio:4/3;background:var(--cd);overflow:hidden;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--cd);}
+.rimg img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(0.9) brightness(0.92);}
+.rimgph{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--if);text-align:center;padding:1rem;line-height:1.5;}
+.rbody{padding:1.3rem 1.4rem;}
+.rname{font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--ink);margin-bottom:0.15rem;}
+.rorig{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--if);margin-bottom:1.1rem;}
+.rstats{display:flex;gap:1.2rem;margin-bottom:1.3rem;flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--cd);}
+.sb{text-align:left;}
+.sv{font-family:var(--serif);font-size:1.1rem;color:var(--im);display:block;line-height:1;}
+.sl{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--if);margin-top:0.2rem;display:block;}
+.rsl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--if);margin-bottom:0.5rem;margin-top:1.1rem;display:block;padding-bottom:0.3rem;border-bottom:1px solid var(--cd);}
+.ing{list-style:none;}
+.ing li{font-family:var(--serif);font-size:0.93rem;color:var(--im);padding:0.28rem 0;line-height:1.45;display:flex;gap:0.5rem;}
+.iq{font-style:italic;color:var(--if);min-width:52px;flex-shrink:0;}
+.ddg{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem;margin-top:0.2rem;}
+.dd{font-size:0.82rem;color:var(--im);display:flex;flex-direction:column;}
+.dd span:first-child{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);margin-bottom:0.05rem;}
+.dnotes{font-size:0.84rem;color:var(--im);line-height:1.65;margin-top:0.2rem;font-family:var(--serif);font-style:italic;}
+/* QUOTES */
+.qlist{list-style:none;}
+.qi{display:grid;grid-template-columns:3px 1fr;gap:1.6rem;padding:2rem 0;border-bottom:1px solid var(--cd);align-items:start;}
+.qi:last-child{border-bottom:none;}
+.qr{background:var(--ink);border-radius:2px;margin-top:0.5rem;}
+.qt{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--ink);line-height:1.5;margin-bottom:0.55rem;}
+.qa{font-size:0.76rem;color:var(--if);letter-spacing:0.07em;}
+/* FUTURE */
+.fi{display:grid;grid-template-columns:82px 1fr;gap:1.5rem;padding:1.15rem 0;border-bottom:1px solid var(--cd);align-items:start;}
+@media(max-width:500px){.fi{grid-template-columns:1fr;gap:0.3rem;}}
+.fh{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-top:0.25rem;line-height:1.4;}
+.fti{font-family:var(--serif);font-size:1.05rem;color:var(--ink);margin-bottom:0.25rem;}
+.fn{font-size:0.85rem;color:var(--im);}
+footer{border-top:1px solid var(--cd);padding:1.8rem 0 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.fname{font-family:var(--serif);font-style:italic;font-size:0.88rem;color:var(--if);}
+.fnote{font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);}
+@media(max-width:580px){.shell{padding:0 1.2rem;}.er{grid-template-columns:1fr;gap:0.1rem;}.cg{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:0.65rem;}}
 </style>
 </head>
 <body>
+<div class="shell">
 
+<!-- HEADER -->
 <header>
-  <div class="site-name">Shameem Monjazeb</div>
-  <div class="site-tagline">Engineer · College Student · Builder</div>
+  <div>
+    <div class="site-name">Shameem Monjazeb</div>
+    <div class="site-tagline">Engineer · College Student · Builder</div>
+  </div>
+  <svg class="hd" width="58" height="68" viewBox="0 0 58 68" fill="none">
+    <rect x="7" y="55" width="44" height="7" rx="1" stroke="#1A1714" stroke-width="1"/>
+    <rect x="3" y="45" width="52" height="8" rx="1" stroke="#1A1714" stroke-width="1"/>
+    <rect x="9" y="35" width="40" height="8" rx="1" stroke="#1A1714" stroke-width="1"/>
+    <rect x="5" y="25" width="48" height="8" rx="1" stroke="#1A1714" stroke-width="1"/>
+    <rect x="11" y="15" width="36" height="8" rx="1" stroke="#1A1714" stroke-width="1"/>
+    <rect x="24" y="7" width="10" height="7" rx="1" stroke="#1A1714" stroke-width="0.8"/>
+    <line x1="29" y1="2" x2="29" y2="6" stroke="#1A1714" stroke-width="0.8" stroke-linecap="round"/>
+  </svg>
 </header>
 
+<!-- NAV -->
 <nav id="main-nav">
   <button class="nav-tab active" data-tab="home">Home</button>
+  <button class="nav-tab" data-tab="learning">Learning</button>
+  <button class="nav-tab" data-tab="philosophy">Philosophy</button>
   <button class="nav-tab" data-tab="projects">Projects</button>
   <button class="nav-tab" data-tab="writing">Writing</button>
   <button class="nav-tab" data-tab="hobbies">Hobbies</button>
   <button class="nav-tab" data-tab="entertainment">Entertainment</button>
   <button class="nav-tab" data-tab="food">Food</button>
+  <button class="nav-tab" data-tab="quotes">Quotes</button>
   <button class="nav-tab" data-tab="future">Future</button>
 </nav>
 
-<main>
-
-<!-- ══════════════════════════════════
-     HOME
-══════════════════════════════════ -->
+<!-- ═══ HOME ═══ -->
 <section id="tab-home" class="screen active">
-  <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
-  <p>Based in College Station. Studying Electrical Engineering. Currently interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
+  <div class="lead-row">
+    <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
+    <svg class="deco" width="46" height="78" viewBox="0 0 46 78" fill="none" style="opacity:0.15;flex-shrink:0;margin-top:0.5rem;">
+      <line x1="23" y1="74" x2="23" y2="4" stroke="#1A1714" stroke-width="1" stroke-linecap="round"/>
+      <path d="M23 18 C14 12 3 14 3 14 C3 14 8 28 23 31" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M23 18 C32 12 43 14 43 14 C43 14 38 28 23 31" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M23 40 C15 34 5 36 5 36 C5 36 10 50 23 53" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M23 40 C31 34 41 36 41 36 C41 36 36 50 23 53" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p style="max-width:60ch;">Based in College Station. Studying Electrical Engineering. Interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
 
-  <hr class="section-rule">
-
-  <!-- CURRENTLY – Global Component -->
-  <span class="label">Currently</span>
-  <div class="currently-block" id="currently-global">
-    <span class="label">This week</span>
-    <div class="currently-item">
-      <span class="c-type">Reading</span>
-      <span>The Double - Dostoevsky</span>
+  <hr class="rule">
+  <span class="ey">This Week</span>
+  <div class="tw-grid">
+    <div class="wc pri">
+      <span class="wcl">Currently Rewiring ↯</span>
+      <div class="we"><span class="wd"></span>Dopamine Circuitry</div>
+      <p style="font-size:0.8rem;color:var(--im);margin-top:0.8rem;margin-bottom:0;max-width:100%;line-height:1.6;">Restructuring stimulus-reward loops. Less passive consumption, more deliberate engagement.</p>
     </div>
-    <div class="currently-item">
-      <span class="c-type">Building</span>
-      <span>Late Night Jotter</span>
+    <div class="wc">
+      <span class="wcl">Currently</span>
+      <div class="we" style="font-size:0.88rem;"><span class="wct">Reading</span>The Double — Dostoevsky</div>
+      <div class="we" style="font-size:0.88rem;"><span class="wct">Building</span>Late Night Jotter</div>
+      <div class="we" style="font-size:0.88rem;"><span class="wct">Learning</span>Farsi · Guitar · Muay Thai</div>
+      <div class="we" style="font-size:0.88rem;"><span class="wct">Watching</span>—</div>
     </div>
-    <div class="currently-item">
-      <span class="c-type">Learning</span>
-      <span>Farsi, Guitar, Muay Thai</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Watching</span>
-      <span>N/A</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Listening</span>
-      <span>N/A</span>
+    <div class="wc">
+      <span class="wcl">Current Fitness</span>
+      <div class="we"><span class="wd"></span>Weight lift — 3× week</div>
+      <div class="we"><span class="wd"></span>Run 1 mile — daily</div>
+      <div class="we"><span class="wd"></span>Stretch — 3× week</div>
     </div>
   </div>
 
-  <hr class="section-rule">
-  <span class="label">Current Habits</span>
-  <ul class="habit-list">
-    <li><span class="habit-dot"></span>Morning reading — 30 minutes before screens</li>
-    <li><span class="habit-dot"></span>Anki flashcards: Farsi vocabulary and EE formulas</li>
-    <li><span class="habit-dot"></span>Weekly essay or note published here</li>
-    <li><span class="habit-dot"></span>One hardware project per month</li>
-    <li><span class="habit-dot"></span>Run every other day, no headphones</li>
-    <li><span class="habit-dot"></span>Cook at least three times a week from scratch</li>
+  <hr class="rule">
+  <span class="ey">Current Habits</span>
+  <ul class="hlist">
+    <li><span class="hdot"></span>Morning reading — 30 minutes before screens</li>
+    <li><span class="hdot"></span>Anki flashcards: Farsi vocabulary and EE formulas</li>
+    <li><span class="hdot"></span>Weekly essay or note published here</li>
+    <li><span class="hdot"></span>One hardware project per month</li>
+    <li><span class="hdot"></span>Run every day, no headphones</li>
+    <li><span class="hdot"></span>Cook at least three times a week from scratch</li>
+  </ul>
+  <div style="text-align:center;margin:3rem 0 0;color:var(--if);font-family:var(--serif);font-size:1rem;letter-spacing:0.3em;">· · ·</div>
+</section>
+
+<!-- ═══ LEARNING ═══ -->
+<section id="tab-learning" class="screen">
+  <h1>Learning</h1>
+  <p>Three pillars, each treated as a curriculum — not a pastime.</p>
+  <div class="mfsto" style="margin-top:0.5rem;">Instrumental mastery and academic rigor are one and the same. I am building curricula that treat both as equal sciences.</div>
+
+  <svg class="deco" width="100%" height="16" viewBox="0 0 600 16" preserveAspectRatio="none" fill="none" style="opacity:0.09;margin-bottom:0.5rem;">
+    <line x1="0" y1="8" x2="600" y2="8" stroke="#1A1714" stroke-width="0.8"/>
+    <line x1="100" y1="1" x2="100" y2="15" stroke="#1A1714" stroke-width="0.8"/>
+    <line x1="200" y1="1" x2="200" y2="15" stroke="#1A1714" stroke-width="0.8"/>
+    <line x1="300" y1="1" x2="300" y2="15" stroke="#1A1714" stroke-width="0.8"/>
+    <line x1="400" y1="1" x2="400" y2="15" stroke="#1A1714" stroke-width="0.8"/>
+    <line x1="500" y1="1" x2="500" y2="15" stroke="#1A1714" stroke-width="0.8"/>
+  </svg>
+
+  <div class="pillars">
+    <div class="pillar">
+      <span class="pl">Pillar I — Language</span>
+      <h3>Farsi (Persian)</h3>
+      <p>Script mastered. Now in verb conjugation and connected reading. Target: conversational in 18 months.</p>
+      <div class="pbar"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+      <div class="plabel">Phase 2 of 8 — Core Grammar</div>
+    </div>
+    <div class="pillar">
+      <span class="pl">Pillar II — Instrument</span>
+      <h3>Guitar (Fingerstyle)</h3>
+      <p>Chet Atkins arrangements. 3 years in. Working on thumb independence and tone control.</p>
+      <div class="pbar"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+      <div class="plabel">Intermediate → Intermediate-Advanced</div>
+    </div>
+    <div class="pillar">
+      <span class="pl">Pillar III — Academic</span>
+      <h3>Electrical Engineering</h3>
+      <p>Self-structured curriculum. Currently AC circuits and phasor analysis. Building alongside every unit.</p>
+      <div class="pbar"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
+      <div class="plabel">Unit 2 of 8 — AC Circuits</div>
+    </div>
+  </div>
+
+  <hr class="rule">
+  <span class="ey">This week in each pillar</span>
+  <div class="cdg">
+    <div class="cdc"><span class="pl" style="margin-bottom:0.35rem;">Language</span><div class="cde">Ezafe construction &amp; verb stem drills</div></div>
+    <div class="cdc"><span class="pl" style="margin-bottom:0.35rem;">Instrument</span><div class="cde">Mr. Sandman — Chet Atkins arrangement</div></div>
+    <div class="cdc"><span class="pl" style="margin-bottom:0.35rem;">Academic</span><div class="cde">Phasor analysis &amp; AC power calculations</div></div>
+  </div>
+</section>
+
+<!-- ═══ PHILOSOPHY ═══ -->
+<section id="tab-philosophy" class="screen">
+  <h1>Philosophy</h1>
+  <p>Beliefs and mental models — concise, updated whenever I change my mind.</p>
+
+  <div style="float:right;margin:0 0 1rem 1.5rem;opacity:0.13;">
+    <svg width="26" height="40" viewBox="0 0 26 40" fill="none">
+      <line x1="13" y1="38" x2="13" y2="3" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
+      <path d="M13 11 C8 7 2 9 2 9 C2 9 5 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M13 11 C18 7 24 9 24 9 C24 9 21 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <ul class="mlist" style="margin-top:1.5rem;clear:both;">
+    <li class="mi"><span class="mn">i.</span><span class="mt">Most confusion is a naming problem in disguise.</span></li>
+    <li class="mi"><span class="mn">ii.</span><span class="mt">The person who asks "why" twice understands more than the one who asked once and stopped.</span></li>
+    <li class="mi"><span class="mn">iii.</span><span class="mt">Rigor and wonder are not opposites — they are the same impulse, facing different directions.</span></li>
+    <li class="mi"><span class="mn">iv.</span><span class="mt">Speed is usually the enemy of understanding; slowness is usually the enemy of doing. Both traps are real.</span></li>
+    <li class="mi"><span class="mn">v.</span><span class="mt">If you can't explain it without the jargon, you don't know it yet.</span></li>
+    <li class="mi"><span class="mn">vi.</span><span class="mt">Systems that reward performance tend to destroy the love of the thing being performed.</span></li>
+    <li class="mi"><span class="mn">vii.</span><span class="mt">Boredom is information. It means you need harder problems, not easier distractions.</span></li>
+    <li class="mi"><span class="mn">viii.</span><span class="mt">Almost every skill compounds. The question is whether you started.</span></li>
+    <li class="mi"><span class="mn">ix.</span><span class="mt">Dopamine is not a reward — it is a prediction. Hack the prediction, not the reward.</span></li>
+    <li class="mi"><span class="mn">x.</span><span class="mt">The notebook is not for recording what you know. It is for finding out what you think.</span></li>
+    <li class="mi"><span class="mn">xi.</span><span class="mt">To be a beginner again, in everything — this is the highest aspiration I can name.</span></li>
   </ul>
 </section>
 
-
-<!-- ══════════════════════════════════
-     PROJECTS
-══════════════════════════════════ -->
+<!-- ═══ PROJECTS ═══ -->
 <section id="tab-projects" class="screen">
   <h1>Projects</h1>
   <p>Things I'm building, studying, or shipping.</p>
+  <hr class="rule">
+  <span class="ey">Building</span>
+  <div class="pcard"><div class="ptitle">AM Radio Transmitter</div><div class="pdesc">Breadboard-level design exploring amplitude modulation. Goal: transmit audio to an FM/AM receiver 10ft away without an IC.</div><div class="pstat">In progress</div></div>
+  <div class="pcard"><div class="ptitle">Late Night Jotter</div><div class="pdesc">A minimal, local-first note-taking app for thoughts that arrive after midnight. No cloud, no formatting. Just text and timestamp.</div><div class="pstat">In progress</div></div>
+  <div class="pcard"><div class="ptitle">Personal Site (this one)</div><div class="pdesc">A living archive for everything I'm reading, building, thinking about. No CMS — just one HTML file updated by hand.</div><div class="pstat">Ongoing</div></div>
+  <div class="pcard"><div class="ptitle">Signal-Processing Notebook</div><div class="pdesc">A public reference for the math and intuition behind Fourier transforms, filters, and convolution — written for the student who hates black boxes.</div><div class="pstat">Drafting</div></div>
 
-  <hr class="section-rule">
-  <h2>Building</h2>
-
-  <div class="project-card">
-    <div class="project-title">AM Radio Transmitter</div>
-    <div class="project-desc">Breadboard-level design exploring amplitude modulation. Goal: transmit audio to an FM/AM receiver 10ft away without an IC.</div>
-    <div class="project-status">In progress</div>
+  <hr class="rule">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+    <h2 style="margin-top:0;">Free Personal EE Study Course</h2>
+    <svg class="deco" width="70" height="40" viewBox="0 0 70 40" fill="none" style="opacity:0.12;flex-shrink:0;margin-top:0.3rem;">
+      <line x1="2" y1="20" x2="15" y2="20" stroke="#1A1714" stroke-width="1"/>
+      <rect x="15" y="13" width="12" height="14" rx="1" stroke="#1A1714" stroke-width="1"/>
+      <line x1="27" y1="20" x2="35" y2="20" stroke="#1A1714" stroke-width="1"/>
+      <circle cx="35" cy="20" r="1.5" fill="#1A1714"/>
+      <line x1="35" y1="20" x2="43" y2="20" stroke="#1A1714" stroke-width="1"/>
+      <line x1="43" y1="13" x2="43" y2="27" stroke="#1A1714" stroke-width="1"/>
+      <line x1="48" y1="13" x2="48" y2="27" stroke="#1A1714" stroke-width="1"/>
+      <line x1="48" y1="20" x2="58" y2="20" stroke="#1A1714" stroke-width="1"/>
+      <line x1="58" y1="14" x2="58" y2="26" stroke="#1A1714" stroke-width="1"/>
+      <line x1="54" y1="14" x2="62" y2="14" stroke="#1A1714" stroke-width="1"/>
+      <line x1="56" y1="18" x2="60" y2="18" stroke="#1A1714" stroke-width="1"/>
+      <line x1="2" y1="20" x2="2" y2="32" stroke="#1A1714" stroke-width="1"/>
+      <line x1="2" y1="32" x2="62" y2="32" stroke="#1A1714" stroke-width="1"/>
+    </svg>
   </div>
+  <div class="mfsto">Learning an instrument is an academic pursuit equal to any science; I am structuring these courses to reflect that rigor. These are not tutorials — they are curricula, sequenced and self-assessed.</div>
 
-  <div class="project-card">
-    <div class="project-title">Personal Site (this one)</div>
-    <div class="project-desc">A living archive for everything I'm reading, building, thinking about. No CMS — just one HTML file updated by hand.</div>
-    <div class="project-status">Ongoing</div>
-  </div>
+  <div class="crs open"><button class="crsh" onclick="tc(this)"><div><div class="crst">Unit I — Foundations of Circuit Theory</div><div class="crss">Ohm's Law through Thévenin's Theorem</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">1.1</span>Charge, Current, Voltage, Power<span class="lt td">Done</span></div><div class="lr"><span class="ln">1.2</span>Ohm's Law &amp; Kirchhoff's Laws<span class="lt td">Done</span></div><div class="lr"><span class="ln">1.3</span>Series and Parallel Circuits<span class="lt tc">Current</span></div><div class="lr"><span class="ln">1.4</span>Node Voltage &amp; Mesh Current Methods<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">1.5</span>Thévenin &amp; Norton Equivalents<span class="lt ts">Soon</span></div></div></div>
+  <div class="crs"><button class="crsh" onclick="tc(this)"><div><div class="crst">Unit II — AC Circuits &amp; Phasors</div><div class="crss">Sinusoids, impedance, resonance</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">2.1</span>Sinusoidal Sources &amp; Phasors<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.2</span>Impedance &amp; Admittance<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.3</span>AC Power Analysis<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.4</span>Resonance &amp; Filters<span class="lt ts">Soon</span></div></div></div>
+  <div class="crs"><button class="crsh" onclick="tc(this)"><div><div class="crst">Unit III — Semiconductors &amp; Amplifiers</div><div class="crss">Diodes, BJTs, MOSFETs, op-amps</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">3.1</span>Diode Physics &amp; Circuits<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.2</span>BJT Biasing &amp; Small-Signal Models<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.3</span>MOSFET Operation &amp; Amplifiers<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.4</span>Operational Amplifiers<span class="lt ts">Soon</span></div></div></div>
+  <div class="crs"><button class="crsh" onclick="tc(this)"><div><div class="crst">Unit IV — Digital Logic &amp; Systems</div><div class="crss">Boolean algebra through sequential machines</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">4.1</span>Boolean Algebra &amp; Logic Gates<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">4.2</span>Combinational Circuit Design<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">4.3</span>Flip-Flops &amp; Sequential Logic<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">4.4</span>Finite State Machines<span class="lt ts">Soon</span></div></div></div>
 
-  <div class="project-card">
-    <div class="project-title">Signal-Processing Notebook</div>
-    <div class="project-desc">A public reference for the math and intuition behind Fourier transforms, filters, and convolution — written for the student who hates black boxes.</div>
-    <div class="project-status">Drafting</div>
-  </div>
-
-  <hr class="section-rule">
-
-  <!-- EE COURSE -->
-  <h2>Free Personal Electrical Engineering Study Course</h2>
-
-  <div class="manifesto">
-    Learning an instrument is an academic pursuit equal to any science; I am structuring these courses to reflect that rigor. These are not tutorials — they are curricula, sequenced and self-assessed.
-  </div>
-
-  <div class="course-card open">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Unit I — Foundations of Circuit Theory</div>
-        <div class="course-header-sub">Ohm's Law through Thévenin's Theorem</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">1.1</span>Charge, Current, Voltage, Power<span class="module-tag tag-done">Done</span></div>
-      <div class="module-row"><span class="module-num">1.2</span>Ohm's Law &amp; Kirchhoff's Laws<span class="module-tag tag-done">Done</span></div>
-      <div class="module-row"><span class="module-num">1.3</span>Series and Parallel Circuits<span class="module-tag tag-current">Current</span></div>
-      <div class="module-row"><span class="module-num">1.4</span>Node Voltage &amp; Mesh Current Methods<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">1.5</span>Thévenin &amp; Norton Equivalents<span class="module-tag tag-soon">Soon</span></div>
-    </div>
-  </div>
-
-  <div class="course-card">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Unit II — AC Circuits &amp; Phasors</div>
-        <div class="course-header-sub">Sinusoids, impedance, resonance</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">2.1</span>Sinusoidal Sources &amp; Phasors<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.2</span>Impedance &amp; Admittance<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.3</span>AC Power Analysis<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.4</span>Resonance &amp; Filters<span class="module-tag tag-soon">Soon</span></div>
-    </div>
-  </div>
-
-  <div class="course-card">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Unit III — Semiconductors &amp; Amplifiers</div>
-        <div class="course-header-sub">Diodes, BJTs, MOSFETs, op-amps</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">3.1</span>Diode Physics &amp; Circuits<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">3.2</span>BJT Biasing &amp; Small-Signal Models<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">3.3</span>MOSFET Operation &amp; Amplifiers<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">3.4</span>Operational Amplifiers<span class="module-tag tag-soon">Soon</span></div>
-    </div>
-  </div>
-
-  <div class="course-card">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Unit IV — Digital Logic &amp; Systems</div>
-        <div class="course-header-sub">Boolean algebra through sequential machines</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">4.1</span>Boolean Algebra &amp; Logic Gates<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">4.2</span>Combinational Circuit Design<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">4.3</span>Flip-Flops &amp; Sequential Logic<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">4.4</span>Finite State Machines<span class="module-tag tag-soon">Soon</span></div>
-    </div>
-  </div>
-
-  <hr class="section-rule">
-
-  <!-- FARSI COURSE -->
-  <h2>Farsi Course</h2>
-
-  <div class="course-card open">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Phase I — Script &amp; Phonology</div>
-        <div class="course-header-sub">Alphabet, vowels, pronunciation rules</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">1.1</span>The Persian Alphabet (32 letters)<span class="module-tag tag-done">Done</span></div>
-      <div class="module-row"><span class="module-num">1.2</span>Short &amp; Long Vowels<span class="module-tag tag-done">Done</span></div>
-      <div class="module-row"><span class="module-num">1.3</span>Consonant Clusters &amp; Pronunciation<span class="module-tag tag-done">Done</span></div>
-      <div class="module-row"><span class="module-num">1.4</span>Reading Connected Script<span class="module-tag tag-current">Current</span></div>
-    </div>
-  </div>
-
-  <div class="course-card">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Phase II — Core Grammar</div>
-        <div class="course-header-sub">Nouns, pronouns, verb conjugation</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">2.1</span>Nouns, Gender, Plurals<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.2</span>Personal Pronouns &amp; Verb "to be"<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.3</span>Present Tense Conjugation<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.4</span>Past Tense &amp; Negation<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">2.5</span>The Ezafe Construction<span class="module-tag tag-soon">Soon</span></div>
-    </div>
-  </div>
-
-  <div class="course-card">
-    <button class="course-header" onclick="toggleCourse(this)">
-      <div>
-        <div class="course-header-text">Phase III — Vocabulary &amp; Conversation</div>
-        <div class="course-header-sub">500 core words, basic dialogues</div>
-      </div>
-      <span class="course-chevron">▼</span>
-    </button>
-    <div class="course-body">
-      <div class="module-row"><span class="module-num">3.1</span>Numbers, Time, Days<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">3.2</span>Food, Family, Home<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">3.3</span>Greetings &amp; Social Phrases<span class="module-tag tag-soon">Soon</span></div>
-      <div class="module-row"><span class="module-num">3.4</span>First Conversation Simulations<span class="module-tag tag-soon">Soon</span></div>
-    </div>
-  </div>
+  <hr class="rule">
+  <h2 style="margin-top:0;">Farsi Course</h2>
+  <div class="crs open"><button class="crsh" onclick="tc(this)"><div><div class="crst">Phase I — Script &amp; Phonology</div><div class="crss">Alphabet, vowels, pronunciation rules</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">1.1</span>The Persian Alphabet (32 letters)<span class="lt td">Done</span></div><div class="lr"><span class="ln">1.2</span>Short &amp; Long Vowels<span class="lt td">Done</span></div><div class="lr"><span class="ln">1.3</span>Consonant Clusters &amp; Pronunciation<span class="lt td">Done</span></div><div class="lr"><span class="ln">1.4</span>Reading Connected Script<span class="lt tc">Current</span></div></div></div>
+  <div class="crs"><button class="crsh" onclick="tc(this)"><div><div class="crst">Phase II — Core Grammar</div><div class="crss">Nouns, pronouns, verb conjugation</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">2.1</span>Nouns, Gender, Plurals<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.2</span>Personal Pronouns &amp; Verb "to be"<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.3</span>Present Tense Conjugation<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.4</span>Past Tense &amp; Negation<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">2.5</span>The Ezafe Construction<span class="lt ts">Soon</span></div></div></div>
+  <div class="crs"><button class="crsh" onclick="tc(this)"><div><div class="crst">Phase III — Vocabulary &amp; Conversation</div><div class="crss">500 core words, basic dialogues</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">3.1</span>Numbers, Time, Days<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.2</span>Food, Family, Home<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.3</span>Greetings &amp; Social Phrases<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.4</span>First Conversation Simulations<span class="lt ts">Soon</span></div></div></div>
 </section>
 
-
-<!-- ══════════════════════════════════
-     WRITING
-══════════════════════════════════ -->
+<!-- ═══ WRITING ═══ -->
 <section id="tab-writing" class="screen">
   <h1>Writing</h1>
-  <p>Essays, notes, and half-finished thoughts. Updated sporadically.</p>
 
-  <hr class="section-rule">
+  <div style="margin-bottom:3.5rem;">
+    <span class="ey">Essays, Blogs &amp; Refined Journal Entries</span>
+    <ul class="elist">
+      <a class="er" href="#"><div><div class="etitle">On Learning Like a Scientist</div><div class="esub">Why rigor and curiosity are the same thing</div></div><span class="edate">Apr 2025</span></a>
+      <a class="er" href="#"><div><div class="etitle">The Tyranny of the Tutorial</div><div class="esub">Passive learning vs. deliberate struggle</div></div><span class="edate">Mar 2025</span></a>
+      <a class="er" href="#"><div><div class="etitle">What Feynman Got Wrong About Knowing</div><div class="esub">A gentle rebuttal to the name-things heuristic</div></div><span class="edate">Feb 2025</span></a>
+      <a class="er" href="#"><div><div class="etitle">Reading Notes: Gödel, Escher, Bach</div><div class="esub">Marginalia, questions, and what stuck</div></div><span class="edate">Jan 2025</span></a>
+      <a class="er" href="#"><div><div class="etitle">Why I Stopped Using Frameworks</div><div class="esub">At least for a while</div></div><span class="edate">Dec 2024</span></a>
+      <a class="er" href="#"><div><div class="etitle">The Case for Hand-Written Notes in Engineering</div><div class="esub">Slowness as a feature</div></div><span class="edate">Nov 2024</span></a>
+    </ul>
+  </div>
 
-  <ul class="essay-list">
-    <a class="essay-row" href="#">
-      <div>
-        <div class="essay-title">On Learning Like a Scientist</div>
-        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Why rigor and curiosity are the same thing</div>
-      </div>
-      <span class="essay-meta">Apr 2025</span>
-    </a>
-    <a class="essay-row" href="#">
-      <div>
-        <div class="essay-title">The Tyranny of the Tutorial</div>
-        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Passive learning vs. deliberate struggle</div>
-      </div>
-      <span class="essay-meta">Mar 2025</span>
-    </a>
-    <a class="essay-row" href="#">
-      <div>
-        <div class="essay-title">What Feynman Got Wrong About Knowing</div>
-        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">A gentle rebuttal to the name-things heuristic</div>
-      </div>
-      <span class="essay-meta">Feb 2025</span>
-    </a>
-    <a class="essay-row" href="#">
-      <div>
-        <div class="essay-title">Reading Notes: Gödel, Escher, Bach</div>
-        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Marginalia, questions, and what stuck</div>
-      </div>
-      <span class="essay-meta">Jan 2025</span>
-    </a>
-    <a class="essay-row" href="#">
-      <div>
-        <div class="essay-title">Why I Stopped Using Frameworks</div>
-        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">At least for a while</div>
-      </div>
-      <span class="essay-meta">Dec 2024</span>
-    </a>
-    <a class="essay-row" href="#">
-      <div>
-        <div class="essay-title">The Case for Hand-Written Notes in Engineering</div>
-        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Slowness as a feature</div>
-      </div>
-      <span class="essay-meta">Nov 2024</span>
-    </a>
-  </ul>
+  <hr class="rule">
+  <span class="ey">Stream of Consciousness Journals</span>
+  <p style="margin-bottom:1.5rem;">Raw. Unedited. Click to read.</p>
+
+  <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">3 a.m. and I'm thinking about eigenvectors again</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Apr 9, 2025</span><span class="soce">+</span></div></button><div class="socb">There's something deeply unsettling about the fact that a matrix has preferred directions. Like the universe has a bias built in. I keep trying to explain this to myself in plain English and it keeps dissolving back into symbols. Maybe that's the point. Maybe the symbol is the understanding, and the plain English is just the comfort blanket.</div></div>
+
+  <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">The Farsi word for "nostalgia" doesn't exist</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Mar 22, 2025</span><span class="soce">+</span></div></button><div class="socb">I was looking for it in my Farsi dictionary. They have دلتنگی — daltangi — which is closer to "my heart is tight" or "I miss you" but it's not quite nostalgia. It's more immediate. Maybe every language's untranslatable word is a window into what that culture aches for. Farsi aches for the present. English aches for the past.</div></div>
+
+  <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">Ran without headphones for the first time in months</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Mar 5, 2025</span><span class="soce">+</span></div></button><div class="socb">I forgot what it sounds like. My own footsteps. The specific rhythm of breath when you're at that edge between comfortable and not. I've been filling that silence for years. Turns out it's mostly nothing. Which is the point, I think. The nothing is the thing.</div></div>
+
+  <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">On why I keep abandoning frameworks</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Feb 17, 2025</span><span class="soce">+</span></div></button><div class="socb">Every time I pick up a new framework I feel capable and then I feel hollow. Like I built a sandcastle with a mold. I know it technically looks like a castle. But I didn't learn anything about sand. I didn't learn anything about castles. I keep going back to HTML and vanilla JS not out of nostalgia but because it forces me to know what I'm doing.</div></div>
 </section>
 
-
-<!-- ══════════════════════════════════
-     HOBBIES
-══════════════════════════════════ -->
+<!-- ═══ HOBBIES ═══ -->
 <section id="tab-hobbies" class="screen">
   <h1>Hobbies</h1>
+  <span class="ey">Current</span>
+  <div class="hr2"><span class="hn">Guitar</span><span class="hno">Fingerstyle. Currently learning Chet Atkins arrangements. 3 years in.</span></div>
+  <div class="hr2"><span class="hn">Running</span><span class="hno">Slow, consistent, outdoors only. No headphones — it's the only quiet I get.</span></div>
+  <div class="hr2"><span class="hn">Muay Thai</span><span class="hno">Early days. Working on stance, guard, and not telegraphing the jab.</span></div>
+  <div class="hr2"><span class="hn">Chess</span><span class="hno">~1350 Elo on Lichess. Trying to understand endgames properly before learning openings.</span></div>
+  <div class="hr2"><span class="hn">Cooking</span><span class="hno">Persian, Japanese, Italian. Interested in the science behind every technique.</span></div>
+  <div class="hr2" style="border-bottom:none;"><span class="hn">Amateur Radio</span><span class="hno">Technician licensed. Saving for an HF rig. Want to build antennas from first principles.</span></div>
 
-  <hr class="section-rule">
-  <span class="label">Things I practice</span>
+  <hr class="rule">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;">
+    <div><span class="ey">Future Hobbies</span><p>Things I intend to learn. Committed in writing so I can't forget.</p></div>
+    <svg class="deco" width="52" height="38" viewBox="0 0 52 38" fill="none" style="opacity:0.13;flex-shrink:0;">
+      <rect x="3" y="10" width="46" height="26" rx="3" stroke="#1A1714" stroke-width="1"/>
+      <circle cx="26" cy="23" r="9" stroke="#1A1714" stroke-width="1"/>
+      <circle cx="26" cy="23" r="5" stroke="#1A1714" stroke-width="0.8"/>
+      <rect x="10" y="5" width="10" height="6" rx="1.5" stroke="#1A1714" stroke-width="0.9"/>
+      <circle cx="42" cy="15" r="2" stroke="#1A1714" stroke-width="0.8"/>
+    </svg>
+  </div>
+  <div class="fhc"><div class="fhi">◎</div><div><div class="fhn">Film Photography</div><div class="fhno">35mm, black &amp; white to start. I want to develop my own rolls and understand the chemistry of the process — not just the composition.</div></div></div>
+  <div class="fhc"><div class="fhi">◎</div><div><div class="fhn">Woodworking</div><div class="fhno">Hand tools only for the first year. A cutting board, then a box, then whatever the wood suggests. Patient work that can't be rushed.</div></div></div>
+  <div class="fhc"><div class="fhi">◎</div><div><div class="fhn">Calligraphy (Nastaliq Script)</div><div class="fhno">A natural extension of learning Farsi. Nastaliq is one of the most beautiful scripts in the world — learning to slow down written into the form itself.</div></div></div>
+</section>
 
-  <div class="hobby-row">
-    <span class="hobby-name">Guitar</span>
-    <span class="hobby-note">Fingerstyle. Currently learning Chet Atkins arrangements. 3 years in.</span>
-  </div>
-  <div class="hobby-row">
-    <span class="hobby-name">Running</span>
-    <span class="hobby-note">Slow, consistent, outdoors only. No headphones — it's the only quiet I get.</span>
-  </div>
-  <div class="hobby-row">
-    <span class="hobby-name">Film Photography</span>
-    <span class="hobby-note">35mm Olympus OM-1. Mostly black &amp; white. I develop my own rolls.</span>
-  </div>
-  <div class="hobby-row">
-    <span class="hobby-name">Chess</span>
-    <span class="hobby-note">~1350 Elo on Lichess. Trying to understand endgames properly before learning openings.</span>
-  </div>
-  <div class="hobby-row">
-    <span class="hobby-name">Cooking</span>
-    <span class="hobby-note">Persian, Japanese, Italian. Interested in the science behind technique.</span>
-  </div>
-  <div class="hobby-row">
-    <span class="hobby-name">Amateur Radio</span>
-    <span class="hobby-note">Technician licensed. Saving for an HF rig.</span>
+<!-- ═══ ENTERTAINMENT ═══ -->
+<section id="tab-entertainment" class="screen">
+  <h1>Entertainment</h1>
+  <div class="subnav">
+    <button class="sbt active" data-ent="books">Books</button>
+    <button class="sbt" data-ent="movies">Movies</button>
+    <button class="sbt" data-ent="shows">Shows</button>
+    <button class="sbt" data-ent="anime">Anime</button>
+    <button class="sbt" data-ent="games">Games</button>
   </div>
 
-  <hr class="section-rule">
-  <h2>Beliefs &amp; Mental Models</h2>
-  <p>A short list. Updated as I change my mind.</p>
+  <div class="ep active" id="ent-books">
+    <div class="ss"><div class="ssl">Currently reading</div><div class="cg"><div class="tc2"><div class="ct">The Double</div><div class="cs">Dostoevsky</div></div><div class="tc2"><div class="ct">The Art of Electronics</div><div class="cs">Horowitz &amp; Hill</div></div></div></div>
+    <div class="ss"><div class="ssl">Read</div><div class="cg"><div class="tc2"><div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div></div><div class="tc2"><div class="ct">The Design of Everyday Things</div><div class="cs">Don Norman</div></div><div class="tc2"><div class="ct">Permanent Record</div><div class="cs">Snowden</div></div><div class="tc2"><div class="ct">Thinking, Fast and Slow</div><div class="cs">Kahneman</div></div><div class="tc2"><div class="ct">Crime and Punishment</div><div class="cs">Dostoevsky</div></div><div class="tc2"><div class="ct">Surely You're Joking, Mr. Feynman</div><div class="cs">Feynman</div></div></div></div>
+    <div class="ss"><div class="ssl">To read</div><div class="cg"><div class="tc2"><div class="ct">The Code Book</div><div class="cs">Simon Singh</div></div><div class="tc2"><div class="ct">Hackers</div><div class="cs">Steven Levy</div></div><div class="tc2"><div class="ct">The Dream Machine</div><div class="cs">M. Mitchell Waldrop</div></div><div class="tc2"><div class="ct">The Brothers Karamazov</div><div class="cs">Dostoevsky</div></div></div></div>
+  </div>
 
-  <ul class="maxim-list">
-    <li>Most confusion is a naming problem in disguise.</li>
-    <li>The person who asks "why" twice understands more than the one who asked once and stopped.</li>
-    <li>Rigor and wonder are not opposites — they are the same impulse, facing different directions.</li>
-    <li>Speed is usually the enemy of understanding; slowness is usually the enemy of doing. Both traps are real.</li>
-    <li>If you can't explain it without the jargon, you don't know it yet.</li>
-    <li>Systems that reward performance tend to destroy the love of the thing being performed.</li>
-    <li>Boredom is information. It means you need harder problems, not easier distractions.</li>
-    <li>Almost every skill compounds. The question is whether you started.</li>
+  <div class="ep" id="ent-movies">
+    <div class="ss"><div class="ssl">Currently watching</div><div class="cg"><div class="tc2"><div class="ct">Dune: Part Two</div><div class="cs">Villeneuve, 2024</div></div></div></div>
+    <div class="ss"><div class="ssl">Watched</div><div class="cg"><div class="tc2"><div class="ct">2001: A Space Odyssey</div><div class="cs">Kubrick, 1968</div></div><div class="tc2"><div class="ct">Arrival</div><div class="cs">Villeneuve, 2016</div></div><div class="tc2"><div class="ct">The Tree of Life</div><div class="cs">Malick, 2011</div></div><div class="tc2"><div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div></div><div class="tc2"><div class="ct">Blade Runner 2049</div><div class="cs">Villeneuve, 2017</div></div><div class="tc2"><div class="ct">A Separation</div><div class="cs">Farhadi, 2011</div></div></div></div>
+    <div class="ss"><div class="ssl">To watch</div><div class="cg"><div class="tc2"><div class="ct">Solaris</div><div class="cs">Tarkovsky, 1972</div></div><div class="tc2"><div class="ct">The Mirror</div><div class="cs">Tarkovsky, 1975</div></div><div class="tc2"><div class="ct">Andrei Rublev</div><div class="cs">Tarkovsky, 1966</div></div></div></div>
+  </div>
+
+  <div class="ep" id="ent-shows">
+    <div class="ss"><div class="ssl">Currently watching</div><div class="cg"><div class="tc2"><div class="ct">Severance</div><div class="cs">Apple TV+, S2</div></div></div></div>
+    <div class="ss"><div class="ssl">Watched</div><div class="cg"><div class="tc2"><div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div></div><div class="tc2"><div class="ct">Breaking Bad</div><div class="cs">AMC</div></div><div class="tc2"><div class="ct">Halt and Catch Fire</div><div class="cs">AMC</div></div><div class="tc2"><div class="ct">Mr. Robot</div><div class="cs">USA Network</div></div></div></div>
+    <div class="ss"><div class="ssl">To watch</div><div class="cg"><div class="tc2"><div class="ct">The Wire</div><div class="cs">HBO</div></div><div class="tc2"><div class="ct">Shogun</div><div class="cs">FX, 2024</div></div></div></div>
+  </div>
+
+  <div class="ep" id="ent-anime">
+    <div class="ss"><div class="ssl">Currently watching</div><div class="cg"><div class="tc2"><div class="ct">Frieren: Beyond Journey's End</div><div class="cs">Madhouse, 2023</div></div></div></div>
+    <div class="ss"><div class="ssl">Watched</div><div class="cg"><div class="tc2"><div class="ct">Fullmetal Alchemist: Brotherhood</div><div class="cs">Bones, 2009</div></div><div class="tc2"><div class="ct">Steins;Gate</div><div class="cs">White Fox, 2011</div></div><div class="tc2"><div class="ct">Neon Genesis Evangelion</div><div class="cs">Gainax, 1995</div></div><div class="tc2"><div class="ct">Mushishi</div><div class="cs">Artland, 2005</div></div><div class="tc2"><div class="ct">Serial Experiments Lain</div><div class="cs">Triangle Staff, 1998</div></div></div></div>
+    <div class="ss"><div class="ssl">To watch</div><div class="cg"><div class="tc2"><div class="ct">Vinland Saga</div><div class="cs">Wit Studio</div></div><div class="tc2"><div class="ct">Planetes</div><div class="cs">Sunrise, 2003</div></div><div class="tc2"><div class="ct">Legend of the Galactic Heroes</div><div class="cs">Artland</div></div></div></div>
+  </div>
+
+  <div class="ep" id="ent-games">
+    <div class="ss"><div class="ssl">Currently playing</div><div class="cg"><div class="tc2"><div class="ct">Elden Ring</div><div class="cs">FromSoftware, 2022</div></div></div></div>
+    <div class="ss"><div class="ssl">Played</div><div class="cg"><div class="tc2"><div class="ct">Hollow Knight</div><div class="cs">Team Cherry, 2017</div></div><div class="tc2"><div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div></div><div class="tc2"><div class="ct">Baba Is You</div><div class="cs">Arvi Teikari, 2019</div></div><div class="tc2"><div class="ct">Portal 2</div><div class="cs">Valve, 2011</div></div></div></div>
+    <div class="ss"><div class="ssl">To play</div><div class="cg"><div class="tc2"><div class="ct">Disco Elysium</div><div class="cs">ZA/UM, 2019</div></div><div class="tc2"><div class="ct">Return of the Obra Dinn</div><div class="cs">Lucas Pope, 2018</div></div></div></div>
+  </div>
+</section>
+
+<!-- ═══ FOOD ═══ -->
+<section id="tab-food" class="screen">
+  <h1>Food</h1>
+  <p>What I'm cooking, learning, and thinking about in the kitchen.</p>
+  <hr class="rule">
+  <span class="ey">Current Recipes</span>
+
+  <div class="rgrid">
+
+    <!-- Ghormeh Sabzi -->
+    <div class="rcard">
+      <div class="rimg">
+        <div style="text-align:center;padding:1.5rem;">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;display:block;margin-left:auto;margin-right:auto;">
+            <circle cx="26" cy="26" r="20" stroke="#1A1714" stroke-width="1"/>
+            <path d="M14 34 C14 26 20 16 26 14 C32 16 38 26 38 34" stroke="#1A1714" stroke-width="0.9" fill="none"/>
+            <ellipse cx="26" cy="34" rx="12" ry="3.5" stroke="#1A1714" stroke-width="0.9"/>
+            <line x1="20" y1="20" x2="20" y2="14" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
+            <line x1="26" y1="16" x2="26" y2="10" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
+            <line x1="32" y1="20" x2="32" y2="14" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
+          </svg>
+          <div class="rimgph">Ghormeh Sabzi<br><span style="font-size:0.7rem;opacity:0.65;">replace with your photo</span></div>
+        </div>
+      </div>
+      <div class="rbody">
+        <div class="rname">Ghormeh Sabzi</div>
+        <div class="rorig">Persian · Herb &amp; Kidney Bean Stew</div>
+        <div class="rstats">
+          <div class="sb"><span class="sv">20m</span><span class="sl">Prep</span></div>
+          <div class="sb"><span class="sv">2–3h</span><span class="sl">Cook</span></div>
+          <div class="sb"><span class="sv">4</span><span class="sl">Serves</span></div>
+          <div class="sb"><span class="sv">Med</span><span class="sl">Difficulty</span></div>
+        </div>
+        <span class="rsl">Ingredients</span>
+        <ul class="ing">
+          <li><span class="iq">500 g</span>lamb shoulder, cubed</li>
+          <li><span class="iq">300 g</span>fresh parsley, very finely chopped</li>
+          <li><span class="iq">100 g</span>fresh fenugreek leaves</li>
+          <li><span class="iq">2 cans</span>kidney beans, drained</li>
+          <li><span class="iq">3–4</span>dried Persian limes (limoo amani)</li>
+          <li><span class="iq">1 tsp</span>ground turmeric</li>
+          <li><span class="iq">to taste</span>salt &amp; black pepper</li>
+        </ul>
+        <span class="rsl">Dish Data</span>
+        <div class="ddg">
+          <div class="dd"><span>Origin</span>Iran — national dish</div>
+          <div class="dd"><span>Flavour</span>Sour, herbal, earthy</div>
+          <div class="dd"><span>Key technique</span>Long, slow braise</div>
+          <div class="dd"><span>Serve with</span>Saffron rice (chelow)</div>
+        </div>
+        <div class="dnotes">Pierce the limes before adding or they'll float without releasing flavour. Current ratio: 3 parts parsley, 1 part fenugreek.</div>
+      </div>
+    </div>
+
+    <!-- Sourdough -->
+    <div class="rcard">
+      <div class="rimg">
+        <div style="text-align:center;padding:1.5rem;">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;display:block;margin-left:auto;margin-right:auto;">
+            <path d="M8 36 Q12 16 26 14 Q40 16 44 36 Z" stroke="#1A1714" stroke-width="1" fill="none"/>
+            <ellipse cx="26" cy="36" rx="18" ry="5" stroke="#1A1714" stroke-width="1"/>
+            <path d="M18 24 Q22 20 26 22" stroke="#1A1714" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+            <path d="M26 18 Q30 14 34 16" stroke="#1A1714" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="rimgph">Sourdough Boule<br><span style="font-size:0.7rem;opacity:0.65;">replace with your photo</span></div>
+        </div>
+      </div>
+      <div class="rbody">
+        <div class="rname">Sourdough Boule</div>
+        <div class="rorig">Open-crumb · 75% Hydration</div>
+        <div class="rstats">
+          <div class="sb"><span class="sv">30m</span><span class="sl">Active</span></div>
+          <div class="sb"><span class="sv">18–24h</span><span class="sl">Total</span></div>
+          <div class="sb"><span class="sv">1 loaf</span><span class="sl">Yield</span></div>
+          <div class="sb"><span class="sv">Hard</span><span class="sl">Difficulty</span></div>
+        </div>
+        <span class="rsl">Ingredients</span>
+        <ul class="ing">
+          <li><span class="iq">450 g</span>bread flour (high-protein)</li>
+          <li><span class="iq">50 g</span>whole wheat flour</li>
+          <li><span class="iq">375 g</span>water (75% hydration)</li>
+          <li><span class="iq">100 g</span>active sourdough starter</li>
+          <li><span class="iq">10 g</span>fine sea salt</li>
+          <li><span class="iq">—</span>rice flour, for the banneton</li>
+        </ul>
+        <span class="rsl">Dish Data</span>
+        <div class="ddg">
+          <div class="dd"><span>Hydration</span>75% — high</div>
+          <div class="dd"><span>Starter</span>Fed 8–12h before use</div>
+          <div class="dd"><span>Bake temp</span>500°F, Dutch oven</div>
+          <div class="dd"><span>Bulk ferment</span>4–5h at 78°F</div>
+        </div>
+        <div class="dnotes">4 sets of stretch-and-fold every 30 min during bulk. Open crumb requires tension, not just hydration.</div>
+      </div>
+    </div>
+
+    <!-- Shoyu Ramen -->
+    <div class="rcard">
+      <div class="rimg">
+        <div style="text-align:center;padding:1.5rem;">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;display:block;margin-left:auto;margin-right:auto;">
+            <path d="M8 28 Q26 14 44 28" stroke="#1A1714" stroke-width="1" fill="none"/>
+            <path d="M8 28 Q8 44 26 44 Q44 44 44 28" stroke="#1A1714" stroke-width="1" fill="none"/>
+            <ellipse cx="26" cy="36" rx="12" ry="4" stroke="#1A1714" stroke-width="0.8"/>
+            <path d="M18 20 Q18 12 18 8" stroke="#1A1714" stroke-width="0.8" stroke-linecap="round"/>
+            <path d="M26 17 Q27 9 26 5" stroke="#1A1714" stroke-width="0.8" stroke-linecap="round"/>
+            <path d="M34 20 Q34 12 34 8" stroke="#1A1714" stroke-width="0.8" stroke-linecap="round"/>
+          </svg>
+          <div class="rimgph">Shoyu Ramen<br><span style="font-size:0.7rem;opacity:0.65;">replace with your photo</span></div>
+        </div>
+      </div>
+      <div class="rbody">
+        <div class="rname">Shoyu Ramen</div>
+        <div class="rorig">Tokyo-style · Dashi-based</div>
+        <div class="rstats">
+          <div class="sb"><span class="sv">45m</span><span class="sl">Prep</span></div>
+          <div class="sb"><span class="sv">3h</span><span class="sl">Broth</span></div>
+          <div class="sb"><span class="sv">2</span><span class="sl">Serves</span></div>
+          <div class="sb"><span class="sv">Med</span><span class="sl">Difficulty</span></div>
+        </div>
+        <span class="rsl">Ingredients — Dashi</span>
+        <ul class="ing">
+          <li><span class="iq">1 L</span>cold water</li>
+          <li><span class="iq">20 g</span>kombu (dried kelp)</li>
+          <li><span class="iq">30 g</span>katsuobushi (bonito flakes)</li>
+        </ul>
+        <span class="rsl">Ingredients — Bowl</span>
+        <ul class="ing">
+          <li><span class="iq">200 g</span>fresh ramen noodles</li>
+          <li><span class="iq">2 tbsp</span>shoyu tare (soy sauce base)</li>
+          <li><span class="iq">2</span>soft-boiled eggs, marinated</li>
+          <li><span class="iq">4 slices</span>chashu pork belly</li>
+          <li><span class="iq">—</span>nori, scallions, sesame</li>
+        </ul>
+        <span class="rsl">Dish Data</span>
+        <div class="ddg">
+          <div class="dd"><span>Broth base</span>Dashi + shoyu tare</div>
+          <div class="dd"><span>Umami source</span>Kombu glutamates</div>
+          <div class="dd"><span>Critical rule</span>Never boil the dashi</div>
+          <div class="dd"><span>Noodle type</span>Alkaline wheat (fresh)</div>
+        </div>
+        <div class="dnotes">Above 80°C the kombu releases bitter compounds. Patience is a technique, not a virtue.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="rule">
+  <span class="ey">Techniques I'm Studying</span>
+  <div class="hr2"><span class="hn">Knife Skills</span><span class="hno">Working through Jacques Pépin's basics. Julienne was harder than expected.</span></div>
+  <div class="hr2"><span class="hn">Maillard Reaction</span><span class="hno">Reading about the chemistry of browning. Moisture is the enemy of a good sear.</span></div>
+  <div class="hr2" style="border-bottom:none;"><span class="hn">Fermentation</span><span class="hno">Sourdough starter as first experiment. Want to move into miso and kimchi next.</span></div>
+</section>
+
+<!-- ═══ QUOTES ═══ -->
+<section id="tab-quotes" class="screen">
+  <h1>Quotes</h1>
+  <p>Lines that lodged in me and wouldn't leave.</p>
+
+  <svg class="deco" width="60" height="46" viewBox="0 0 60 46" fill="none" style="opacity:0.08;margin:1.2rem 0 0.5rem;">
+    <path d="M4 32 C4 20 10 10 22 6 L26 12 C18 16 14 22 14 28 L14 42 L4 42 Z" stroke="#1A1714" stroke-width="1" fill="none"/>
+    <path d="M34 32 C34 20 40 10 52 6 L56 12 C48 16 44 22 44 28 L44 42 L34 42 Z" stroke="#1A1714" stroke-width="1" fill="none"/>
+  </svg>
+
+  <ul class="qlist" style="margin-top:1rem;">
+    <li class="qi"><div class="qr"></div><div><div class="qt">"The first principle is that you must not fool yourself — and you are the easiest person to fool."</div><div class="qa">Richard Feynman</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"An expert is a person who has made all the mistakes that can be made in a very narrow field."</div><div class="qa">Niels Bohr</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"We shall not cease from exploration, and the end of all our exploring will be to arrive where we started and know the place for the first time."</div><div class="qa">T.S. Eliot — Little Gidding</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"It's not that I'm so smart, it's just that I stay with problems longer."</div><div class="qa">Albert Einstein</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"You must have chaos within you to give birth to a dancing star."</div><div class="qa">Friedrich Nietzsche — Thus Spoke Zarathustra</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"Be regular and orderly in your life, so that you may be violent and original in your work."</div><div class="qa">Gustave Flaubert</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"Do not seek to follow in the footsteps of the wise. Seek what they sought."</div><div class="qa">Matsuo Bashō</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"A language is not just words. It's a culture, a tradition, a whole history that creates what a community is."</div><div class="qa">Noam Chomsky</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"The measure of intelligence is the ability to change."</div><div class="qa">Albert Einstein</div></div></li>
+    <li class="qi"><div class="qr"></div><div><div class="qt">"Every tool is a weapon if you hold it right."</div><div class="qa">Ani DiFranco</div></div></li>
   </ul>
 </section>
 
-
-<!-- ══════════════════════════════════
-     ENTERTAINMENT
-══════════════════════════════════ -->
-<section id="tab-entertainment" class="screen">
-  <h1>Entertainment</h1>
-
-  <div class="sub-nav" id="ent-nav">
-    <button class="sub-tab active" data-ent="books">Books</button>
-    <button class="sub-tab" data-ent="movies">Movies</button>
-    <button class="sub-tab" data-ent="shows">Shows</button>
-    <button class="sub-tab" data-ent="anime">Anime</button>
-    <button class="sub-tab" data-ent="games">Games</button>
-  </div>
-
-  <!-- BOOKS -->
-  <div class="ent-panel active" id="ent-books">
-    <div class="status-section">
-      <div class="status-label">Currently reading</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder">
-          <div class="card-title">Surely You're Joking, Mr. Feynman</div>
-          <div class="card-sub">Richard Feynman</div>
-        </div>
-        <div class="pic-card-placeholder">
-          <div class="card-title">The Art of Electronics</div>
-          <div class="card-sub">Horowitz &amp; Hill</div>
-        </div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">Read</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Gödel, Escher, Bach</div><div class="card-sub">Douglas Hofstadter</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">The Design of Everyday Things</div><div class="card-sub">Don Norman</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Permanent Record</div><div class="card-sub">Edward Snowden</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Thinking, Fast and Slow</div><div class="card-sub">Daniel Kahneman</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Surely You're Joking (re-read)</div><div class="card-sub">Feynman</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">To read</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">The Code Book</div><div class="card-sub">Simon Singh</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Hackers</div><div class="card-sub">Steven Levy</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">The Dream Machine</div><div class="card-sub">M. Mitchell Waldrop</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Persian Literature Anthology</div><div class="card-sub">Various</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOVIES -->
-  <div class="ent-panel" id="ent-movies">
-    <div class="status-section">
-      <div class="status-label">Currently watching</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Dune: Part Two</div><div class="card-sub">Villeneuve, 2024</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">Watched</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">2001: A Space Odyssey</div><div class="card-sub">Kubrick, 1968</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Arrival</div><div class="card-sub">Villeneuve, 2016</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">The Tree of Life</div><div class="card-sub">Malick, 2011</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Stalker</div><div class="card-sub">Tarkovsky, 1979</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Blade Runner 2049</div><div class="card-sub">Villeneuve, 2017</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">To watch</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Solaris</div><div class="card-sub">Tarkovsky, 1972</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">The Mirror</div><div class="card-sub">Tarkovsky, 1975</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">A Separation</div><div class="card-sub">Farhadi, 2011</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SHOWS -->
-  <div class="ent-panel" id="ent-shows">
-    <div class="status-section">
-      <div class="status-label">Currently watching</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Severance</div><div class="card-sub">Apple TV+, S2</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">Watched</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Chernobyl</div><div class="card-sub">HBO, 2019</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Breaking Bad</div><div class="card-sub">AMC</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Halt and Catch Fire</div><div class="card-sub">AMC</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Mr. Robot</div><div class="card-sub">USA Network</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">To watch</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">The Wire</div><div class="card-sub">HBO</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Shogun</div><div class="card-sub">FX, 2024</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ANIME -->
-  <div class="ent-panel" id="ent-anime">
-    <div class="status-section">
-      <div class="status-label">Currently watching</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Frieren: Beyond Journey's End</div><div class="card-sub">Madhouse, 2023</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">Watched</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Fullmetal Alchemist: Brotherhood</div><div class="card-sub">Bones, 2009</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Steins;Gate</div><div class="card-sub">White Fox, 2011</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Neon Genesis Evangelion</div><div class="card-sub">Gainax, 1995</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Mushishi</div><div class="card-sub">Artland, 2005</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Serial Experiments Lain</div><div class="card-sub">Triangle Staff, 1998</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">To watch</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Vinland Saga</div><div class="card-sub">Wit Studio</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Planetes</div><div class="card-sub">Sunrise, 2003</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Legend of the Galactic Heroes</div><div class="card-sub">Artland</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- GAMES -->
-  <div class="ent-panel" id="ent-games">
-    <div class="status-section">
-      <div class="status-label">Currently playing</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Elden Ring</div><div class="card-sub">FromSoftware, 2022</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">Played</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Hollow Knight</div><div class="card-sub">Team Cherry, 2017</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Outer Wilds</div><div class="card-sub">Mobius, 2019</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Baba Is You</div><div class="card-sub">Arvi Teikari, 2019</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Portal 2</div><div class="card-sub">Valve, 2011</div></div>
-      </div>
-    </div>
-    <div class="status-section">
-      <div class="status-label">To play</div>
-      <div class="card-grid">
-        <div class="pic-card-placeholder"><div class="card-title">Disco Elysium</div><div class="card-sub">ZA/UM, 2019</div></div>
-        <div class="pic-card-placeholder"><div class="card-title">Obra Dinn</div><div class="card-sub">Lucas Pope, 2018</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════
-     FOOD
-══════════════════════════════════ -->
-<section id="tab-food" class="screen">
-  <h1>Food</h1>
-  <p>What I'm cooking, eating, and thinking about in the kitchen.</p>
-
-  <hr class="section-rule">
-  <span class="label">Currently Making</span>
-
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Ghormeh Sabzi</div>
-      <div class="food-note">Persian herb and kidney bean stew. The dried limes are the key — still dialing in the ratio.</div>
-    </div>
-    <span class="food-tag">Persian</span>
-  </div>
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Sourdough (again)</div>
-      <div class="food-note">My starter is finally stable after a month of neglect. Open crumb is the goal.</div>
-    </div>
-    <span class="food-tag">Baking</span>
-  </div>
-
-  <hr class="section-rule">
-  <span class="label">Techniques I'm Studying</span>
-
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Knife Skills</div>
-      <div class="food-note">Working through Jacques Pépin's basics. Julienne was harder than expected.</div>
-    </div>
-    <span class="food-tag">Technique</span>
-  </div>
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Maillard Reaction</div>
-      <div class="food-note">Reading about the chemistry of browning. Moisture is the enemy of a good sear.</div>
-    </div>
-    <span class="food-tag">Science</span>
-  </div>
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Dashi Stock</div>
-      <div class="food-note">The foundational Japanese stock. Kombu + katsuobushi. Trying to understand umami properly.</div>
-    </div>
-    <span class="food-tag">Japanese</span>
-  </div>
-
-  <hr class="section-rule">
-  <span class="label">Restaurants Worth Remembering</span>
-
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Laili, Santa Cruz</div>
-      <div class="food-note">Afghan cuisine done right. The bolani and mantou were remarkable.</div>
-    </div>
-    <span class="food-tag">Afghan</span>
-  </div>
-  <div class="food-entry">
-    <div>
-      <div class="food-name">Ramen Tatsu-Ya, Austin</div>
-      <div class="food-note">The broth is a small argument for patience. Worth the wait.</div>
-    </div>
-    <span class="food-tag">Japanese</span>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════
-     FUTURE
-══════════════════════════════════ -->
+<!-- ═══ FUTURE ═══ -->
 <section id="tab-future" class="screen">
   <h1>Future</h1>
   <p>Things I intend to do, build, or become. Not a bucket list — a working document.</p>
 
-  <hr class="section-rule">
+  <svg class="deco" width="100%" height="20" viewBox="0 0 600 20" preserveAspectRatio="none" fill="none" style="opacity:0.09;margin:0.5rem 0 1rem;">
+    <line x1="0" y1="10" x2="600" y2="10" stroke="#1A1714" stroke-width="0.8"/>
+    <circle cx="0" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/><circle cx="150" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/>
+    <circle cx="300" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/><circle cx="450" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/>
+    <circle cx="600" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/>
+  </svg>
 
-  <div class="future-item">
-    <div class="future-horizon">1–2 Years</div>
-    <div class="future-title">Build a fully functional AM/FM receiver from scratch</div>
-    <div class="future-note">No IC — discrete components only. This means understanding RF design properly, not just wiring a datasheet.</div>
-  </div>
-
-  <div class="future-item">
-    <div class="future-horizon">1–2 Years</div>
-    <div class="future-title">Reach conversational Farsi</div>
-    <div class="future-note">Defined as: watching an Iranian film without subtitles and following 70% of the dialogue.</div>
-  </div>
-
-  <div class="future-item">
-    <div class="future-horizon">2–3 Years</div>
-    <div class="future-title">Publish the EE Study Course as a proper website</div>
-    <div class="future-note">With exercises, worked examples, and a companion YouTube channel. Free, always.</div>
-  </div>
-
-  <div class="future-item">
-    <div class="future-horizon">2–3 Years</div>
-    <div class="future-title">Complete a graduate course in signal processing</div>
-    <div class="future-note">Either through a formal program or through rigorous self-study. Oppenheim's textbook is the target.</div>
-  </div>
-
-  <div class="future-item">
-    <div class="future-horizon">3–5 Years</div>
-    <div class="future-title">Work on hardware that communicates with something in orbit</div>
-    <div class="future-note">Ground station, CubeSat, amateur satellite tracking — I don't care which door opens first.</div>
-  </div>
-
-  <div class="future-item">
-    <div class="future-horizon">3–5 Years</div>
-    <div class="future-title">Live somewhere for a year where English is not the first language</div>
-    <div class="future-note">Ideally Iran, Japan, or Italy. The point is to be a beginner again, in everything.</div>
-  </div>
-
-  <div class="future-item">
-    <div class="future-horizon">Open-ended</div>
-    <div class="future-title">Develop a genuinely original idea</div>
-    <div class="future-note">Something that didn't exist before I thought of it. I'll know it when I find it.</div>
-  </div>
+  <div class="fi"><div class="fh">1–2 Years</div><div><div class="fti">Build a fully functional AM/FM receiver from scratch</div><div class="fn">No IC — discrete components only. Understanding RF design properly, not just wiring a datasheet.</div></div></div>
+  <div class="fi"><div class="fh">1–2 Years</div><div><div class="fti">Reach conversational Farsi</div><div class="fn">Defined as: watching an Iranian film without subtitles and following 70% of the dialogue.</div></div></div>
+  <div class="fi"><div class="fh">1–2 Years</div><div><div class="fti">Learn film photography end-to-end</div><div class="fn">35mm. Develop my own rolls. Understand the chemistry, not just the composition.</div></div></div>
+  <div class="fi"><div class="fh">2–3 Years</div><div><div class="fti">Publish the EE Study Course as a proper website</div><div class="fn">With exercises, worked examples, and a companion YouTube channel. Free, always.</div></div></div>
+  <div class="fi"><div class="fh">2–3 Years</div><div><div class="fti">Complete a graduate course in signal processing</div><div class="fn">Formal program or rigorous self-study. Oppenheim's textbook is the target.</div></div></div>
+  <div class="fi"><div class="fh">3–5 Years</div><div><div class="fti">Work on hardware that communicates with something in orbit</div><div class="fn">Ground station, CubeSat, amateur satellite tracking — I don't care which door opens first.</div></div></div>
+  <div class="fi"><div class="fh">3–5 Years</div><div><div class="fti">Live somewhere for a year where English is not the first language</div><div class="fn">Ideally Iran, Japan, or Italy. The point is to be a beginner again, in everything.</div></div></div>
+  <div class="fi" style="border-bottom:none;"><div class="fh">Open-ended</div><div><div class="fti">Develop a genuinely original idea</div><div class="fn">Something that didn't exist before I thought of it. I'll know it when I find it.</div></div></div>
 </section>
 
-</main>
+<footer>
+  <div class="fname">Shameem Monjazeb</div>
+  <div class="fnote">Updated by hand · College Station, TX</div>
+</footer>
+
+</div>
 
 <script>
-  /* ── TAB SWITCHING ── */
-  const tabs = document.querySelectorAll('.nav-tab');
-  const screens = document.querySelectorAll('.screen');
+/* TAB SWITCHING */
+document.querySelectorAll('.nav-tab').forEach(t=>t.addEventListener('click',()=>{
+  const id=t.dataset.tab;
+  document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active','visible'));
+  const n=document.getElementById('tab-'+id);
+  n.classList.add('active');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>n.classList.add('visible')));
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById('tab-home').classList.add('visible')));
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
+/* ENT SUB-NAV */
+document.querySelectorAll('.sbt').forEach(t=>t.addEventListener('click',()=>{
+  const id=t.dataset.ent;
+  document.querySelectorAll('.sbt').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('.ep').forEach(p=>p.classList.remove('active'));
+  document.getElementById('ent-'+id).classList.add('active');
+}));
 
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+/* COURSE ACCORDION */
+function tc(btn){
+  const c=btn.closest('.crs');
+  c.classList.toggle('open');
+  c.querySelector('.crsb').style.display=c.classList.contains('open')?'block':'none';
+}
+document.querySelectorAll('.crs').forEach(c=>{
+  c.querySelector('.crsb').style.display=c.classList.contains('open')?'block':'none';
+});
 
-      screens.forEach(s => {
-        s.classList.remove('active', 'visible');
-      });
-
-      const next = document.getElementById('tab-' + target);
-      next.classList.add('active');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => next.classList.add('visible'));
-      });
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  });
-
-  /* Fade in initial screen */
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.getElementById('tab-home').classList.add('visible');
-    });
-  });
-
-  /* ── ENTERTAINMENT SUB-NAV ── */
-  const entTabs = document.querySelectorAll('.sub-tab');
-  const entPanels = document.querySelectorAll('.ent-panel');
-
-  entTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.ent;
-
-      entTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      entPanels.forEach(p => p.classList.remove('active'));
-      document.getElementById('ent-' + target).classList.add('active');
-    });
-  });
-
-  /* ── COURSE ACCORDION ── */
-  function toggleCourse(btn) {
-    const card = btn.closest('.course-card');
-    card.classList.toggle('open');
-    const body = card.querySelector('.course-body');
-    body.style.display = card.classList.contains('open') ? 'block' : 'none';
-  }
-
-  /* Init accordion state */
-  document.querySelectorAll('.course-card').forEach(card => {
-    const body = card.querySelector('.course-body');
-    if (!card.classList.contains('open')) {
-      body.style.display = 'none';
-    }
-  });
+/* SOC EXPAND */
+function ts(btn){btn.closest('.soc').classList.toggle('open');}
 </script>
 </body>
 </html>
