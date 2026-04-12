@@ -3,1898 +3,1166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[ Shameem Monjazeb ] — A Mind in Motion</title>
+<title>Your Name — Digital Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-
-/* At around line 1108 includes areas of text in which I can edit. */
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #080808;
-    --bg2: #0f0f0f;
-    --bg3: #141414;
-    --amber: #d4891a;
-    --amber-light: #f0a830;
-    --amber-dim: #8a5a0a;
-    --text: #e8e0d4;
-    --text-muted: #7a7268;
-    --text-dim: #3d3830;
-    --border: #1e1c18;
-    --border-warm: #2a2520;
-    --ff-display: 'Playfair Display', Georgia, serif;
-    --ff-mono: 'IBM Plex Mono', 'Courier New', monospace;
-    --ff-body: 'Crimson Pro', Georgia, serif;
-    --section-pad: 120px 0;
+    --cream: #F5F1E8;
+    --cream-dark: #EDE8DC;
+    --ink: #1C1814;
+    --ink-mid: #3D3630;
+    --ink-light: #7A7268;
+    --ink-faint: #B5AFA5;
+    --gold: #9C7C38;
+    --gold-light: #D4B97A;
+    --serif: 'EB Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --max: 780px;
+    --tab-height: 52px;
   }
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--ff-body);
-    font-size: 19px;
-    line-height: 1.75;
-    overflow-x: hidden;
+  html, body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
   }
 
-  /* ── NOISE TEXTURE ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
+  /* ── HEADER ── */
+  header {
+    padding: 2.5rem var(--max) 0;
+    max-width: calc(var(--max) + 6rem);
+    margin: 0 auto;
+    padding: 3rem 3rem 0;
   }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 48px;
-    border-bottom: 1px solid transparent;
-    transition: all 0.4s ease;
-    background: transparent;
+  .site-name {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
   }
-  nav.scrolled {
-    background: rgba(8,8,8,0.92);
-    border-color: var(--border);
-    backdrop-filter: blur(12px);
-  }
-  .nav-name {
-    font-family: var(--ff-mono);
-    font-size: 13px;
-    letter-spacing: 0.15em;
-    color: var(--amber);
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-  .nav-links a {
-    font-family: var(--ff-mono);
-    font-size: 11px;
+  .site-tagline {
+    font-size: 0.82rem;
+    color: var(--ink-light);
     letter-spacing: 0.12em;
-    color: var(--text-muted);
-    text-decoration: none;
     text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--amber-light); }
-
-  /* ── SECTIONS SHARED ── */
-  section {
-    padding: var(--section-pad);
-    position: relative;
-  }
-  .container {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
-  .container-wide {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 32px;
+    font-weight: 300;
   }
 
-  .section-label {
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 16px;
+  /* ── NAVIGATION ── */
+  nav {
+    max-width: calc(var(--max) + 6rem);
+    margin: 2rem auto 0;
+    padding: 0 3rem;
+    border-bottom: 1px solid var(--cream-dark);
     display: flex;
-    align-items: center;
-    gap: 12px;
+    gap: 0;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  .section-label::after {
-    content: '';
-    display: block;
-    height: 1px;
-    width: 40px;
-    background: var(--amber-dim);
+  nav::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    padding: 0.85rem 1.1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { color: var(--ink); }
+  .nav-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+    font-weight: 500;
   }
 
+  /* ── CONTENT AREA ── */
+  main {
+    max-width: calc(var(--max) + 6rem);
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .screen {
+    display: none;
+    opacity: 0;
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+    transition: opacity 0.35s ease;
+    min-height: 80vh;
+  }
+  .screen.active {
+    display: block;
+  }
+  .screen.visible {
+    opacity: 1;
+  }
+
+  /* ── TYPOGRAPHY ── */
   h1, h2, h3 {
-    font-family: var(--ff-display);
-    font-weight: 400;
+    font-family: var(--serif);
+    font-weight: 500;
+    color: var(--ink);
     line-height: 1.2;
   }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.2rem; font-style: italic; }
+  h2 { font-size: 1.45rem; margin-bottom: 1rem; margin-top: 2.8rem; }
+  h3 { font-size: 1.15rem; margin-bottom: 0.6rem; margin-top: 1.8rem; }
 
-  /* ── LANDING ── */
-  #landing {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 48px;
-    position: relative;
-    overflow: hidden;
+  p { color: var(--ink-mid); margin-bottom: 1.1rem; font-size: 0.96rem; max-width: 62ch; }
+
+  .lead {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 52ch;
   }
-  #landing::before {
-    content: '';
-    position: absolute;
-    top: -200px;
-    right: -200px;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(212,137,26,0.06) 0%, transparent 70%);
-    pointer-events: none;
+
+  .section-rule {
+    border: none;
+    border-top: 1px solid var(--cream-dark);
+    margin: 2.5rem 0;
   }
-  .landing-inner {
-    max-width: 900px;
-  }
-  .landing-eyebrow {
-    font-family: var(--ff-mono);
-    font-size: 12px;
-    letter-spacing: 0.25em;
-    color: var(--amber);
-    text-transform: uppercase;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
-  }
-  .landing-name {
-    font-family: var(--ff-display);
-    font-size: clamp(52px, 8vw, 96px);
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
-  }
-  .landing-name em {
-    font-style: italic;
-    color: var(--amber-light);
-  }
-  .landing-tagline {
-    font-family: var(--ff-body);
-    font-size: clamp(18px, 2.5vw, 24px);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--text-muted);
-    max-width: 560px;
-    line-height: 1.6;
-    margin-bottom: 56px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
-  }
-  .landing-cta {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.8s forwards;
-  }
-  .btn-ghost {
-    font-family: var(--ff-mono);
-    font-size: 12px;
+
+  /* ── LABEL ── */
+  .label {
+    font-size: 0.68rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--amber);
-    border: 1px solid var(--amber-dim);
-    padding: 14px 28px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  .btn-ghost:hover {
-    background: rgba(212,137,26,0.08);
-    border-color: var(--amber);
-  }
-
-  /* animated cursor line */
-  .cursor-blink::after {
-    content: '|';
-    animation: blink 1s step-end infinite;
-    color: var(--amber);
-  }
-  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── QUICK SNAPSHOT ── */
-  #snapshot {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .snapshot-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 0;
-    border: 1px solid var(--border-warm);
-  }
-  .snapshot-cell {
-    padding: 36px 28px;
-    border-right: 1px solid var(--border);
-    position: relative;
-  }
-  .snapshot-cell:last-child { border-right: none; }
-  .snapshot-cell-title {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--amber-dim);
-    margin-bottom: 20px;
-  }
-  .snapshot-cell ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .snapshot-cell li {
-    font-size: 15px;
-    color: var(--text);
-    line-height: 1.4;
-    padding-left: 14px;
-    position: relative;
-  }
-  .snapshot-cell li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--amber-dim);
-    font-size: 12px;
-  }
-  .snapshot-quote {
-    font-family: var(--ff-display);
-    font-style: italic;
-    font-size: 16px;
-    color: var(--text);
-    line-height: 1.5;
-  }
-  .snapshot-project {
-    font-size: 15px;
-    color: var(--amber-light);
-    font-family: var(--ff-mono);
-  }
-  .snapshot-project span {
+    color: var(--ink-faint);
+    font-weight: 500;
     display: block;
-    color: var(--text-muted);
-    font-size: 12px;
-    margin-top: 6px;
-    font-family: var(--ff-body);
+    margin-bottom: 1.2rem;
   }
 
-  /* ── HOW I THINK ── */
-  #think { background: var(--bg); }
-  .philosophy-list {
+  /* ── HOME: CURRENTLY ── */
+  .currently-block {
+    background: var(--cream-dark);
+    border-left: 3px solid var(--gold);
+    padding: 1.4rem 1.6rem;
+    margin: 2rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .currently-block .label { margin-bottom: 0.8rem; color: var(--gold); }
+  .currently-item {
     display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 48px;
+    gap: 0.6rem;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--ink-mid);
   }
-  .philosophy-item {
-    padding: 32px 0;
-    border-bottom: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 24px;
-    align-items: start;
-    transition: all 0.2s;
+  .currently-item .c-type {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    min-width: 80px;
   }
-  .philosophy-item:hover { background: rgba(255,255,255,0.01); }
-  .philosophy-num {
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
-    padding-top: 4px;
-  }
-  .philosophy-text h3 {
-    font-family: var(--ff-display);
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 10px;
-  }
-  .philosophy-text p {
-    font-size: 17px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-  .changed-mind {
-    margin-top: 64px;
-    padding: 40px;
-    border: 1px solid var(--border-warm);
-    background: var(--bg2);
-  }
-  .changed-mind h3 {
-    font-family: var(--ff-mono);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 24px;
-  }
-  .changed-item {
-    display: grid;
-    grid-template-columns: 1fr 32px 1fr;
-    gap: 16px;
+
+  /* ── HOME: HABITS ── */
+  .habit-list { list-style: none; }
+  .habit-list li {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+    font-size: 0.92rem;
+    color: var(--ink-mid);
+    display: flex;
     align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 16px;
+    gap: 0.75rem;
   }
-  .changed-item:last-child { border-bottom: none; }
-  .changed-before { color: var(--text-muted); font-style: italic; }
-  .changed-arrow { color: var(--amber); text-align: center; font-size: 18px; }
-  .changed-after { color: var(--text); }
-
-  /* ── CURRENTLY ── */
-  #currently {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .currently-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    margin-top: 48px;
-  }
-  .currently-card {
-    background: var(--bg2);
-    padding: 32px 28px;
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .currently-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .currently-card:hover { background: var(--bg3); }
-  .currently-card:hover::before { opacity: 1; }
-  .cc-amber::before { background: var(--amber); }
-  .cc-teal::before { background: #1a9e8a; }
-  .cc-blue::before { background: #2a7fd4; }
-  .cc-green::before { background: #4a9e3a; }
-  .cc-rose::before { background: #b84a6a; }
-  .cc-violet::before { background: #7a5ac8; }
-  .currently-icon {
-    font-size: 24px;
-    margin-bottom: 12px;
-    display: block;
-  }
-  .currently-label {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-  }
-  .currently-value {
-    font-family: var(--ff-display);
-    font-size: 20px;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-  .currently-sub {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-family: var(--ff-mono);
-  }
-  .live-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
+  .habit-list li:last-child { border-bottom: none; }
+  .habit-dot {
+    width: 5px; height: 5px;
     border-radius: 50%;
-    background: #3fa;
-    margin-right: 6px;
-    animation: pulse 2s ease infinite;
-  }
-  @keyframes pulse {
-    0%,100%{opacity:1;transform:scale(1);}
-    50%{opacity:0.5;transform:scale(0.8);}
+    background: var(--gold);
+    flex-shrink: 0;
   }
 
-  /* ── MUSICAL BENCH ── */
-  #music { background: var(--bg); }
-  .music-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    margin-top: 48px;
+  /* ── MAXIMS ── */
+  .maxim-list { list-style: none; }
+  .maxim-list li {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink);
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+    line-height: 1.4;
   }
-  .instrument-card {
-    border: 1px solid var(--border-warm);
-    padding: 36px;
-    position: relative;
+  .maxim-list li:last-child { border-bottom: none; }
+
+  /* ── PROJECTS: COURSE MODULE ── */
+  .course-card {
+    border: 1px solid var(--cream-dark);
+    border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 1rem;
   }
-  .instrument-card::after {
-    content: attr(data-instrument);
-    position: absolute;
-    bottom: -20px;
-    right: -10px;
-    font-size: 96px;
-    opacity: 0.04;
-    font-family: var(--ff-display);
-    pointer-events: none;
-    line-height: 1;
-    color: var(--amber-light);
-  }
-  .instrument-name {
-    font-family: var(--ff-display);
-    font-size: 32px;
-    font-weight: 400;
-    margin-bottom: 8px;
-  }
-  .instrument-since {
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    color: var(--amber-dim);
-    letter-spacing: 0.15em;
-    margin-bottom: 24px;
-  }
-  .progress-track {
-    background: var(--border);
-    height: 3px;
-    border-radius: 2px;
-    margin: 20px 0 8px;
-    position: relative;
-  }
-  .progress-fill {
-    height: 100%;
-    border-radius: 2px;
-    background: linear-gradient(to right, var(--amber-dim), var(--amber-light));
-    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
-  }
-  .progress-labels {
+  .course-header {
+    padding: 1rem 1.3rem;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
+    align-items: center;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s;
   }
-  .wip-list {
-    margin-top: 24px;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .wip-list li {
-    font-size: 15px;
-    color: var(--text-muted);
+  .course-header:hover { background: var(--cream-dark); }
+  .course-header-text { font-family: var(--serif); font-size: 1rem; color: var(--ink); font-weight: 500; }
+  .course-header-sub { font-size: 0.78rem; color: var(--ink-faint); margin-top: 0.15rem; }
+  .course-chevron { color: var(--ink-faint); font-size: 0.75rem; transition: transform 0.2s; }
+  .course-card.open .course-chevron { transform: rotate(180deg); }
+  .course-body { display: none; padding: 0 1.3rem 1.2rem; }
+  .course-card.open .course-body { display: block; }
+  .module-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+    font-size: 0.87rem;
+    color: var(--ink-mid);
   }
-  .wip-badge {
-    font-family: var(--ff-mono);
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    background: rgba(212,137,26,0.12);
-    color: var(--amber-dim);
-    padding: 2px 8px;
-    border-radius: 2px;
+  .module-row:last-child { border-bottom: none; }
+  .module-num {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    min-width: 26px;
+  }
+  .module-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-left: auto;
+  }
+  .tag-done { background: #E8F0E0; color: #4A6B35; }
+  .tag-current { background: #FDF0D5; color: #8A6220; }
+  .tag-soon { background: var(--cream-dark); color: var(--ink-faint); }
+
+  .manifesto {
+    border-left: 2px solid var(--gold-light);
+    padding: 1rem 1.4rem;
+    margin: 2rem 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--ink-mid);
+    max-width: 55ch;
   }
 
-  /* ── FUEL ── */
-  #fuel {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+  /* ── WRITING LIST ── */
+  .essay-list { list-style: none; }
+  .essay-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.15s;
   }
-  .meal-list {
+  .essay-row:hover { opacity: 0.7; }
+  .essay-title { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
+  .essay-meta { font-size: 0.78rem; color: var(--ink-faint); white-space: nowrap; }
+
+  /* ── ENTERTAINMENT: SUB-NAV ── */
+  .sub-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--cream-dark);
+    margin-bottom: 2.5rem;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .sub-nav::-webkit-scrollbar { display: none; }
+  .sub-tab {
+    font-family: var(--sans);
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 0.6rem 0.9rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .sub-tab:hover { color: var(--ink-mid); }
+  .sub-tab.active { color: var(--ink); border-bottom-color: var(--gold); }
+
+  .ent-panel { display: none; }
+  .ent-panel.active { display: block; }
+
+  /* ── STATUS SECTION ── */
+  .status-section { margin-bottom: 2.5rem; }
+  .status-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+
+  /* ── PICTURE CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1rem;
+  }
+  .pic-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.2s;
+    background: var(--cream-dark);
+    aspect-ratio: 2/3;
+  }
+  .pic-card:hover { transform: translateY(-3px); }
+  .pic-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85);
+  }
+  .pic-card .card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(28,24,20,0.88) 0%, transparent 100%);
+    padding: 1.5rem 0.6rem 0.6rem;
+  }
+  .pic-card .card-title {
+    font-family: var(--serif);
+    font-size: 0.78rem;
+    color: #F5F1E8;
+    line-height: 1.3;
+    font-weight: 400;
+  }
+  .pic-card .card-sub {
+    font-size: 0.65rem;
+    color: rgba(245,241,232,0.6);
+    margin-top: 0.1rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Placeholder card with just text */
+  .pic-card-placeholder {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    margin-top: 48px;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    background: var(--cream-dark);
+    border: 1px dashed var(--ink-faint);
+    border-radius: 6px;
+    aspect-ratio: 2/3;
+    cursor: default;
+    transition: transform 0.2s;
   }
-  .meal-item {
+  .pic-card-placeholder:hover { transform: translateY(-3px); }
+  .pic-card-placeholder .card-title {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .pic-card-placeholder .card-sub {
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+
+  /* ── FOOD ── */
+  .food-entry {
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--cream-dark);
     display: grid;
-    grid-template-columns: 60px 1fr auto;
-    gap: 24px;
-    align-items: center;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border);
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
   }
-  .meal-num {
-    font-family: var(--ff-mono);
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--text-dim);
-    line-height: 1;
-  }
-  .meal-name {
-    font-family: var(--ff-display);
-    font-size: 20px;
-    margin-bottom: 4px;
-  }
-  .meal-note {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-  .meal-time {
-    font-family: var(--ff-mono);
-    font-size: 12px;
-    color: var(--amber);
+  .food-entry:last-child { border-bottom: none; }
+  .food-name { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); }
+  .food-note { font-size: 0.84rem; color: var(--ink-mid); margin-top: 0.2rem; }
+  .food-tag {
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: var(--cream-dark);
+    color: var(--ink-light);
     white-space: nowrap;
   }
 
-  /* ── ENTERTAINMENT ── */
-  #entertainment { background: var(--bg); }
-  .show-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 48px;
+  /* ── FUTURE ── */
+  .future-item {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--cream-dark);
   }
-  .show-card {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  .show-card:hover { transform: translateY(-4px); }
-  .show-poster {
-    width: 100%;
-    aspect-ratio: 2/3;
-    display: flex;
-    align-items: flex-end;
-    padding: 24px 20px;
-    position: relative;
-  }
-  .show-poster-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-  .show-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 40%, transparent 100%);
-    z-index: 1;
-  }
-  .show-content { position: relative; z-index: 2; }
-  .show-tag {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
+  .future-item:last-child { border-bottom: none; }
+  .future-horizon {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 2px;
-    margin-bottom: 8px;
-    display: inline-block;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
   }
-  .show-title {
-    font-family: var(--ff-display);
-    font-size: 24px;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-  .show-desc {
-    font-size: 13px;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.5;
-  }
-  /* Mr. Robot theme */
-  .theme-robot .show-poster-bg { background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 40%, #2d0808 100%); }
-  .theme-robot .show-tag { background: rgba(180,30,30,0.25); color: #e04040; }
-  /* Breaking Bad theme */
-  .theme-bb .show-poster-bg { background: linear-gradient(135deg, #0a0d05 0%, #1a2808 50%, #0d1a05 100%); }
-  .theme-bb .show-tag { background: rgba(80,160,20,0.25); color: #80c030; }
-  /* Generic dark theme */
-  .theme-dark .show-poster-bg { background: linear-gradient(135deg, #070a14 0%, #0d1428 50%, #07080f 100%); }
-  .theme-dark .show-tag { background: rgba(40,80,180,0.25); color: #6090e0; }
-  .theme-anime .show-poster-bg { background: linear-gradient(135deg, #0a050f 0%, #1a0828 50%, #280538 100%); }
-  .theme-anime .show-tag { background: rgba(140,40,200,0.25); color: #c060e0; }
-  .theme-game .show-poster-bg { background: linear-gradient(135deg, #050a0a 0%, #082828 50%, #050f10 100%); }
-  .theme-game .show-tag { background: rgba(20,150,140,0.25); color: #40c0b8; }
-  .theme-warm .show-poster-bg { background: linear-gradient(135deg, #0f0805 0%, #281a07 50%, #180f03 100%); }
-  .theme-warm .show-tag { background: rgba(200,120,20,0.25); color: #e09030; }
+  .future-title { font-family: var(--serif); font-size: 1.05rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .future-note { font-size: 0.87rem; color: var(--ink-mid); }
 
-  .book-quotes {
-    margin-top: 64px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  .book-quote-card {
-    padding: 32px;
-    border-left: 3px solid var(--amber-dim);
-    background: var(--bg2);
-  }
-  .book-quote-text {
-    font-family: var(--ff-display);
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 16px;
-    color: var(--text);
-  }
-  .book-quote-author {
-    font-family: var(--ff-mono);
-    font-size: 12px;
-    color: var(--amber-dim);
-    letter-spacing: 0.1em;
-  }
-
-  /* ── PROJECTS LAB ── */
-  #projects { background: var(--bg2); border-top: 1px solid var(--border); }
-  .projects-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 48px;
-  }
-  .project-item {
-    padding: 40px 0;
-    border-bottom: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 48px;
-    align-items: start;
-  }
-  .project-left {}
-  .project-name {
-    font-family: var(--ff-display);
-    font-size: 28px;
-    font-weight: 400;
-    margin-bottom: 8px;
-  }
-  .project-status {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border: 1px solid;
-    display: inline-block;
-    margin-bottom: 16px;
-  }
-  .status-wip { color: var(--amber); border-color: var(--amber-dim); }
-  .status-done { color: #4a9e3a; border-color: rgba(74,158,58,0.4); }
-  .status-paused { color: var(--text-muted); border-color: var(--border); }
-  .project-problem {
-    font-size: 15px;
-    color: var(--text-muted);
-    font-style: italic;
-    line-height: 1.6;
-  }
-  .project-right {}
-  .project-section {
-    margin-bottom: 16px;
-  }
-  .project-section-title {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--amber-dim);
-    margin-bottom: 6px;
-  }
-  .project-section-text {
-    font-size: 16px;
-    color: var(--text-muted);
-    line-height: 1.65;
-  }
-
-  /* ── JOURNAL ── */
-  #journal { background: var(--bg); }
-  .journal-entries {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 48px;
-  }
-  .journal-entry {
-    padding: 36px 40px;
-    border: 1px solid var(--border);
-    margin-bottom: 16px;
-    position: relative;
-    background: rgba(14,13,11,0.5);
+  /* ── PROJECT CARD ── */
+  .project-card {
+    border: 1px solid var(--cream-dark);
+    border-radius: 8px;
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
     transition: border-color 0.2s;
   }
-  .journal-entry:hover { border-color: var(--border-warm); }
-  .journal-date {
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    color: var(--amber-dim);
-    letter-spacing: 0.15em;
-    margin-bottom: 16px;
+  .project-card:hover { border-color: var(--ink-faint); }
+  .project-title { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); margin-bottom: 0.3rem; }
+  .project-desc { font-size: 0.87rem; color: var(--ink-mid); max-width: 52ch; }
+  .project-status {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-  }
-  .journal-text {
-    font-family: var(--ff-body);
-    font-size: 18px;
-    line-height: 1.8;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-  .journal-tag {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: var(--ff-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--gold);
+    margin-top: 0.6rem;
   }
 
   /* ── HOBBIES ── */
-  #hobbies {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .hobbies-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 48px;
-  }
-  .hobby-card {
-    padding: 36px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .hobby-card:hover {
-    border-color: var(--border-warm);
-    transform: translateY(-2px);
-  }
-  .hobby-emoji {
-    font-size: 32px;
-    margin-bottom: 16px;
-    display: block;
-  }
-  .hobby-name {
-    font-family: var(--ff-display);
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 8px;
-  }
-  .hobby-desc {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.65;
-  }
-  .hobby-level {
+  .hobby-row {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--cream-dark);
     display: flex;
-    gap: 4px;
-    margin-top: 16px;
+    gap: 1rem;
+    align-items: baseline;
   }
-  .level-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-  .level-dot.filled { background: var(--amber); }
+  .hobby-name { font-family: var(--serif); font-size: 1rem; color: var(--ink); min-width: 140px; }
+  .hobby-note { font-size: 0.87rem; color: var(--ink-mid); }
 
-  /* ── FUTURE PURSUITS ── */
-  #future { background: var(--bg); }
-  .pursuits-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-top: 48px;
-  }
-  .pursuit-card {
-    border: 1px dashed var(--border-warm);
-    padding: 36px;
-    position: relative;
-    transition: all 0.3s ease;
-    overflow: hidden;
-  }
-  .pursuit-card:hover {
-    border-color: var(--amber-dim);
-    background: rgba(212,137,26,0.02);
-  }
-  .pursuit-label {
-    font-family: var(--ff-mono);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 12px;
-  }
-  .pursuit-name {
-    font-family: var(--ff-display);
-    font-size: 28px;
-    font-weight: 400;
-    margin-bottom: 12px;
-  }
-  .pursuit-note {
-    font-size: 15px;
-    color: var(--text-muted);
-    font-style: italic;
-  }
-  .pursuit-corner {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    color: var(--text-dim);
-  }
-
-  /* ── STANDUP ── */
-  #standup {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .bit-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-top: 48px;
-  }
-  .bit-card {
-    padding: 28px 32px;
-    border-left: 2px solid var(--amber-dim);
-    background: var(--bg3);
-  }
-  .bit-tag {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--amber-dim);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .bit-text {
-    font-family: var(--ff-display);
-    font-size: 19px;
-    font-style: italic;
-    line-height: 1.6;
-    color: var(--text);
-  }
-  .bit-punchline {
-    font-size: 15px;
-    color: var(--text-muted);
-    margin-top: 8px;
-  }
-
-  /* ── FUTURE SELF ── */
-  #future-self { background: var(--bg); }
-  .vision-block {
-    margin-top: 56px;
-    padding: 56px 64px;
-    border: 1px solid var(--border-warm);
-    background: linear-gradient(135deg, rgba(212,137,26,0.03) 0%, transparent 60%);
-    position: relative;
-  }
-  .vision-block::before {
-    content: '"';
-    position: absolute;
-    top: -40px;
-    left: 40px;
-    font-family: var(--ff-display);
-    font-size: 160px;
-    color: var(--text-dim);
-    line-height: 1;
-    pointer-events: none;
-  }
-  .vision-text {
-    font-family: var(--ff-display);
-    font-size: clamp(20px, 3vw, 28px);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.7;
-    color: var(--text);
-  }
-  .vision-text strong {
-    font-weight: 400;
-    color: var(--amber-light);
-    font-style: normal;
-  }
-
-  /* ── RABBIT HOLES ── */
-  #rabbitholes {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .hole-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 48px;
-  }
-  .hole-item {
-    padding: 36px 0;
-    border-bottom: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 40px;
-  }
-  .hole-topic {
-    font-family: var(--ff-display);
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--text);
-    line-height: 1.3;
-  }
-  .hole-depth {
-    font-family: var(--ff-mono);
-    font-size: 10px;
-    color: var(--amber-dim);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-top: 6px;
-  }
-  .hole-details {}
-  .hole-spark {
-    font-size: 15px;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    line-height: 1.6;
-  }
-  .hole-questions {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .hole-questions li {
-    font-family: var(--ff-mono);
-    font-size: 13px;
-    color: var(--text-dim);
-    padding-left: 16px;
-    position: relative;
-  }
-  .hole-questions li::before {
-    content: '?';
-    position: absolute;
-    left: 0;
-    color: var(--amber-dim);
-  }
-
-  /* ── FAILURES ── */
-  #failures { background: var(--bg); }
-  .failure-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 48px;
-  }
-  .failure-card {
-    padding: 32px 28px;
-    border: 1px solid var(--border);
-    position: relative;
-  }
-  .failure-card::before {
-    content: 'F';
-    position: absolute;
-    top: -16px;
-    left: 20px;
-    font-family: var(--ff-display);
-    font-size: 80px;
-    color: var(--text-dim);
-    opacity: 0.3;
-    line-height: 1;
-    pointer-events: none;
-  }
-  .failure-title {
-    font-family: var(--ff-display);
-    font-size: 20px;
-    margin-bottom: 12px;
-    margin-top: 8px;
-  }
-  .failure-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin-bottom: 16px;
-  }
-  .lesson-tag {
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    color: var(--amber);
-    padding: 6px 12px;
-    background: rgba(212,137,26,0.08);
-    display: inline-block;
-    line-height: 1.4;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 64px 0;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    background: var(--bg2);
-  }
-  .footer-name {
-    font-family: var(--ff-display);
-    font-size: 48px;
-    font-style: italic;
-    color: var(--text-dim);
-    margin-bottom: 16px;
-  }
-  .footer-sub {
-    font-family: var(--ff-mono);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-  }
-
-  /* ── SCROLL ANIMATIONS ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    #landing { padding: 0 24px; }
-    .snapshot-grid { grid-template-columns: 1fr 1fr; }
-    .snapshot-cell:nth-child(3), .snapshot-cell:nth-child(4) { border-top: 1px solid var(--border); }
-    .currently-grid { grid-template-columns: 1fr 1fr; }
-    .music-split { grid-template-columns: 1fr; }
-    .show-cards { grid-template-columns: 1fr; }
-    .book-quotes { grid-template-columns: 1fr; }
-    .project-item { grid-template-columns: 1fr; gap: 24px; }
-    .hobbies-grid { grid-template-columns: 1fr; }
-    .pursuits-grid { grid-template-columns: 1fr; }
-    .failure-grid { grid-template-columns: 1fr; }
-    .hole-item { grid-template-columns: 1fr; gap: 16px; }
-    .vision-block { padding: 36px 28px; }
-    .philosophy-item { grid-template-columns: 1fr; gap: 8px; }
-    .changed-item { grid-template-columns: 1fr 24px 1fr; font-size: 14px; }
+  @media (max-width: 600px) {
+    header, nav, main { padding-left: 1.2rem; padding-right: 1.2rem; }
+    .card-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.7rem; }
+    .essay-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .hobby-row { flex-direction: column; gap: 0.2rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<header>
+  <div class="site-name">Your Name</div>
+  <div class="site-tagline">Engineer · Student · Builder</div>
+</header>
+
 <nav id="main-nav">
-  <a class="nav-name" href="#landing">[ ShameemMonjazeb ]</a>
-  <ul class="nav-links">
-    <li><a href="#think">Think</a></li>
-    <li><a href="#currently">Currently</a></li>
-    <li><a href="#music">Music</a></li>
-    <li><a href="#entertainment">Entertainment</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#journal">Journal</a></li>
-    <li><a href="#future-self">Future</a></li>
-  </ul>
+  <button class="nav-tab active" data-tab="home">Home</button>
+  <button class="nav-tab" data-tab="projects">Projects</button>
+  <button class="nav-tab" data-tab="writing">Writing</button>
+  <button class="nav-tab" data-tab="hobbies">Hobbies</button>
+  <button class="nav-tab" data-tab="entertainment">Entertainment</button>
+  <button class="nav-tab" data-tab="food">Food</button>
+  <button class="nav-tab" data-tab="future">Future</button>
 </nav>
 
-<!-- ── LANDING ── -->
-<section id="landing">
-  <div class="landing-inner">
-    <div class="landing-eyebrow">Engineering student · Builder · Human</div>
-    <h1 class="landing-name">
-      Shameem <em>Monjazeb</em>
-    </h1>
-    <p class="landing-tagline cursor-blink">
-      A mind in constant motion — building things, breaking things,<br>
-      and trying to make sense of both.
-    </p>
-    <div class="landing-cta">
-      <a href="#snapshot" class="btn-ghost">10 min to know me</a>
-      <a href="#projects" class="btn-ghost">See what I'm building</a>
-      <a href="#journal" class="btn-ghost">Read my thoughts</a>
+<main>
+
+<!-- ══════════════════════════════════
+     HOME
+══════════════════════════════════ -->
+<section id="tab-home" class="screen active">
+  <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
+  <p>Based in College Station. Studying Electrical Engineering. Currently interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
+
+  <hr class="section-rule">
+
+  <!-- CURRENTLY – Global Component -->
+  <span class="label">Currently</span>
+  <div class="currently-block" id="currently-global">
+    <span class="label">This week</span>
+    <div class="currently-item">
+      <span class="c-type">Reading</span>
+      <span>Surely You're Joking, Mr. Feynman</span>
+    </div>
+    <div class="currently-item">
+      <span class="c-type">Building</span>
+      <span>A breadboard AM radio transmitter</span>
+    </div>
+    <div class="currently-item">
+      <span class="c-type">Learning</span>
+      <span>Persian verb conjugation, Chapter 4</span>
+    </div>
+    <div class="currently-item">
+      <span class="c-type">Watching</span>
+      <span>Frieren: Beyond Journey's End</span>
+    </div>
+    <div class="currently-item">
+      <span class="c-type">Listening</span>
+      <span>Rostam, Half-Light II</span>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+  <span class="label">Current Habits</span>
+  <ul class="habit-list">
+    <li><span class="habit-dot"></span>Morning reading — 30 minutes before screens</li>
+    <li><span class="habit-dot"></span>Anki flashcards: Farsi vocabulary and EE formulas</li>
+    <li><span class="habit-dot"></span>Weekly essay or note published here</li>
+    <li><span class="habit-dot"></span>One hardware project per month</li>
+    <li><span class="habit-dot"></span>Run every other day, no headphones</li>
+    <li><span class="habit-dot"></span>Cook at least three times a week from scratch</li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════
+     PROJECTS
+══════════════════════════════════ -->
+<section id="tab-projects" class="screen">
+  <h1>Projects</h1>
+  <p>Things I'm building, studying, or shipping.</p>
+
+  <hr class="section-rule">
+  <h2>Building</h2>
+
+  <div class="project-card">
+    <div class="project-title">AM Radio Transmitter</div>
+    <div class="project-desc">Breadboard-level design exploring amplitude modulation. Goal: transmit audio to an FM/AM receiver 10ft away without an IC.</div>
+    <div class="project-status">In progress</div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-title">Personal Site (this one)</div>
+    <div class="project-desc">A living archive for everything I'm reading, building, thinking about. No CMS — just one HTML file updated by hand.</div>
+    <div class="project-status">Ongoing</div>
+  </div>
+
+  <div class="project-card">
+    <div class="project-title">Signal-Processing Notebook</div>
+    <div class="project-desc">A public reference for the math and intuition behind Fourier transforms, filters, and convolution — written for the student who hates black boxes.</div>
+    <div class="project-status">Drafting</div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- EE COURSE -->
+  <h2>Free Personal Electrical Engineering Study Course</h2>
+
+  <div class="manifesto">
+    Learning an instrument is an academic pursuit equal to any science; I am structuring these courses to reflect that rigor. These are not tutorials — they are curricula, sequenced and self-assessed.
+  </div>
+
+  <div class="course-card open">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Unit I — Foundations of Circuit Theory</div>
+        <div class="course-header-sub">Ohm's Law through Thévenin's Theorem</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">1.1</span>Charge, Current, Voltage, Power<span class="module-tag tag-done">Done</span></div>
+      <div class="module-row"><span class="module-num">1.2</span>Ohm's Law &amp; Kirchhoff's Laws<span class="module-tag tag-done">Done</span></div>
+      <div class="module-row"><span class="module-num">1.3</span>Series and Parallel Circuits<span class="module-tag tag-current">Current</span></div>
+      <div class="module-row"><span class="module-num">1.4</span>Node Voltage &amp; Mesh Current Methods<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">1.5</span>Thévenin &amp; Norton Equivalents<span class="module-tag tag-soon">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="course-card">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Unit II — AC Circuits &amp; Phasors</div>
+        <div class="course-header-sub">Sinusoids, impedance, resonance</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">2.1</span>Sinusoidal Sources &amp; Phasors<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.2</span>Impedance &amp; Admittance<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.3</span>AC Power Analysis<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.4</span>Resonance &amp; Filters<span class="module-tag tag-soon">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="course-card">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Unit III — Semiconductors &amp; Amplifiers</div>
+        <div class="course-header-sub">Diodes, BJTs, MOSFETs, op-amps</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">3.1</span>Diode Physics &amp; Circuits<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">3.2</span>BJT Biasing &amp; Small-Signal Models<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">3.3</span>MOSFET Operation &amp; Amplifiers<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">3.4</span>Operational Amplifiers<span class="module-tag tag-soon">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="course-card">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Unit IV — Digital Logic &amp; Systems</div>
+        <div class="course-header-sub">Boolean algebra through sequential machines</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">4.1</span>Boolean Algebra &amp; Logic Gates<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">4.2</span>Combinational Circuit Design<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">4.3</span>Flip-Flops &amp; Sequential Logic<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">4.4</span>Finite State Machines<span class="module-tag tag-soon">Soon</span></div>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- FARSI COURSE -->
+  <h2>Farsi Course</h2>
+
+  <div class="course-card open">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Phase I — Script &amp; Phonology</div>
+        <div class="course-header-sub">Alphabet, vowels, pronunciation rules</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">1.1</span>The Persian Alphabet (32 letters)<span class="module-tag tag-done">Done</span></div>
+      <div class="module-row"><span class="module-num">1.2</span>Short &amp; Long Vowels<span class="module-tag tag-done">Done</span></div>
+      <div class="module-row"><span class="module-num">1.3</span>Consonant Clusters &amp; Pronunciation<span class="module-tag tag-done">Done</span></div>
+      <div class="module-row"><span class="module-num">1.4</span>Reading Connected Script<span class="module-tag tag-current">Current</span></div>
+    </div>
+  </div>
+
+  <div class="course-card">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Phase II — Core Grammar</div>
+        <div class="course-header-sub">Nouns, pronouns, verb conjugation</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">2.1</span>Nouns, Gender, Plurals<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.2</span>Personal Pronouns &amp; Verb "to be"<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.3</span>Present Tense Conjugation<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.4</span>Past Tense &amp; Negation<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">2.5</span>The Ezafe Construction<span class="module-tag tag-soon">Soon</span></div>
+    </div>
+  </div>
+
+  <div class="course-card">
+    <button class="course-header" onclick="toggleCourse(this)">
+      <div>
+        <div class="course-header-text">Phase III — Vocabulary &amp; Conversation</div>
+        <div class="course-header-sub">500 core words, basic dialogues</div>
+      </div>
+      <span class="course-chevron">▼</span>
+    </button>
+    <div class="course-body">
+      <div class="module-row"><span class="module-num">3.1</span>Numbers, Time, Days<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">3.2</span>Food, Family, Home<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">3.3</span>Greetings &amp; Social Phrases<span class="module-tag tag-soon">Soon</span></div>
+      <div class="module-row"><span class="module-num">3.4</span>First Conversation Simulations<span class="module-tag tag-soon">Soon</span></div>
     </div>
   </div>
 </section>
 
-<!-- ── QUICK SNAPSHOT ── -->
-<section id="snapshot">
-  <div class="container">
-    <div class="section-label">If you only have 10 minutes</div>
-    <div class="snapshot-grid reveal">
-      <div class="snapshot-cell">
-        <div class="snapshot-cell-title">3 Things I Believe</div>
-        <ul>
-          <li>Consistency beats intensity — always</li>
-          <li>Most problems are people problems</li>
-          <li>Discomfort is where growth lives</li>
-        </ul>
+
+<!-- ══════════════════════════════════
+     WRITING
+══════════════════════════════════ -->
+<section id="tab-writing" class="screen">
+  <h1>Writing</h1>
+  <p>Essays, notes, and half-finished thoughts. Updated sporadically.</p>
+
+  <hr class="section-rule">
+
+  <ul class="essay-list">
+    <a class="essay-row" href="#">
+      <div>
+        <div class="essay-title">On Learning Like a Scientist</div>
+        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Why rigor and curiosity are the same thing</div>
       </div>
-      <div class="snapshot-cell">
-        <div class="snapshot-cell-title">3 Deep Interests</div>
-        <ul>
-          <li>How systems think (AI, law, biology)</li>
-          <li>Making music with my hands</li>
-          <li>The intersection of story and truth</li>
-        </ul>
+      <span class="essay-meta">Apr 2025</span>
+    </a>
+    <a class="essay-row" href="#">
+      <div>
+        <div class="essay-title">The Tyranny of the Tutorial</div>
+        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Passive learning vs. deliberate struggle</div>
       </div>
-      <div class="snapshot-cell">
-        <div class="snapshot-cell-title">One Quote</div>
-        <p class="snapshot-quote">"Above all, don't lie to yourself. The man who lies to himself and listens to his own lie comes to a point where he cannot distinguish truth."</p>
-        <br><small style="font-family:var(--ff-mono);font-size:11px;color:var(--text-dim);">— Dostoevsky</small>
+      <span class="essay-meta">Mar 2025</span>
+    </a>
+    <a class="essay-row" href="#">
+      <div>
+        <div class="essay-title">What Feynman Got Wrong About Knowing</div>
+        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">A gentle rebuttal to the name-things heuristic</div>
       </div>
-      <div class="snapshot-cell">
-        <div class="snapshot-cell-title">Current Project</div>
-        <p class="snapshot-project">Late Night Jotter
-          <span>A tool for capturing ideas at 2am without waking up enough to ruin the idea</span>
-        </p>
+      <span class="essay-meta">Feb 2025</span>
+    </a>
+    <a class="essay-row" href="#">
+      <div>
+        <div class="essay-title">Reading Notes: Gödel, Escher, Bach</div>
+        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Marginalia, questions, and what stuck</div>
+      </div>
+      <span class="essay-meta">Jan 2025</span>
+    </a>
+    <a class="essay-row" href="#">
+      <div>
+        <div class="essay-title">Why I Stopped Using Frameworks</div>
+        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">At least for a while</div>
+      </div>
+      <span class="essay-meta">Dec 2024</span>
+    </a>
+    <a class="essay-row" href="#">
+      <div>
+        <div class="essay-title">The Case for Hand-Written Notes in Engineering</div>
+        <div style="font-size:0.82rem;color:var(--ink-faint);margin-top:0.2rem;">Slowness as a feature</div>
+      </div>
+      <span class="essay-meta">Nov 2024</span>
+    </a>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════
+     HOBBIES
+══════════════════════════════════ -->
+<section id="tab-hobbies" class="screen">
+  <h1>Hobbies</h1>
+
+  <hr class="section-rule">
+  <span class="label">Things I practice</span>
+
+  <div class="hobby-row">
+    <span class="hobby-name">Guitar</span>
+    <span class="hobby-note">Fingerstyle. Currently learning Chet Atkins arrangements. 3 years in.</span>
+  </div>
+  <div class="hobby-row">
+    <span class="hobby-name">Running</span>
+    <span class="hobby-note">Slow, consistent, outdoors only. No headphones — it's the only quiet I get.</span>
+  </div>
+  <div class="hobby-row">
+    <span class="hobby-name">Film Photography</span>
+    <span class="hobby-note">35mm Olympus OM-1. Mostly black &amp; white. I develop my own rolls.</span>
+  </div>
+  <div class="hobby-row">
+    <span class="hobby-name">Chess</span>
+    <span class="hobby-note">~1350 Elo on Lichess. Trying to understand endgames properly before learning openings.</span>
+  </div>
+  <div class="hobby-row">
+    <span class="hobby-name">Cooking</span>
+    <span class="hobby-note">Persian, Japanese, Italian. Interested in the science behind technique.</span>
+  </div>
+  <div class="hobby-row">
+    <span class="hobby-name">Amateur Radio</span>
+    <span class="hobby-note">Technician licensed. Saving for an HF rig.</span>
+  </div>
+
+  <hr class="section-rule">
+  <h2>Beliefs &amp; Mental Models</h2>
+  <p>A short list. Updated as I change my mind.</p>
+
+  <ul class="maxim-list">
+    <li>Most confusion is a naming problem in disguise.</li>
+    <li>The person who asks "why" twice understands more than the one who asked once and stopped.</li>
+    <li>Rigor and wonder are not opposites — they are the same impulse, facing different directions.</li>
+    <li>Speed is usually the enemy of understanding; slowness is usually the enemy of doing. Both traps are real.</li>
+    <li>If you can't explain it without the jargon, you don't know it yet.</li>
+    <li>Systems that reward performance tend to destroy the love of the thing being performed.</li>
+    <li>Boredom is information. It means you need harder problems, not easier distractions.</li>
+    <li>Almost every skill compounds. The question is whether you started.</li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════
+     ENTERTAINMENT
+══════════════════════════════════ -->
+<section id="tab-entertainment" class="screen">
+  <h1>Entertainment</h1>
+
+  <div class="sub-nav" id="ent-nav">
+    <button class="sub-tab active" data-ent="books">Books</button>
+    <button class="sub-tab" data-ent="movies">Movies</button>
+    <button class="sub-tab" data-ent="shows">Shows</button>
+    <button class="sub-tab" data-ent="anime">Anime</button>
+    <button class="sub-tab" data-ent="games">Games</button>
+  </div>
+
+  <!-- BOOKS -->
+  <div class="ent-panel active" id="ent-books">
+    <div class="status-section">
+      <div class="status-label">Currently reading</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder">
+          <div class="card-title">Surely You're Joking, Mr. Feynman</div>
+          <div class="card-sub">Richard Feynman</div>
+        </div>
+        <div class="pic-card-placeholder">
+          <div class="card-title">The Art of Electronics</div>
+          <div class="card-sub">Horowitz &amp; Hill</div>
+        </div>
+      </div>
+    </div>
+    <div class="status-section">
+      <div class="status-label">Read</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Gödel, Escher, Bach</div><div class="card-sub">Douglas Hofstadter</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">The Design of Everyday Things</div><div class="card-sub">Don Norman</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Permanent Record</div><div class="card-sub">Edward Snowden</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Thinking, Fast and Slow</div><div class="card-sub">Daniel Kahneman</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Surely You're Joking (re-read)</div><div class="card-sub">Feynman</div></div>
+      </div>
+    </div>
+    <div class="status-section">
+      <div class="status-label">To read</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">The Code Book</div><div class="card-sub">Simon Singh</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Hackers</div><div class="card-sub">Steven Levy</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">The Dream Machine</div><div class="card-sub">M. Mitchell Waldrop</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Persian Literature Anthology</div><div class="card-sub">Various</div></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── HOW I THINK ── -->
-<section id="think">
-  <div class="container">
-    <div class="section-label">How I Think</div>
-    <h2 style="font-size:clamp(36px,5vw,56px); font-weight:400; max-width:600px; line-height:1.2;" class="reveal">
-      The beliefs and<br><em>mental models</em><br>I actually use.
-    </h2>
-
-    <div class="philosophy-list">
-      <div class="philosophy-item reveal">
-        <div class="philosophy-num">01 — belief</div>
-        <div class="philosophy-text">
-          <h3>Compounding is real, and mostly invisible</h3>
-          <p>Whether it's exercise, knowledge, or relationships — the gains from consistency are almost undetectable day-to-day and shocking year-over-year. This is why I distrust intensity bursts and trust slow, ugly, consistent effort.</p>
-        </div>
-      </div>
-      <div class="philosophy-item reveal">
-        <div class="philosophy-num">02 — model</div>
-        <div class="philosophy-text">
-          <h3>First principles over frameworks</h3>
-          <p>Frameworks are other people's first principles, packaged for convenience. I use them as a starting point, but I want to know why the framework works — or doesn't — before I trust it with anything important.</p>
-        </div>
-      </div>
-      <div class="philosophy-item reveal">
-        <div class="philosophy-num">03 — belief</div>
-        <div class="philosophy-text">
-          <h3>Honesty is a skill, not just a value</h3>
-          <p>Most people value honesty but are bad at it — with themselves especially. I try to practice the kind that's uncomfortable: saying what you actually think, not what fits the moment.</p>
-        </div>
-      </div>
-      <div class="philosophy-item reveal">
-        <div class="philosophy-num">04 — obsession</div>
-        <div class="philosophy-text">
-          <h3>Right now: How systems fail</h3>
-          <p>Engineering, law, institutions — everything complex eventually fails. I'm obsessed with the patterns in *how* they fail. Usually it's not the catastrophic thing. It's the quiet accumulation of small, reasonable decisions that each made sense alone.</p>
-        </div>
+  <!-- MOVIES -->
+  <div class="ent-panel" id="ent-movies">
+    <div class="status-section">
+      <div class="status-label">Currently watching</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Dune: Part Two</div><div class="card-sub">Villeneuve, 2024</div></div>
       </div>
     </div>
-
-    <div class="changed-mind reveal">
-      <h3>Things I've Changed My Mind About</h3>
-      <div class="changed-item">
-        <div class="changed-before">Motivation is what you need to start</div>
-        <div class="changed-arrow">→</div>
-        <div class="changed-after">Systems are. Motivation is just the spark.</div>
+    <div class="status-section">
+      <div class="status-label">Watched</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">2001: A Space Odyssey</div><div class="card-sub">Kubrick, 1968</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Arrival</div><div class="card-sub">Villeneuve, 2016</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">The Tree of Life</div><div class="card-sub">Malick, 2011</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Stalker</div><div class="card-sub">Tarkovsky, 1979</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Blade Runner 2049</div><div class="card-sub">Villeneuve, 2017</div></div>
       </div>
-      <div class="changed-item">
-        <div class="changed-before">Working harder is always the answer</div>
-        <div class="changed-arrow">→</div>
-        <div class="changed-after">Working on the right thing beats working harder on the wrong one.</div>
-      </div>
-      <div class="changed-item">
-        <div class="changed-before">Intelligence = success</div>
-        <div class="changed-arrow">→</div>
-        <div class="changed-after">Consistency + curiosity + follow-through > raw IQ, almost every time.</div>
+    </div>
+    <div class="status-section">
+      <div class="status-label">To watch</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Solaris</div><div class="card-sub">Tarkovsky, 1972</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">The Mirror</div><div class="card-sub">Tarkovsky, 1975</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">A Separation</div><div class="card-sub">Farhadi, 2011</div></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── CURRENTLY ── -->
-<section id="currently">
-  <div class="container-wide">
-    <div class="section-label">Currently Dashboard</div>
-    <p style="color:var(--text-muted);font-size:15px;font-family:var(--ff-mono);margin-bottom:8px;">
-      <span class="live-dot"></span>Last updated: April 2025
-    </p>
-    <div class="currently-grid reveal">
-      <div class="currently-card cc-amber">
-        <span class="currently-label">Learning</span>
-        <div class="currently-value">Systems Design</div>
-        <div class="currently-sub">+ distributed systems patterns</div>
+  <!-- SHOWS -->
+  <div class="ent-panel" id="ent-shows">
+    <div class="status-section">
+      <div class="status-label">Currently watching</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Severance</div><div class="card-sub">Apple TV+, S2</div></div>
       </div>
-      <div class="currently-card cc-teal">
-        <span class="currently-label">Building</span>
-        <div class="currently-value">Late Night Jotter</div>
-        <div class="currently-sub">mobile idea capture app</div>
+    </div>
+    <div class="status-section">
+      <div class="status-label">Watched</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Chernobyl</div><div class="card-sub">HBO, 2019</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Breaking Bad</div><div class="card-sub">AMC</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Halt and Catch Fire</div><div class="card-sub">AMC</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Mr. Robot</div><div class="card-sub">USA Network</div></div>
       </div>
-      <div class="currently-card cc-blue">
-        <span class="currently-label">Reading</span>
-        <div class="currently-value">The Brothers Karamazov</div>
-        <div class="currently-sub">Dostoevsky — page 312</div>
-      </div>
-      <div class="currently-card cc-rose">
-        <span class="currently-label">Listening</span>
-        <div class="currently-value">Arctic Monkeys era deep dive</div>
-        <div class="currently-sub">+ learning their guitar parts</div>
-      </div>
-      <div class="currently-card cc-violet">
-        <span class="currently-label">Training</span>
-        <div class="currently-value">Muay Thai</div>
-        <div class="currently-sub">3x/week · working on teep</div>
-      </div>
-      <div class="currently-card cc-green">
-        <span class="currently-label">Climbing</span>
-        <div class="currently-value">V4 → V5 transition</div>
-        <div class="currently-sub">footwork is the bottleneck</div>
+    </div>
+    <div class="status-section">
+      <div class="status-label">To watch</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">The Wire</div><div class="card-sub">HBO</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Shogun</div><div class="card-sub">FX, 2024</div></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── MUSICAL BENCH ── -->
-<section id="music">
-  <div class="container">
-    <div class="section-label">The Musical Bench</div>
-    <h2 style="font-size:clamp(32px,4vw,48px); font-weight:400; margin-bottom:8px;" class="reveal">
-      Learning slowly.<br><em>Enjoying every bit of it.</em>
-    </h2>
-
-    <div class="music-split reveal">
-      <div class="instrument-card" data-instrument="Guitar">
-        <div class="instrument-name">Guitar</div>
-        <div class="instrument-since">Started · 2022</div>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.65;">
-          The thing about guitar is the gap between what you hear in your head and what comes out your fingers. Closing that gap is the whole game. I'm somewhere in the middle.
-        </p>
-        <div class="progress-track">
-          <div class="progress-fill" style="width:45%"></div>
-        </div>
-        <div class="progress-labels">
-          <span>Beginner</span>
-          <span>45%</span>
-          <span>Fluent</span>
-        </div>
-        <p style="font-family:var(--ff-mono);font-size:11px;color:var(--amber-dim);margin-top:20px;margin-bottom:8px;letter-spacing:0.12em;">WORK IN PROGRESS</p>
-        <ul class="wip-list">
-          <li><span class="wip-badge">learning</span> Sultans of Swing solo</li>
-          <li><span class="wip-badge">polishing</span> Fingerpicking patterns</li>
-          <li><span class="wip-badge">next</span> Write an original piece</li>
-        </ul>
+  <!-- ANIME -->
+  <div class="ent-panel" id="ent-anime">
+    <div class="status-section">
+      <div class="status-label">Currently watching</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Frieren: Beyond Journey's End</div><div class="card-sub">Madhouse, 2023</div></div>
       </div>
-
-      <div class="instrument-card" data-instrument="Piano">
-        <div class="instrument-name">Piano</div>
-        <div class="instrument-since">Started · 2023</div>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.65;">
-          Piano teaches you discipline in a way guitar doesn't demand. Both hands doing different things, simultaneously, while reading music. It's humbling in the best way.
-        </p>
-        <div class="progress-track">
-          <div class="progress-fill" style="width:28%"></div>
-        </div>
-        <div class="progress-labels">
-          <span>Beginner</span>
-          <span>28%</span>
-          <span>Fluent</span>
-        </div>
-        <p style="font-family:var(--ff-mono);font-size:11px;color:var(--amber-dim);margin-top:20px;margin-bottom:8px;letter-spacing:0.12em;">WORK IN PROGRESS</p>
-        <ul class="wip-list">
-          <li><span class="wip-badge">learning</span> Moonlight Sonata (1st mvmt)</span></li>
-          <li><span class="wip-badge">practice</span> Chord inversions daily</li>
-          <li><span class="wip-badge">dream</span> Play something I wrote</li>
-        </ul>
+    </div>
+    <div class="status-section">
+      <div class="status-label">Watched</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Fullmetal Alchemist: Brotherhood</div><div class="card-sub">Bones, 2009</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Steins;Gate</div><div class="card-sub">White Fox, 2011</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Neon Genesis Evangelion</div><div class="card-sub">Gainax, 1995</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Mushishi</div><div class="card-sub">Artland, 2005</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Serial Experiments Lain</div><div class="card-sub">Triangle Staff, 1998</div></div>
+      </div>
+    </div>
+    <div class="status-section">
+      <div class="status-label">To watch</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Vinland Saga</div><div class="card-sub">Wit Studio</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Planetes</div><div class="card-sub">Sunrise, 2003</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Legend of the Galactic Heroes</div><div class="card-sub">Artland</div></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── FUEL ── -->
-<section id="fuel">
-  <div class="container">
-    <div class="section-label">The 15-Minute Fuel</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:16px;" class="reveal">
-      Engineering student meals:<br><em>fast, real, and actually good.</em>
-    </h2>
-    <p style="color:var(--text-muted);font-size:16px;max-width:480px;" class="reveal">No recipes with 37 ingredients. These are the meals I actually make when I have a deadline in 3 hours and need to eat something that isn't sadness.</p>
-
-    <div class="meal-list reveal">
-      <div class="meal-item">
-        <div class="meal-num">01</div>
-        <div>
-          <div class="meal-name">Egg fried rice — the "clean out the fridge" edition</div>
-          <div class="meal-note">Soy sauce is the secret, don't skip it. Whatever's in the fridge is the rest.</div>
-        </div>
-        <div class="meal-time">~10 min</div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-num">02</div>
-        <div>
-          <div class="meal-name">Chicken + roasted sweet potato</div>
-          <div class="meal-note">Batch cook both on Sunday. The rest of the week is automated.</div>
-        </div>
-        <div class="meal-time">~15 min</div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-num">03</div>
-        <div>
-          <div class="meal-name">Avocado toast with a fried egg on top</div>
-          <div class="meal-note">Underrated. Most people make it wrong. Don't mush the avocado — slice it.</div>
-        </div>
-        <div class="meal-time">~8 min</div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-num">04</div>
-        <div>
-          <div class="meal-name">Canned tuna + pasta aglio e olio</div>
-          <div class="meal-note">This sounds bad and tastes great. Trust the process.</div>
-        </div>
-        <div class="meal-time">~12 min</div>
-      </div>
-      <div class="meal-item">
-        <div class="meal-num">05</div>
-        <div>
-          <div class="meal-name">Greek yogurt bowl</div>
-          <div class="meal-note">Honey + granola + banana. More filling than it looks. 2 minutes flat.</div>
-        </div>
-        <div class="meal-time">~2 min</div>
+  <!-- GAMES -->
+  <div class="ent-panel" id="ent-games">
+    <div class="status-section">
+      <div class="status-label">Currently playing</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Elden Ring</div><div class="card-sub">FromSoftware, 2022</div></div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ── ENTERTAINMENT ── -->
-<section id="entertainment">
-  <div class="container-wide">
-    <div class="section-label">Entertainment</div>
-    <h2 style="font-size:clamp(32px,4vw,48px);font-weight:400;margin-bottom:48px;" class="reveal">
-      Things I watch, play,<br><em>and disappear into.</em>
-    </h2>
-
-    <div class="show-cards reveal">
-      <div class="show-card">
-        <div class="show-poster theme-robot">
-          <div class="show-poster-bg"></div>
-          <div class="show-overlay"></div>
-          <div class="show-content">
-            <div class="show-tag">TV · Thriller</div>
-            <div class="show-title">Mr. Robot</div>
-            <div class="show-desc">The most honest show about isolation, identity, and the gap between who you are and who you perform. Elliot's internal monologue is too real.</div>
-          </div>
-        </div>
-      </div>
-      <div class="show-card">
-        <div class="show-poster theme-bb">
-          <div class="show-poster-bg"></div>
-          <div class="show-overlay"></div>
-          <div class="show-content">
-            <div class="show-tag">TV · Drama</div>
-            <div class="show-title">Breaking Bad</div>
-            <div class="show-desc">A masterclass in how small compromises stack up until you can't recognize yourself. Walter White is a cautionary tale I think about more than I'd like to admit.</div>
-          </div>
-        </div>
-      </div>
-      <div class="show-card">
-        <div class="show-poster theme-anime">
-          <div class="show-poster-bg"></div>
-          <div class="show-overlay"></div>
-          <div class="show-content">
-            <div class="show-tag">Anime · Action</div>
-            <div class="show-title">Attack on Titan</div>
-            <div class="show-desc">Starts as action, ends as a meditation on freedom, cycles of hatred, and whether good intentions can excuse terrible outcomes. No easy answers.</div>
-          </div>
-        </div>
-      </div>
-      <div class="show-card">
-        <div class="show-poster theme-dark">
-          <div class="show-poster-bg"></div>
-          <div class="show-overlay"></div>
-          <div class="show-content">
-            <div class="show-tag">Movie · Sci-Fi</div>
-            <div class="show-title">Interstellar</div>
-            <div class="show-desc">First watch for the visuals. Second watch to cry. Third watch to actually understand the physics. I've now watched it four times.</div>
-          </div>
-        </div>
-      </div>
-      <div class="show-card">
-        <div class="show-poster theme-game">
-          <div class="show-poster-bg"></div>
-          <div class="show-overlay"></div>
-          <div class="show-content">
-            <div class="show-tag">Game · RPG</div>
-            <div class="show-title">The Witcher 3</div>
-            <div class="show-desc">No game has made me feel like my choices actually mattered as much as this one. The morally grey decisions still bother me.</div>
-          </div>
-        </div>
-      </div>
-      <div class="show-card">
-        <div class="show-poster theme-warm">
-          <div class="show-poster-bg"></div>
-          <div class="show-overlay"></div>
-          <div class="show-content">
-            <div class="show-tag">Book · Fiction</div>
-            <div class="show-title">The Brothers Karamazov</div>
-            <div class="show-desc">Dostoevsky arguing with himself for 900 pages about faith, doubt, free will, and what it means to be a good person. Hasn't been resolved yet. Currently re-reading.</div>
-          </div>
-        </div>
+    <div class="status-section">
+      <div class="status-label">Played</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Hollow Knight</div><div class="card-sub">Team Cherry, 2017</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Outer Wilds</div><div class="card-sub">Mobius, 2019</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Baba Is You</div><div class="card-sub">Arvi Teikari, 2019</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Portal 2</div><div class="card-sub">Valve, 2011</div></div>
       </div>
     </div>
-
-    <div class="book-quotes reveal" style="margin-top:64px;">
-      <div class="book-quote-card">
-        <div class="book-quote-text">"Above all, don't lie to yourself. The man who lies to himself and listens to his own lie comes to a point where he cannot distinguish the truth within him."</div>
-        <div class="book-quote-author">— Dostoevsky, The Brothers Karamazov</div>
-      </div>
-      <div class="book-quote-card">
-        <div class="book-quote-text">"We accept the love we think we deserve."</div>
-        <div class="book-quote-author">— Stephen Chbosky, The Perks of Being a Wallflower</div>
-      </div>
-      <div class="book-quote-card">
-        <div class="book-quote-text">"I am not afraid of storms, for I am learning how to sail my ship."</div>
-        <div class="book-quote-author">— Louisa May Alcott, Little Women</div>
-      </div>
-      <div class="book-quote-card">
-        <div class="book-quote-text">"The obstacle in the path becomes the path. Never forget, within every obstacle is an opportunity to improve our condition."</div>
-        <div class="book-quote-author">— Ryan Holiday, The Obstacle is the Way</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PROJECTS LAB ── -->
-<section id="projects">
-  <div class="container">
-    <div class="section-label">Projects Lab</div>
-    <h2 style="font-size:clamp(32px,4vw,48px);font-weight:400;" class="reveal">
-      What I'm building.<br><em>Honest post-mortems included.</em>
-    </h2>
-
-    <div class="projects-grid">
-      <div class="project-item reveal">
-        <div class="project-left">
-          <div class="project-name">Late Night Jotter</div>
-          <div class="project-status status-wip">In Progress</div>
-          <p class="project-problem">"I keep having ideas at 2am and losing them by morning."</p>
-        </div>
-        <div class="project-right">
-          <div class="project-section">
-            <div class="project-section-title">Why I Made It</div>
-            <div class="project-section-text">Every note app I tried required too much friction. By the time I unlocked my phone, opened the app, chose a notebook, I'd already lost the raw form of the idea. I wanted one tap to thought.</div>
-          </div>
-          <div class="project-section">
-            <div class="project-section-title">What Didn't Work</div>
-            <div class="project-section-text">My first version tried to do too much — organization, tagging, AI summarization. It became exactly the bloated thing I was trying to escape. Had to strip it to the bone.</div>
-          </div>
-          <div class="project-section">
-            <div class="project-section-title">What I Learned</div>
-            <div class="project-section-text">Constraints are features. The moment you add "just one more thing," you've lost the plot. The best tool for a job is usually the dumbest one that does it.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-item reveal">
-        <div class="project-left">
-          <div class="project-name">Wristband Alarm</div>
-          <div class="project-status status-paused">Paused</div>
-          <p class="project-problem">"What if an alarm vibrated you awake instead of screaming at you?"</p>
-        </div>
-        <div class="project-right">
-          <div class="project-section">
-            <div class="project-section-title">The Concept</div>
-            <div class="project-section-text">A vibration-based alarm that wakes only you — not your roommate, not your partner. Hardware meets sleep science. Wanted to use gradual intensity increase instead of sudden vibration.</div>
-          </div>
-          <div class="project-section">
-            <div class="project-section-title">What Stalled It</div>
-            <div class="project-section-text">Battery life. Getting the haptic pattern right without draining a wearable battery in 4 hours was the wall I haven't climbed yet. Also: existing smartwatches do 70% of this already.</div>
-          </div>
-          <div class="project-section">
-            <div class="project-section-title">What I Learned</div>
-            <div class="project-section-text">Always check if the thing already exists before building it. Research the hardware constraints before falling in love with the idea.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-item reveal">
-        <div class="project-left">
-          <div class="project-name">Scale Alarm</div>
-          <div class="project-status status-done">Shipped (V1)</div>
-          <p class="project-problem">"I forget to weigh myself but I'm tracking fitness progress."</p>
-        </div>
-        <div class="project-right">
-          <div class="project-section">
-            <div class="project-section-title">What It Does</div>
-            <div class="project-section-text">Integrates with a smart scale via API and sends a morning reminder only on days you haven't logged. Simple. Solves one thing. Doesn't try to be a full health app.</div>
-          </div>
-          <div class="project-section">
-            <div class="project-section-title">What Didn't Work</div>
-            <div class="project-section-text">The API authentication was a nightmare — the scale manufacturer's docs were outdated by 2 versions. Spent 3x longer than the actual feature development.</div>
-          </div>
-          <div class="project-section">
-            <div class="project-section-title">What I Learned</div>
-            <div class="project-section-text">Third-party APIs are a liability you take on. Document everything from day one. What feels like "just plumbing" often becomes the whole project.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── JOURNAL ── -->
-<section id="journal">
-  <div class="container">
-    <div class="section-label">Late Night Thoughts</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
-      Raw. Unedited.<br><em>Written at weird hours.</em>
-    </h2>
-
-    <div class="journal-entries">
-      <div class="journal-entry reveal">
-        <div class="journal-date">April 3, 2025 · 1:47 AM</div>
-        <div class="journal-tag">on work</div>
-        <div class="journal-text">I keep confusing busy with productive. Filled 8 hours today. Maybe built 40 minutes of actual value. The rest was motion that felt like progress but wasn't. I need to get better at telling the difference before I waste the next 4 years the same way.</div>
-      </div>
-      <div class="journal-entry reveal">
-        <div class="journal-date">March 28, 2025 · 11:22 PM</div>
-        <div class="journal-tag">on learning</div>
-        <div class="journal-text">Guitar practice tonight was different. For maybe 20 minutes, my hands stopped thinking and just played. I'm told that's the goal — when skill becomes muscle memory and disappears as a barrier. Tonight I caught a glimpse of what that feels like. I want more of it.</div>
-      </div>
-      <div class="journal-entry reveal">
-        <div class="journal-date">March 19, 2025 · 2:11 AM</div>
-        <div class="journal-tag">on identity</div>
-        <div class="journal-text">Who I am versus who I'm becoming versus who I'm trying to become — these feel like three different people right now. I don't think that's a bad thing. I just need to make sure the one doing the steering is the one I trust.</div>
-      </div>
-      <div class="journal-entry reveal">
-        <div class="journal-date">March 11, 2025 · 12:58 AM</div>
-        <div class="journal-tag">on failure</div>
-        <div class="journal-text">Failed the first pass on a project today. Honestly, the failure was in the planning, not the execution — I knew the thing wasn't right but built it anyway because stopping felt like quitting. It's not quitting. Sometimes stopping early is just good engineering.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── HOBBIES ── -->
-<section id="hobbies">
-  <div class="container">
-    <div class="section-label">Hobbies</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
-      The things I do<br><em>when no one's watching.</em>
-    </h2>
-    <div class="hobbies-grid reveal">
-      <div class="hobby-card">
-        <span class="hobby-emoji">🎸</span>
-        <div class="hobby-name">Guitar</div>
-        <div class="hobby-desc">Self-taught, slowly. The calluses are finally worth it. Currently obsessed with fingerstyle and getting my right hand cleaner. There's something meditative about playing the same riff for 45 minutes.</div>
-        <div class="hobby-level">
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot"></div>
-          <div class="level-dot"></div>
-        </div>
-      </div>
-      <div class="hobby-card">
-        <span class="hobby-emoji">🎹</span>
-        <div class="hobby-name">Piano</div>
-        <div class="hobby-desc">The younger instrument in my life. Harder to pick up than guitar but probably more important for understanding music theory. My left hand is embarrassingly uncoordinated. Working on it.</div>
-        <div class="hobby-level">
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot"></div>
-          <div class="level-dot"></div>
-          <div class="level-dot"></div>
-        </div>
-      </div>
-      <div class="hobby-card">
-        <span class="hobby-emoji">🥊</span>
-        <div class="hobby-name">Muay Thai</div>
-        <div class="hobby-desc">3x a week. This is the best physical thing I've done for my mental health. Something about learning to take and give hits in a controlled environment resets something in my brain. It's also genuinely hard, which I need.</div>
-        <div class="hobby-level">
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot"></div>
-          <div class="level-dot"></div>
-        </div>
-      </div>
-      <div class="hobby-card">
-        <span class="hobby-emoji">📓</span>
-        <div class="hobby-name">Journaling</div>
-        <div class="hobby-desc">The practice that has changed me the most. Writing is thinking with a record. I'm a different person than I was 2 years ago and I think journaling is a big reason — it forces me to actually have thoughts instead of just reacting.</div>
-        <div class="hobby-level">
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot filled"></div>
-          <div class="level-dot"></div>
-        </div>
+    <div class="status-section">
+      <div class="status-label">To play</div>
+      <div class="card-grid">
+        <div class="pic-card-placeholder"><div class="card-title">Disco Elysium</div><div class="card-sub">ZA/UM, 2019</div></div>
+        <div class="pic-card-placeholder"><div class="card-title">Obra Dinn</div><div class="card-sub">Lucas Pope, 2018</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FUTURE PURSUITS ── -->
-<section id="future">
-  <div class="container">
-    <div class="section-label">Future Pursuits</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:8px;" class="reveal">
-      Coming eventually.<br><em>(On the list.)</em>
-    </h2>
-    <p style="color:var(--text-muted);font-size:16px;margin-bottom:48px;font-style:italic;" class="reveal">Things I think about more than makes sense given I haven't started them yet.</p>
-    <div class="pursuits-grid reveal">
-      <div class="pursuit-card">
-        <div class="pursuit-label">Coming soon</div>
-        <div class="pursuit-name">Photography</div>
-        <div class="pursuit-note">I have a specific visual style in my head — candid, documentary, natural light. I just need to stop talking about it and get a camera.</div>
-        <div class="pursuit-corner">→ soon</div>
-      </div>
-      <div class="pursuit-card">
-        <div class="pursuit-label">Someday</div>
-        <div class="pursuit-name">Game Design</div>
-        <div class="pursuit-note">I play games analytically — always asking why a mechanic works or doesn't. Eventually I want to build one. Story-driven. Morally complicated. Shorter than I'd actually want to make it.</div>
-        <div class="pursuit-corner">→ one day</div>
-      </div>
-      <div class="pursuit-card">
-        <div class="pursuit-label">Terrifying but also</div>
-        <div class="pursuit-name">Stand-Up Comedy</div>
-        <div class="pursuit-note">I have material. I just need to do the thing. Open mics exist. I have no excuse. This is on the list for this year and I keep moving the deadline.</div>
-        <div class="pursuit-corner">→ this year (maybe)</div>
-      </div>
-      <div class="pursuit-card">
-        <div class="pursuit-label">The long game</div>
-        <div class="pursuit-name">Write a Book</div>
-        <div class="pursuit-note">Non-fiction, probably. About systems thinking and why smart people make dumb decisions at scale. Or fiction. I genuinely don't know yet. Both feel right.</div>
-        <div class="pursuit-corner">→ eventually</div>
-      </div>
+
+<!-- ══════════════════════════════════
+     FOOD
+══════════════════════════════════ -->
+<section id="tab-food" class="screen">
+  <h1>Food</h1>
+  <p>What I'm cooking, eating, and thinking about in the kitchen.</p>
+
+  <hr class="section-rule">
+  <span class="label">Currently Making</span>
+
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Ghormeh Sabzi</div>
+      <div class="food-note">Persian herb and kidney bean stew. The dried limes are the key — still dialing in the ratio.</div>
     </div>
+    <span class="food-tag">Persian</span>
+  </div>
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Sourdough (again)</div>
+      <div class="food-note">My starter is finally stable after a month of neglect. Open crumb is the goal.</div>
+    </div>
+    <span class="food-tag">Baking</span>
+  </div>
+
+  <hr class="section-rule">
+  <span class="label">Techniques I'm Studying</span>
+
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Knife Skills</div>
+      <div class="food-note">Working through Jacques Pépin's basics. Julienne was harder than expected.</div>
+    </div>
+    <span class="food-tag">Technique</span>
+  </div>
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Maillard Reaction</div>
+      <div class="food-note">Reading about the chemistry of browning. Moisture is the enemy of a good sear.</div>
+    </div>
+    <span class="food-tag">Science</span>
+  </div>
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Dashi Stock</div>
+      <div class="food-note">The foundational Japanese stock. Kombu + katsuobushi. Trying to understand umami properly.</div>
+    </div>
+    <span class="food-tag">Japanese</span>
+  </div>
+
+  <hr class="section-rule">
+  <span class="label">Restaurants Worth Remembering</span>
+
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Laili, Santa Cruz</div>
+      <div class="food-note">Afghan cuisine done right. The bolani and mantou were remarkable.</div>
+    </div>
+    <span class="food-tag">Afghan</span>
+  </div>
+  <div class="food-entry">
+    <div>
+      <div class="food-name">Ramen Tatsu-Ya, Austin</div>
+      <div class="food-note">The broth is a small argument for patience. Worth the wait.</div>
+    </div>
+    <span class="food-tag">Japanese</span>
   </div>
 </section>
 
-<!-- ── STANDUP ── -->
-<section id="standup">
-  <div class="container">
-    <div class="section-label">Stand-Up in Progress</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:8px;" class="reveal">Bits I'm working on.</h2>
-    <p style="color:var(--text-muted);font-size:15px;font-style:italic;margin-bottom:48px;" class="reveal">These are rough. That's the point.</p>
-    <div class="bit-list reveal">
-      <div class="bit-card">
-        <div class="bit-tag">Observation · Engineering life</div>
-        <div class="bit-text">"Engineering school teaches you to solve problems that have solutions. Real life is mostly problems that don't."</div>
-        <div class="bit-punchline">Still workshopping the punchline. The setup feels right.</div>
-      </div>
-      <div class="bit-card">
-        <div class="bit-tag">Personal · Learning guitar</div>
-        <div class="bit-text">"I've been learning guitar for two years. I've also been telling people I'm learning guitar for two years. The learning is going well. The telling people is going better."</div>
-        <div class="bit-punchline">This one usually lands. Audiences recognize themselves in it.</div>
-      </div>
-      <div class="bit-card">
-        <div class="bit-tag">Observation · Productivity culture</div>
-        <div class="bit-text">"The 5AM club, the cold showers, the journaling, the meditation, the workout — I'm spending so much time optimizing my life that I don't have time to live it."</div>
-        <div class="bit-punchline">Written this after a genuinely packed morning routine. Too real to not be a bit.</div>
-      </div>
-    </div>
+
+<!-- ══════════════════════════════════
+     FUTURE
+══════════════════════════════════ -->
+<section id="tab-future" class="screen">
+  <h1>Future</h1>
+  <p>Things I intend to do, build, or become. Not a bucket list — a working document.</p>
+
+  <hr class="section-rule">
+
+  <div class="future-item">
+    <div class="future-horizon">1–2 Years</div>
+    <div class="future-title">Build a fully functional AM/FM receiver from scratch</div>
+    <div class="future-note">No IC — discrete components only. This means understanding RF design properly, not just wiring a datasheet.</div>
+  </div>
+
+  <div class="future-item">
+    <div class="future-horizon">1–2 Years</div>
+    <div class="future-title">Reach conversational Farsi</div>
+    <div class="future-note">Defined as: watching an Iranian film without subtitles and following 70% of the dialogue.</div>
+  </div>
+
+  <div class="future-item">
+    <div class="future-horizon">2–3 Years</div>
+    <div class="future-title">Publish the EE Study Course as a proper website</div>
+    <div class="future-note">With exercises, worked examples, and a companion YouTube channel. Free, always.</div>
+  </div>
+
+  <div class="future-item">
+    <div class="future-horizon">2–3 Years</div>
+    <div class="future-title">Complete a graduate course in signal processing</div>
+    <div class="future-note">Either through a formal program or through rigorous self-study. Oppenheim's textbook is the target.</div>
+  </div>
+
+  <div class="future-item">
+    <div class="future-horizon">3–5 Years</div>
+    <div class="future-title">Work on hardware that communicates with something in orbit</div>
+    <div class="future-note">Ground station, CubeSat, amateur satellite tracking — I don't care which door opens first.</div>
+  </div>
+
+  <div class="future-item">
+    <div class="future-horizon">3–5 Years</div>
+    <div class="future-title">Live somewhere for a year where English is not the first language</div>
+    <div class="future-note">Ideally Iran, Japan, or Italy. The point is to be a beginner again, in everything.</div>
+  </div>
+
+  <div class="future-item">
+    <div class="future-horizon">Open-ended</div>
+    <div class="future-title">Develop a genuinely original idea</div>
+    <div class="future-note">Something that didn't exist before I thought of it. I'll know it when I find it.</div>
   </div>
 </section>
 
-<!-- ── FUTURE SELF ── -->
-<section id="future-self">
-  <div class="container">
-    <div class="section-label">My Future Self</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:16px;" class="reveal">
-      The life I'm<br><em>building toward.</em>
-    </h2>
-
-    <div class="vision-block reveal">
-      <div class="vision-text">
-        <p>I want to wake up knowing what I'm working on and <strong>why it matters</strong>. Not in a vague "makes the world better" way — in the specific, grounded way of someone who built something real with real people and can point at it.</p>
-        <br>
-        <p>I want a home that has a <strong>good piano in it</strong> and a shelf I'm slightly embarrassed by because of how many books are on it. I want to be someone whose friends call when something big happens — not because I have answers, but because I listen and I'm honest.</p>
-        <br>
-        <p>I want to have <strong>taken the stage</strong> at least once with a microphone and made strangers laugh at something I wrote. I want to have written something — a book, a long essay, anything — that I'm genuinely proud of.</p>
-        <br>
-        <p>I want to be <strong>physically capable</strong> in a way that makes me feel at home in my body. Muay Thai, climbing, whatever it is — I want to be the kind of person who moves well through the world.</p>
-        <br>
-        <p>Mostly I want to look back and know that the decisions I made were <strong>actually mine</strong> — not made from fear, not made to impress someone, not made on autopilot. Made with thought, and owned completely.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── RABBIT HOLES ── -->
-<section id="rabbitholes">
-  <div class="container">
-    <div class="section-label">Rabbit Holes I've Gone Down</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
-      Topics I've explored<br><em>probably too deeply.</em>
-    </h2>
-
-    <div class="hole-list">
-      <div class="hole-item reveal">
-        <div>
-          <div class="hole-topic">AI & Alignment</div>
-          <div class="hole-depth">depth: deep</div>
-        </div>
-        <div class="hole-details">
-          <div class="hole-spark">Started because I wanted to understand what I was building with. Ended up reading alignment papers at 2am and thinking too hard about mesa-optimization. What started as "how does GPT work" became "can we even define what we want AI to do."</div>
-          <ul class="hole-questions">
-            <li>Is alignment actually solvable, or just manageable?</li>
-            <li>What happens to identity when AI can simulate people convincingly?</li>
-            <li>Who decides what "aligned" even means?</li>
-          </ul>
-        </div>
-      </div>
-      <div class="hole-item reveal">
-        <div>
-          <div class="hole-topic">Law & Systems</div>
-          <div class="hole-depth">depth: medium</div>
-        </div>
-        <div class="hole-details">
-          <div class="hole-spark">Started after a contract dispute I witnessed made no intuitive sense until I understood how contract law actually works. Spent weeks reading case law and realizing that the law is less a system of truth and more a system of precedent and argumentation.</div>
-          <ul class="hole-questions">
-            <li>How do you design a legal system that evolves without losing coherence?</li>
-            <li>Is there a "correct" interpretation of a law, or just defended ones?</li>
-          </ul>
-        </div>
-      </div>
-      <div class="hole-item reveal">
-        <div>
-          <div class="hole-topic">Sleep Science</div>
-          <div class="hole-depth">depth: medium</div>
-        </div>
-        <div class="hole-details">
-          <div class="hole-spark">Went in because I was sleeping terribly. Came out with a genuine appreciation for how much cognitive function is just "did you sleep" disguised as talent. The research on sleep debt is either motivating or terrifying depending on the day.</div>
-          <ul class="hole-questions">
-            <li>Can you actually "bank" sleep or is that a myth?</li>
-            <li>What's the minimum effective dose of sleep for different task types?</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FAILURES ── -->
-<section id="failures">
-  <div class="container-wide">
-    <div class="section-label">Failures & Lessons</div>
-    <h2 style="font-size:clamp(28px,4vw,44px);font-weight:400;margin-bottom:48px;" class="reveal">
-      The stuff that didn't work.<br><em>Which is most of it.</em>
-    </h2>
-    <div class="failure-grid reveal">
-      <div class="failure-card">
-        <div class="failure-title">Quit something too early</div>
-        <div class="failure-desc">Left a project 80% done because I'd solved the interesting problem and the rest was just work. Shipped nothing. Learned that the last 20% is actually where all the value is, and it's supposed to feel boring.</div>
-        <div class="lesson-tag">Lesson: Finishing is a skill. Practice it.</div>
-      </div>
-      <div class="failure-card">
-        <div class="failure-title">Over-engineered a simple problem</div>
-        <div class="failure-desc">Built a system with 4 layers of abstraction for something a spreadsheet would have handled. Spent 3 weeks on architecture that served no one. The best solution is usually the one you can explain in a sentence.</div>
-        <div class="lesson-tag">Lesson: Understand the problem before falling in love with the solution.</div>
-      </div>
-      <div class="failure-card">
-        <div class="failure-title">Mistook activity for progress</div>
-        <div class="failure-desc">Had weeks where I was "busy" constantly but measurably moved nothing forward. Scheduled busyness. The illusion of momentum without the reality. Still fight this. Probably always will.</div>
-        <div class="lesson-tag">Lesson: Measure outcomes, not hours.</div>
-      </div>
-      <div class="failure-card">
-        <div class="failure-title">Learned to code alone for too long</div>
-        <div class="failure-desc">Spent months reinventing things that existed, avoiding forums and documentation because asking felt like failure. It doesn't. It's the job. Pride was the tax I paid for slower growth.</div>
-        <div class="lesson-tag">Lesson: Asking well is a skill, not a weakness.</div>
-      </div>
-      <div class="failure-card">
-        <div class="failure-title">Didn't speak up in a group project</div>
-        <div class="failure-desc">Saw the approach was wrong early. Said nothing. Watched it fail in the way I expected. "I told you so" in my own head is worth exactly nothing. Speaking up is the job.</div>
-        <div class="lesson-tag">Lesson: Saying the uncomfortable thing early is kindness.</div>
-      </div>
-      <div class="failure-card">
-        <div class="failure-title">Let consistency slip for "one week"</div>
-        <div class="failure-desc">Missed a week of guitar. Then two. Then six. Habits don't die dramatically — they quietly don't show up one day, and then again, and then you realize you've become someone who used to play guitar.</div>
-        <div class="lesson-tag">Lesson: Never miss twice. The second miss is the habit breaking.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="container" style="text-align:center;">
-    <div class="footer-name">Your Name</div>
-    <div class="footer-sub">A mind in motion · Made with honest intentions</div>
-    <div style="margin-top:32px;font-family:var(--ff-mono);font-size:11px;color:var(--text-dim);">
-      built by me · for me · for whoever finds it useful
-    </div>
-  </div>
-</footer>
+</main>
 
 <script>
-  // Nav scroll
-  const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
+  /* ── TAB SWITCHING ── */
+  const tabs = document.querySelectorAll('.nav-tab');
+  const screens = document.querySelectorAll('.screen');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      screens.forEach(s => {
+        s.classList.remove('active', 'visible');
+      });
+
+      const next = document.getElementById('tab-' + target);
+      next.classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => next.classList.add('visible'));
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   });
 
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-        observer.unobserve(entry.target);
-      }
+  /* Fade in initial screen */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.getElementById('tab-home').classList.add('visible');
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  });
 
-  // Progress bars animate when visible
-  const progressBars = document.querySelectorAll('.progress-fill');
-  const barObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = el.style.width;
-        el.style.width = '0%';
-        setTimeout(() => { el.style.width = target; }, 200);
-        barObserver.unobserve(el);
-      }
+  /* ── ENTERTAINMENT SUB-NAV ── */
+  const entTabs = document.querySelectorAll('.sub-tab');
+  const entPanels = document.querySelectorAll('.ent-panel');
+
+  entTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.ent;
+
+      entTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      entPanels.forEach(p => p.classList.remove('active'));
+      document.getElementById('ent-' + target).classList.add('active');
     });
-  }, { threshold: 0.5 });
-  progressBars.forEach(bar => barObserver.observe(bar));
+  });
 
-  // Easter egg
-  let konamiCode = [];
-  const target = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-  document.addEventListener('keydown', e => {
-    konamiCode.push(e.key);
-    konamiCode = konamiCode.slice(-10);
-    if (konamiCode.join() === target.join()) {
-      const msg = document.createElement('div');
-      msg.style.cssText = 'position:fixed;bottom:40px;left:50%;transform:translateX(-50%);background:#141414;border:1px solid #d4891a;color:#d4891a;font-family:IBM Plex Mono,monospace;font-size:13px;padding:16px 28px;z-index:9999;letter-spacing:0.1em;';
-      msg.textContent = '// you found it. you know what this means.';
-      document.body.appendChild(msg);
-      setTimeout(() => msg.remove(), 4000);
+  /* ── COURSE ACCORDION ── */
+  function toggleCourse(btn) {
+    const card = btn.closest('.course-card');
+    card.classList.toggle('open');
+    const body = card.querySelector('.course-body');
+    body.style.display = card.classList.contains('open') ? 'block' : 'none';
+  }
+
+  /* Init accordion state */
+  document.querySelectorAll('.course-card').forEach(card => {
+    const body = card.querySelector('.course-body');
+    if (!card.classList.contains('open')) {
+      body.style.display = 'none';
     }
   });
 </script>
