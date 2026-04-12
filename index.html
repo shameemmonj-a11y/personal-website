@@ -40,38 +40,23 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);font-weight:500;display:block;margin-bottom:1.1rem;}
 .deco{pointer-events:none;user-select:none;display:block;}
 /* HOME */
-.lead-row{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:0.5rem;}
-.tw-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;margin-top:0.5rem;}
-@media(max-width:680px){.tw-grid{grid-template-columns:1fr;}}
-@media(max-width:860px) and (min-width:681px){.tw-grid{grid-template-columns:1fr 1fr;}}
-.wc{border:1px solid var(--cd);border-radius:5px;padding:1.2rem 1.4rem;position:relative;}
-.wc.pri{background:var(--cm);border-color:var(--ink);}
-.wc.pri::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--ink);border-radius:5px 0 0 5px;}
-.wcl{font-size:0.61rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--if);margin-bottom:0.8rem;display:block;}
-.wc.pri .wcl{color:var(--im);}
-.we{font-family:var(--serif);font-size:0.95rem;color:var(--im);padding:0.4rem 0;border-bottom:1px solid var(--cd);display:flex;align-items:baseline;gap:0.6rem;}
-.we:last-child{border-bottom:none;}
-.wd{width:4px;height:4px;border-radius:50%;background:var(--if);flex-shrink:0;margin-top:0.55rem;}
-.wc.pri .wd{background:var(--im);}
-.wct{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--if);min-width:72px;flex-shrink:0;}
-.hlist{list-style:none;}
-.hlist li{padding:0.65rem 0;border-bottom:1px solid var(--cd);font-size:0.9rem;color:var(--im);display:flex;align-items:center;gap:0.75rem;}
-.hlist li:last-child{border-bottom:none;}
-.hdot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-/* LEARNING */
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:1.5rem;}
-@media(max-width:700px){.pillars{grid-template-columns:1fr;}}
-.pillar{border-top:2px solid var(--ink);padding-top:1.2rem;}
-.pl{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);margin-bottom:0.9rem;display:block;}
-.pillar h3{font-size:1.18rem;margin-top:0;}
-.pillar p{font-size:0.85rem;color:var(--im);max-width:100%;}
-.pbar{display:flex;gap:3px;margin-top:1rem;}
-.pip{height:3px;flex:1;border-radius:2px;background:var(--cd);}
-.pip.on{background:var(--ink);}
-.plabel{font-size:0.68rem;color:var(--if);margin-top:0.4rem;}
-.cdg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:0.5rem;}
-.cdc{border:1px solid var(--cd);border-radius:5px;padding:1rem 1.2rem;}
-.cde{font-family:var(--serif);font-size:0.95rem;color:var(--ink);}
+.habit-list { list-style: none; }
+.habit-list li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--cream-dark);
+  font-size: 0.92rem;
+  color: var(--ink-mid);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.habit-list li:last-child { border-bottom: none; }
+.habit-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
 /* PHILOSOPHY */
 .mlist{list-style:none;}
 .mi{display:flex;gap:1.5rem;align-items:baseline;padding:1.2rem 0;border-bottom:1px solid var(--cd);}
@@ -172,16 +157,7 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .qr{background:var(--ink);border-radius:2px;margin-top:0.5rem;}
 .qt{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--ink);line-height:1.5;margin-bottom:0.55rem;}
 .qa{font-size:0.76rem;color:var(--if);letter-spacing:0.07em;}
-/* FUTURE */
-.fi{display:grid;grid-template-columns:82px 1fr;gap:1.5rem;padding:1.15rem 0;border-bottom:1px solid var(--cd);align-items:start;}
-@media(max-width:500px){.fi{grid-template-columns:1fr;gap:0.3rem;}}
-.fh{font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-top:0.25rem;line-height:1.4;}
-.fti{font-family:var(--serif);font-size:1.05rem;color:var(--ink);margin-bottom:0.25rem;}
-.fn{font-size:0.85rem;color:var(--im);}
-footer{border-top:1px solid var(--cd);padding:1.8rem 0 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-.fname{font-family:var(--serif);font-style:italic;font-size:0.88rem;color:var(--if);}
-.fnote{font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);}
-@media(max-width:580px){.shell{padding:0 1.2rem;}.er{grid-template-columns:1fr;gap:0.1rem;}.cg{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:0.65rem;}}
+
 </style>
 </head>
 <body>
@@ -214,7 +190,6 @@ footer{border-top:1px solid var(--cd);padding:1.8rem 0 3rem;display:flex;justify
   <button class="nav-tab" data-tab="entertainment">Entertainment</button>
   <button class="nav-tab" data-tab="food">Food</button>
   <button class="nav-tab" data-tab="quotes">Quotes</button>
-  <button class="nav-tab" data-tab="future">Future</button>
 </nav>
 
 <!-- ═══ HOME ═══ -->
@@ -633,34 +608,6 @@ footer{border-top:1px solid var(--cd);padding:1.8rem 0 3rem;display:flex;justify
   </ul>
 </section>
 
-<!-- ═══ FUTURE ═══ -->
-<section id="tab-future" class="screen">
-  <h1>Future</h1>
-  <p>Things I intend to do, build, or become. Not a bucket list — a working document.</p>
-
-  <svg class="deco" width="100%" height="20" viewBox="0 0 600 20" preserveAspectRatio="none" fill="none" style="opacity:0.09;margin:0.5rem 0 1rem;">
-    <line x1="0" y1="10" x2="600" y2="10" stroke="#1A1714" stroke-width="0.8"/>
-    <circle cx="0" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/><circle cx="150" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/>
-    <circle cx="300" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/><circle cx="450" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/>
-    <circle cx="600" cy="10" r="3" stroke="#1A1714" stroke-width="0.8"/>
-  </svg>
-
-  <div class="fi"><div class="fh">1–2 Years</div><div><div class="fti">Build a fully functional AM/FM receiver from scratch</div><div class="fn">No IC — discrete components only. Understanding RF design properly, not just wiring a datasheet.</div></div></div>
-  <div class="fi"><div class="fh">1–2 Years</div><div><div class="fti">Reach conversational Farsi</div><div class="fn">Defined as: watching an Iranian film without subtitles and following 70% of the dialogue.</div></div></div>
-  <div class="fi"><div class="fh">1–2 Years</div><div><div class="fti">Learn film photography end-to-end</div><div class="fn">35mm. Develop my own rolls. Understand the chemistry, not just the composition.</div></div></div>
-  <div class="fi"><div class="fh">2–3 Years</div><div><div class="fti">Publish the EE Study Course as a proper website</div><div class="fn">With exercises, worked examples, and a companion YouTube channel. Free, always.</div></div></div>
-  <div class="fi"><div class="fh">2–3 Years</div><div><div class="fti">Complete a graduate course in signal processing</div><div class="fn">Formal program or rigorous self-study. Oppenheim's textbook is the target.</div></div></div>
-  <div class="fi"><div class="fh">3–5 Years</div><div><div class="fti">Work on hardware that communicates with something in orbit</div><div class="fn">Ground station, CubeSat, amateur satellite tracking — I don't care which door opens first.</div></div></div>
-  <div class="fi"><div class="fh">3–5 Years</div><div><div class="fti">Live somewhere for a year where English is not the first language</div><div class="fn">Ideally Iran, Japan, or Italy. The point is to be a beginner again, in everything.</div></div></div>
-  <div class="fi" style="border-bottom:none;"><div class="fh">Open-ended</div><div><div class="fti">Develop a genuinely original idea</div><div class="fn">Something that didn't exist before I thought of it. I'll know it when I find it.</div></div></div>
-</section>
-
-<footer>
-  <div class="fname">Shameem Monjazeb</div>
-  <div class="fnote">Updated by hand · College Station, TX</div>
-</footer>
-
-</div>
 
 <script>
 /* TAB SWITCHING */
