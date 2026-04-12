@@ -207,7 +207,6 @@ footer{border-top:1px solid var(--cd);padding:1.8rem 0 3rem;display:flex;justify
 <!-- NAV -->
 <nav id="main-nav">
   <button class="nav-tab active" data-tab="home">Home</button>
-  <button class="nav-tab" data-tab="learning">Learning</button>
   <button class="nav-tab" data-tab="philosophy">Philosophy</button>
   <button class="nav-tab" data-tab="projects">Projects</button>
   <button class="nav-tab" data-tab="writing">Writing</button>
@@ -220,100 +219,70 @@ footer{border-top:1px solid var(--cd);padding:1.8rem 0 3rem;display:flex;justify
 
 <!-- ═══ HOME ═══ -->
 <section id="tab-home" class="screen active">
-  <div class="lead-row">
-    <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
-    <svg class="deco" width="46" height="78" viewBox="0 0 46 78" fill="none" style="opacity:0.15;flex-shrink:0;margin-top:0.5rem;">
-      <line x1="23" y1="74" x2="23" y2="4" stroke="#1A1714" stroke-width="1" stroke-linecap="round"/>
-      <path d="M23 18 C14 12 3 14 3 14 C3 14 8 28 23 31" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-      <path d="M23 18 C32 12 43 14 43 14 C43 14 38 28 23 31" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-      <path d="M23 40 C15 34 5 36 5 36 C5 36 10 50 23 53" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-      <path d="M23 40 C31 34 41 36 41 36 C41 36 36 50 23 53" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-    </svg>
-  </div>
-  <p style="max-width:60ch;">Based in College Station. Studying Electrical Engineering. Interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
 
-  <hr class="rule">
-  <span class="ey">This Week</span>
-  <div class="tw-grid">
-    <div class="wc pri">
-      <span class="wcl">Currently Rewiring ↯</span>
-      <div class="we"><span class="wd"></span>Dopamine Circuitry</div>
-      <p style="font-size:0.8rem;color:var(--im);margin-top:0.8rem;margin-bottom:0;max-width:100%;line-height:1.6;">Restructuring stimulus-reward loops. Less passive consumption, more deliberate engagement.</p>
+  <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
+
+  <p>Based in College Station. Studying Electrical Engineering. Currently interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
+
+  <hr class="section-rule">
+
+  <!-- CURRENTLY – Global Component -->
+  <span class="label">Currently</span>
+
+  <div class="currently-block" id="currently-global">
+
+    <span class="label">This week</span>
+
+    <div class="currently-item">
+      <span class="c-type">Rewiring</span>
+      <span>Dopamine control — less passive consumption, more deliberate focus</span>
     </div>
-    <div class="wc">
-      <span class="wcl">Currently</span>
-      <div class="we" style="font-size:0.88rem;"><span class="wct">Reading</span>The Double — Dostoevsky</div>
-      <div class="we" style="font-size:0.88rem;"><span class="wct">Building</span>Late Night Jotter</div>
-      <div class="we" style="font-size:0.88rem;"><span class="wct">Learning</span>Farsi · Guitar · Muay Thai</div>
-      <div class="we" style="font-size:0.88rem;"><span class="wct">Watching</span>—</div>
+
+    <div class="currently-item">
+      <span class="c-type">Reading</span>
+      <span>The Double — Dostoevsky</span>
     </div>
-    <div class="wc">
-      <span class="wcl">Current Fitness</span>
-      <div class="we"><span class="wd"></span>Weight lift — 3× week</div>
-      <div class="we"><span class="wd"></span>Run 1 mile — daily</div>
-      <div class="we"><span class="wd"></span>Stretch — 3× week</div>
+
+    <div class="currently-item">
+      <span class="c-type">Building</span>
+      <span>Late Night Jotter</span>
     </div>
+
+    <div class="currently-item">
+      <span class="c-type">Learning</span>
+      <span>Farsi (grammar), Guitar (fingerstyle), EE (AC circuits)</span>
+    </div>
+
+    <div class="currently-item">
+      <span class="c-type">Fitness</span>
+      <span>Lifting 3×/week, running daily, stretching 3×/week</span>
+    </div>
+
+    <div class="currently-item">
+      <span class="c-type">Watching</span>
+      <span>N/A</span>
+    </div>
+
+    <div class="currently-item">
+      <span class="c-type">Listening</span>
+      <span>N/A</span>
+    </div>
+
   </div>
 
-  <hr class="rule">
-  <span class="ey">Current Habits</span>
-  <ul class="hlist">
-    <li><span class="hdot"></span>Morning reading — 30 minutes before screens</li>
-    <li><span class="hdot"></span>Anki flashcards: Farsi vocabulary and EE formulas</li>
-    <li><span class="hdot"></span>Weekly essay or note published here</li>
-    <li><span class="hdot"></span>One hardware project per month</li>
-    <li><span class="hdot"></span>Run every day, no headphones</li>
-    <li><span class="hdot"></span>Cook at least three times a week from scratch</li>
+  <hr class="section-rule">
+
+  <span class="label">Current Habits</span>
+
+  <ul class="habit-list">
+    <li><span class="habit-dot"></span>Morning reading — 30 minutes before screens</li>
+    <li><span class="habit-dot"></span>Anki flashcards: Farsi vocabulary and EE formulas</li>
+    <li><span class="habit-dot"></span>Weekly essay or note published here</li>
+    <li><span class="habit-dot"></span>One hardware project per month</li>
+    <li><span class="habit-dot"></span>Run every day, no headphones</li>
+    <li><span class="habit-dot"></span>Cook at least three times a week from scratch</li>
   </ul>
-  <div style="text-align:center;margin:3rem 0 0;color:var(--if);font-family:var(--serif);font-size:1rem;letter-spacing:0.3em;">· · ·</div>
-</section>
 
-<!-- ═══ LEARNING ═══ -->
-<section id="tab-learning" class="screen">
-  <h1>Learning</h1>
-  <p>Three pillars, each treated as a curriculum — not a pastime.</p>
-  <div class="mfsto" style="margin-top:0.5rem;">Instrumental mastery and academic rigor are one and the same. I am building curricula that treat both as equal sciences.</div>
-
-  <svg class="deco" width="100%" height="16" viewBox="0 0 600 16" preserveAspectRatio="none" fill="none" style="opacity:0.09;margin-bottom:0.5rem;">
-    <line x1="0" y1="8" x2="600" y2="8" stroke="#1A1714" stroke-width="0.8"/>
-    <line x1="100" y1="1" x2="100" y2="15" stroke="#1A1714" stroke-width="0.8"/>
-    <line x1="200" y1="1" x2="200" y2="15" stroke="#1A1714" stroke-width="0.8"/>
-    <line x1="300" y1="1" x2="300" y2="15" stroke="#1A1714" stroke-width="0.8"/>
-    <line x1="400" y1="1" x2="400" y2="15" stroke="#1A1714" stroke-width="0.8"/>
-    <line x1="500" y1="1" x2="500" y2="15" stroke="#1A1714" stroke-width="0.8"/>
-  </svg>
-
-  <div class="pillars">
-    <div class="pillar">
-      <span class="pl">Pillar I — Language</span>
-      <h3>Farsi (Persian)</h3>
-      <p>Script mastered. Now in verb conjugation and connected reading. Target: conversational in 18 months.</p>
-      <div class="pbar"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
-      <div class="plabel">Phase 2 of 8 — Core Grammar</div>
-    </div>
-    <div class="pillar">
-      <span class="pl">Pillar II — Instrument</span>
-      <h3>Guitar (Fingerstyle)</h3>
-      <p>Chet Atkins arrangements. 3 years in. Working on thumb independence and tone control.</p>
-      <div class="pbar"><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
-      <div class="plabel">Intermediate → Intermediate-Advanced</div>
-    </div>
-    <div class="pillar">
-      <span class="pl">Pillar III — Academic</span>
-      <h3>Electrical Engineering</h3>
-      <p>Self-structured curriculum. Currently AC circuits and phasor analysis. Building alongside every unit.</p>
-      <div class="pbar"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div>
-      <div class="plabel">Unit 2 of 8 — AC Circuits</div>
-    </div>
-  </div>
-
-  <hr class="rule">
-  <span class="ey">This week in each pillar</span>
-  <div class="cdg">
-    <div class="cdc"><span class="pl" style="margin-bottom:0.35rem;">Language</span><div class="cde">Ezafe construction &amp; verb stem drills</div></div>
-    <div class="cdc"><span class="pl" style="margin-bottom:0.35rem;">Instrument</span><div class="cde">Mr. Sandman — Chet Atkins arrangement</div></div>
-    <div class="cdc"><span class="pl" style="margin-bottom:0.35rem;">Academic</span><div class="cde">Phasor analysis &amp; AC power calculations</div></div>
-  </div>
 </section>
 
 <!-- ═══ PHILOSOPHY ═══ -->
