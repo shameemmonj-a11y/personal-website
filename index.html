@@ -10,237 +10,212 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --cream:#F5F1E8;--cm:#EDE8DC;--cd:#E2DBCF;
-  --ink:#1A1714;--im:#3A3530;--il:#7A7268;--if:#B2AB9F;
-  --gold:#8A6B2A;--gl:#C9A85C;
+  --cream:#F5F1E8;
+  --cream-dark:#EDE8DC;
+  --cd:#E2DBCF;
+  --ink:#1A1714;
+  --ink-mid:#3A3530;
+  --ink-light:#7A7268;
+  --ink-faint:#B2AB9F;
+  --gold:#8A6B2A;
+  --gold-light:#C9A85C;
   --serif:'EB Garamond',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
   --w:820px;
 }
 html,body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.75;min-height:100vh;-webkit-font-smoothing:antialiased;}
 .shell{max-width:calc(var(--w) + 5rem);margin:0 auto;padding:0 2.8rem;}
+
+/* ── HEADER ── */
 header{padding-top:3rem;padding-bottom:1.8rem;border-bottom:1px solid var(--cd);display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;}
 .site-name{font-family:var(--serif);font-size:clamp(1.7rem,4vw,2.4rem);font-weight:500;letter-spacing:-0.015em;color:var(--ink);line-height:1;}
-.site-tagline{font-size:0.72rem;color:var(--if);letter-spacing:0.15em;text-transform:uppercase;font-weight:300;margin-top:0.4rem;}
+.site-tagline{font-size:0.72rem;color:var(--ink-faint);letter-spacing:0.15em;text-transform:uppercase;font-weight:300;margin-top:0.4rem;}
 .hd{flex-shrink:0;opacity:0.22;}
+
+/* ── NAV ── */
 nav{display:flex;gap:0;border-bottom:1px solid var(--cd);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
 nav::-webkit-scrollbar{display:none;}
-.nav-tab{font-family:var(--sans);font-size:0.7rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--if);background:none;border:none;border-bottom:2px solid transparent;padding:0.85rem 1rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
-.nav-tab:hover{color:var(--im);}
+.nav-tab{font-family:var(--sans);font-size:0.7rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);background:none;border:none;border-bottom:2px solid transparent;padding:0.85rem 1rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+.nav-tab:hover{color:var(--ink-mid);}
 .nav-tab.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:500;}
+
+/* ── SCREENS ── */
 .screen{display:none;opacity:0;padding:3.5rem 0 6rem;min-height:82vh;transition:opacity .38s ease;}
 .screen.active{display:block;}
 .screen.visible{opacity:1;}
-h1{font-family:var(--serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:500;font-style:italic;color:var(--ink);line-height:1.1;margin-bottom:0.6rem;}
+
+/* ── TYPOGRAPHY ── */
+h1{font-family:var(--serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:500;font-style:italic;color:var(--ink);line-height:1.1;margin-bottom:1.6rem;}
 h2{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--ink);margin-bottom:0.8rem;margin-top:2.8rem;}
 h3{font-family:var(--serif);font-size:1.1rem;font-weight:500;color:var(--ink);margin-bottom:0.4rem;margin-top:1.6rem;}
-p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
+p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .lead{font-family:var(--serif);font-size:clamp(1.1rem,2.5vw,1.38rem);line-height:1.55;color:var(--ink);max-width:50ch;margin-bottom:2rem;}
 .rule{border:none;border-top:1px solid var(--cd);margin:2.6rem 0;}
-.ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--if);font-weight:500;display:block;margin-bottom:1.1rem;}
+.ey{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;display:block;margin-bottom:1.4rem;}
 .deco{pointer-events:none;user-select:none;display:block;}
-/* HOME */
-  /* ── HOME: CURRENTLY ── */
-  .currently-block {
-    background: var(--cream-dark);
-    border-left: 3px solid var(--gold);
-    padding: 1.4rem 1.6rem;
-    margin: 2rem 0;
-    border-radius: 0 6px 6px 0;
-  }
-  .currently-block .label { margin-bottom: 0.8rem; color: var(--gold); }
-  .currently-item {
-    display: flex;
-    gap: 0.6rem;
-    align-items: baseline;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--ink-mid);
-  }
-  .currently-item .c-type {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-    min-width: 80px;
-  }
 
-  /* ── HOME: HABITS ── */
-  .habit-list { list-style: none; }
-  .habit-list li {
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    font-size: 0.92rem;
-    color: var(--ink-mid);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .habit-list li:last-child { border-bottom: none; }
-  .habit-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
+/* ── HOME: CURRENTLY BLOCK ── */
+.currently-block{
+  background:var(--cream-dark);
+  border-left:3px solid var(--gold);
+  padding:1.4rem 1.6rem;
+  margin:0 0 2rem;
+  border-radius:0 6px 6px 0;
+}
+.currently-block .block-label{
+  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--gold);font-weight:500;display:block;margin-bottom:1rem;
+}
+.currently-item{
+  display:flex;gap:0.7rem;align-items:baseline;
+  margin-bottom:0.55rem;font-size:0.91rem;color:var(--ink-mid);
+}
+.currently-item:last-child{margin-bottom:0;}
+.c-type{
+  font-family:var(--serif);font-style:italic;font-size:0.87rem;
+  color:var(--ink-faint);min-width:82px;flex-shrink:0;
+}
 
-  /* ── MAXIMS ── */
-  .maxim-list { list-style: none; }
-  .maxim-list li {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-style: italic;
-    color: var(--ink);
-    padding: 0.85rem 0;
-    border-bottom: 1px solid var(--cream-dark);
-    line-height: 1.4;
-  }
-  .maxim-list li:last-child { border-bottom: none; }
+/* ── HOME: HABIT LIST ── */
+.habit-list{list-style:none;margin-top:0.2rem;}
+.habit-list li{
+  padding:0.72rem 0;border-bottom:1px solid var(--cd);
+  font-size:0.91rem;color:var(--ink-mid);
+  display:flex;align-items:center;gap:0.8rem;
+}
+.habit-list li:last-child{border-bottom:none;}
+.habit-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;}
 
-  .screen {
-    display: none;
-    opacity: 0;
-    padding-top: 3.5rem;
-    padding-bottom: 5rem;
-    transition: opacity 0.35s ease;
-    min-height: 80vh;
-  }
-  .screen.active {
-    display: block;
-  }
-  .screen.visible {
-    opacity: 1;
-  }
-  p { 
-    color: var(--ink-mid); 
-    margin-bottom: 1.1rem; 
-    font-size: 0.96rem; 
-    max-width: 62ch; 
-  }
+/* ── SHARED LABEL ── */
+.label{
+  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:500;display:block;margin-bottom:1.2rem;
+}
 
-  .lead {
-    font-family: var(--serif);
-    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-    line-height: 1.55;
-    color: var(--ink);
-    margin-bottom: 2rem;
-    max-width: 52ch;
-  }
-  .label {
-    font-size: 0.68rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    font-weight: 500;
-    display: block;
-    margin-bottom: 1.2rem;
-  }
-  .section-rule {
-    border: none;
-    border-top: 1px solid var(--cream-dark);
-    margin: 2.5rem 0;
-  }
-/* PHILOSOPHY */
-.mlist{list-style:none;}
+/* ── PHILOSOPHY ── */
+.phil-intro{display:flex;align-items:flex-start;gap:2rem;margin-bottom:2rem;}
+.phil-intro-text{flex:1;}
+.phil-deco{opacity:0.1;flex-shrink:0;margin-top:0.3rem;}
+.mlist{list-style:none;margin-top:0;}
 .mi{display:flex;gap:1.5rem;align-items:baseline;padding:1.2rem 0;border-bottom:1px solid var(--cd);}
 .mi:last-child{border-bottom:none;}
-.mn{font-family:var(--serif);font-style:italic;font-size:0.8rem;color:var(--if);min-width:22px;flex-shrink:0;}
+.mn{font-family:var(--serif);font-style:italic;font-size:0.8rem;color:var(--ink-faint);min-width:22px;flex-shrink:0;}
 .mt{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,2.2vw,1.2rem);color:var(--ink);line-height:1.45;}
-/* PROJECTS */
+
+/* ── PROJECTS ── */
 .pcard{border:1px solid var(--cd);border-radius:5px;padding:1.2rem 1.4rem;margin-bottom:0.9rem;transition:border-color .2s;}
-.pcard:hover{border-color:var(--if);}
+.pcard:hover{border-color:var(--ink-faint);}
 .ptitle{font-family:var(--serif);font-size:1.08rem;color:var(--ink);margin-bottom:0.25rem;}
-.pdesc{font-size:0.86rem;color:var(--im);max-width:55ch;}
+.pdesc{font-size:0.86rem;color:var(--ink-mid);max-width:55ch;}
 .pstat{font-size:0.64rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-top:0.55rem;font-weight:500;}
-.mfsto{border-left:2px solid var(--gl);padding:1rem 1.4rem;margin:1.8rem 0;font-family:var(--serif);font-style:italic;font-size:0.97rem;color:var(--im);max-width:55ch;}
-/* COURSE ACCORDION */
+.mfsto{border-left:2px solid var(--gold-light);padding:1rem 1.4rem;margin:1.8rem 0;font-family:var(--serif);font-style:italic;font-size:0.97rem;color:var(--ink-mid);max-width:55ch;}
+
+/* ── COURSE ACCORDION ── */
 .crs{border:1px solid var(--cd);border-radius:5px;margin-bottom:0.65rem;overflow:hidden;}
 .crsh{width:100%;text-align:left;background:none;border:none;padding:1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .15s;}
-.crsh:hover{background:var(--cm);}
+.crsh:hover{background:var(--cream-dark);}
 .crst{font-family:var(--serif);font-size:0.98rem;color:var(--ink);font-weight:500;}
-.crss{font-size:0.76rem;color:var(--if);margin-top:0.12rem;}
-.chv{font-size:0.68rem;color:var(--if);transition:transform .22s;flex-shrink:0;}
+.crss{font-size:0.76rem;color:var(--ink-faint);margin-top:0.12rem;}
+.chv{font-size:0.68rem;color:var(--ink-faint);transition:transform .22s;flex-shrink:0;}
 .crs.open .chv{transform:rotate(180deg);}
 .crsb{display:none;padding:0 1.3rem 1rem;}
 .crs.open .crsb{display:block;}
-.lr{display:flex;align-items:center;gap:0.65rem;padding:0.5rem 0;border-bottom:1px solid var(--cd);font-size:0.86rem;color:var(--im);}
+.lr{display:flex;align-items:center;gap:0.65rem;padding:0.5rem 0;border-bottom:1px solid var(--cd);font-size:0.86rem;color:var(--ink-mid);}
 .lr:last-child{border-bottom:none;}
-.ln{font-family:var(--serif);font-style:italic;color:var(--if);min-width:26px;font-size:0.79rem;}
+.ln{font-family:var(--serif);font-style:italic;color:var(--ink-faint);min-width:26px;font-size:0.79rem;}
 .lt{margin-left:auto;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:2px 7px;border-radius:3px;white-space:nowrap;}
 .td{background:#E4ECD9;color:#47622E;}
-.tc{background:var(--cm);color:var(--ink);border:1px solid var(--ink);}
-.ts{background:var(--cm);color:var(--if);}
-/* WRITING */
+.tc{background:var(--cream-dark);color:var(--ink);border:1px solid var(--ink);}
+.ts{background:var(--cream-dark);color:var(--ink-faint);}
+
+/* ── WRITING ── */
+.writing-intro{margin-bottom:2.5rem;}
 .elist{list-style:none;}
-.er{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--cd);text-decoration:none;color:inherit;transition:opacity .15s;}
+.er{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--cd);text-decoration:none;color:inherit;transition:opacity .15s;}
 .er:hover{opacity:0.6;}
 .etitle{font-family:var(--serif);font-size:1.05rem;color:var(--ink);}
-.esub{font-size:0.8rem;color:var(--if);margin-top:0.15rem;}
-.edate{font-size:0.76rem;color:var(--if);white-space:nowrap;font-family:var(--serif);font-style:italic;}
+.esub{font-size:0.8rem;color:var(--ink-faint);margin-top:0.18rem;}
+.edate{font-size:0.76rem;color:var(--ink-faint);white-space:nowrap;font-family:var(--serif);font-style:italic;}
 .soc{border-bottom:1px solid var(--cd);}
 .soct{width:100%;text-align:left;background:none;border:none;padding:1rem 0;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;}
 .soct:hover .soctl{opacity:0.6;}
 .soctl{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--ink);transition:opacity .15s;}
-.socm{font-size:0.74rem;color:var(--if);white-space:nowrap;font-family:var(--serif);font-style:italic;}
-.soce{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);transition:transform .2s;flex-shrink:0;}
+.socm{font-size:0.74rem;color:var(--ink-faint);white-space:nowrap;font-family:var(--serif);font-style:italic;}
+.soce{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);transition:transform .2s;flex-shrink:0;}
 .soc.open .soce{transform:rotate(45deg);}
-.socb{display:none;padding:0.3rem 0 1.3rem;font-family:var(--serif);font-size:0.97rem;line-height:1.85;color:var(--im);max-width:58ch;}
+.socb{display:none;padding:0.3rem 0 1.3rem;font-family:var(--serif);font-size:0.97rem;line-height:1.85;color:var(--ink-mid);max-width:58ch;}
 .soc.open .socb{display:block;}
-/* HOBBIES */
-.hr2{display:grid;grid-template-columns:150px 1fr;gap:1rem;align-items:start;padding:0.9rem 0;border-bottom:1px solid var(--cd);}
+
+/* ── HOBBIES ── */
+.hobbies-intro{margin-bottom:2.2rem;}
+.hr2{display:grid;grid-template-columns:155px 1fr;gap:1rem;align-items:start;padding:1rem 0;border-bottom:1px solid var(--cd);}
 @media(max-width:520px){.hr2{grid-template-columns:1fr;gap:0.2rem;}}
 .hn{font-family:var(--serif);font-size:1rem;color:var(--ink);}
-.hno{font-size:0.86rem;color:var(--im);}
+.hno{font-size:0.86rem;color:var(--ink-mid);}
 .fhc{border:1px dashed var(--cd);border-radius:5px;padding:1rem 1.3rem;margin-bottom:0.7rem;display:flex;gap:1rem;align-items:flex-start;}
 .fhi{font-size:1.1rem;line-height:1;flex-shrink:0;opacity:0.4;margin-top:0.2rem;}
 .fhn{font-family:var(--serif);font-size:1rem;color:var(--ink);margin-bottom:0.2rem;}
-.fhno{font-size:0.84rem;color:var(--im);}
-/* ENTERTAINMENT */
-.subnav{display:flex;border-bottom:1px solid var(--cd);margin-bottom:2.5rem;overflow-x:auto;scrollbar-width:none;}
+.fhno{font-size:0.84rem;color:var(--ink-mid);}
+
+/* ── ENTERTAINMENT ── */
+.subnav{display:flex;border-bottom:1px solid var(--cd);margin-bottom:2.8rem;overflow-x:auto;scrollbar-width:none;}
 .subnav::-webkit-scrollbar{display:none;}
-.sbt{font-size:0.69rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);background:none;border:none;border-bottom:2px solid transparent;padding:0.65rem 0.85rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
-.sbt:hover{color:var(--im);}
+.sbt{font-size:0.69rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);background:none;border:none;border-bottom:2px solid transparent;padding:0.65rem 0.9rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+.sbt:hover{color:var(--ink-mid);}
 .sbt.active{color:var(--ink);border-bottom-color:var(--gold);font-weight:500;}
 .ep{display:none;}
 .ep.active{display:block;}
-.ssl{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--if);font-weight:500;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--cd);}
-.ss{margin-bottom:2.5rem;}
+.ssl{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--cd);}
+.ss{margin-bottom:2.8rem;}
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.85rem;}
-.tc2{display:flex;flex-direction:column;justify-content:flex-end;padding:0.75rem;background:var(--cm);border:1px solid var(--cd);border-radius:4px;aspect-ratio:2/3;transition:transform .22s;}
+.tc2{display:flex;flex-direction:column;justify-content:flex-end;padding:0.75rem;background:var(--cream-dark);border:1px solid var(--cd);border-radius:4px;aspect-ratio:2/3;transition:transform .22s;}
 .tc2:hover{transform:translateY(-4px);}
 .tc2 .ct{font-family:var(--serif);font-size:0.8rem;color:var(--ink);line-height:1.3;}
-.tc2 .cs{font-size:0.64rem;color:var(--if);margin-top:0.2rem;}
-/* FOOD / RECIPE CARDS */
+.tc2 .cs{font-size:0.64rem;color:var(--ink-faint);margin-top:0.2rem;}
+
+/* Favorites card — gold accent */
+.tc2-fav{display:flex;flex-direction:column;justify-content:flex-end;padding:0.75rem;background:var(--cream);border:1.5px solid var(--gold);border-radius:4px;aspect-ratio:2/3;transition:transform .22s;position:relative;}
+.tc2-fav:hover{transform:translateY(-4px);}
+.tc2-fav::before{content:'★';position:absolute;top:0.45rem;right:0.5rem;font-size:0.6rem;color:var(--gold);opacity:0.8;}
+.tc2-fav .ct{font-family:var(--serif);font-size:0.8rem;color:var(--ink);line-height:1.3;}
+.tc2-fav .cs{font-size:0.64rem;color:var(--gold);margin-top:0.2rem;}
+
+/* ── FOOD ── */
 .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem;margin-top:0.8rem;}
 @media(max-width:640px){.rgrid{grid-template-columns:1fr;}}
 .rcard{border:1px solid var(--cd);border-radius:6px;overflow:hidden;background:var(--cream);transition:box-shadow .22s,transform .22s;}
 .rcard:hover{box-shadow:0 6px 24px rgba(26,23,20,.09);transform:translateY(-2px);}
 .rimg{width:100%;aspect-ratio:4/3;background:var(--cd);overflow:hidden;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--cd);}
 .rimg img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(0.9) brightness(0.92);}
-.rimgph{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--if);text-align:center;padding:1rem;line-height:1.5;}
+.rimgph{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--ink-faint);text-align:center;padding:1rem;line-height:1.5;}
 .rbody{padding:1.3rem 1.4rem;}
 .rname{font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--ink);margin-bottom:0.15rem;}
-.rorig{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--if);margin-bottom:1.1rem;}
+.rorig{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:1.1rem;}
 .rstats{display:flex;gap:1.2rem;margin-bottom:1.3rem;flex-wrap:wrap;padding-bottom:1rem;border-bottom:1px solid var(--cd);}
 .sb{text-align:left;}
-.sv{font-family:var(--serif);font-size:1.1rem;color:var(--im);display:block;line-height:1;}
-.sl{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--if);margin-top:0.2rem;display:block;}
-.rsl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--if);margin-bottom:0.5rem;margin-top:1.1rem;display:block;padding-bottom:0.3rem;border-bottom:1px solid var(--cd);}
+.sv{font-family:var(--serif);font-size:1.1rem;color:var(--ink-mid);display:block;line-height:1;}
+.sl{font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);margin-top:0.2rem;display:block;}
+.rsl{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:0.5rem;margin-top:1.1rem;display:block;padding-bottom:0.3rem;border-bottom:1px solid var(--cd);}
 .ing{list-style:none;}
-.ing li{font-family:var(--serif);font-size:0.93rem;color:var(--im);padding:0.28rem 0;line-height:1.45;display:flex;gap:0.5rem;}
-.iq{font-style:italic;color:var(--if);min-width:52px;flex-shrink:0;}
+.ing li{font-family:var(--serif);font-size:0.93rem;color:var(--ink-mid);padding:0.28rem 0;line-height:1.45;display:flex;gap:0.5rem;}
+.iq{font-style:italic;color:var(--ink-faint);min-width:52px;flex-shrink:0;}
 .ddg{display:grid;grid-template-columns:1fr 1fr;gap:0.3rem 1rem;margin-top:0.2rem;}
-.dd{font-size:0.82rem;color:var(--im);display:flex;flex-direction:column;}
-.dd span:first-child{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--if);margin-bottom:0.05rem;}
-.dnotes{font-size:0.84rem;color:var(--im);line-height:1.65;margin-top:0.2rem;font-family:var(--serif);font-style:italic;}
-/* QUOTES */
+.dd{font-size:0.82rem;color:var(--ink-mid);display:flex;flex-direction:column;}
+.dd span:first-child{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:0.05rem;}
+.dnotes{font-size:0.84rem;color:var(--ink-mid);line-height:1.65;margin-top:0.2rem;font-family:var(--serif);font-style:italic;}
+
+/* ── QUOTES ── */
 .qlist{list-style:none;}
 .qi{display:grid;grid-template-columns:3px 1fr;gap:1.6rem;padding:2rem 0;border-bottom:1px solid var(--cd);align-items:start;}
 .qi:last-child{border-bottom:none;}
 .qr{background:var(--ink);border-radius:2px;margin-top:0.5rem;}
 .qt{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,2.3vw,1.3rem);color:var(--ink);line-height:1.5;margin-bottom:0.55rem;}
-.qa{font-size:0.76rem;color:var(--if);letter-spacing:0.07em;}
+.qa{font-size:0.76rem;color:var(--ink-faint);letter-spacing:0.07em;}
 
+@media(max-width:600px){
+  .shell{padding:0 1.2rem;}
+  .cg{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:0.7rem;}
+}
 </style>
 </head>
 <body>
@@ -275,20 +250,20 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   <button class="nav-tab" data-tab="quotes">Quotes</button>
 </nav>
 
+
 <!-- ═══ HOME ═══ -->
 <section id="tab-home" class="screen active">
   <p class="lead">I build things with electrons and software. I read obsessively, ask long questions, and keep notebooks about almost everything.</p>
   <p>Based in College Station. Studying Electrical Engineering. Currently interested in low-level systems, language learning, and the philosophy of how we learn anything at all.</p>
 
-  <hr class="section-rule">
+  <hr class="rule">
 
-  <!-- CURRENTLY – Global Component -->
   <span class="label">Currently</span>
-  <div class="currently-block" id="currently-global">
-    <span class="label">This week</span>
+  <div class="currently-block">
+    <span class="block-label">This week</span>
     <div class="currently-item">
       <span class="c-type">Reading</span>
-      <span>The Double - Dostoevsky</span>
+      <span>The Double — Dostoevsky</span>
     </div>
     <div class="currently-item">
       <span class="c-type">Building</span>
@@ -308,7 +283,8 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     </div>
   </div>
 
-  <hr class="section-rule">
+  <hr class="rule">
+
   <span class="label">Current Habits</span>
   <ul class="habit-list">
     <li><span class="habit-dot"></span>Morning reading — 30 minutes before screens</li>
@@ -317,22 +293,27 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     <li><span class="habit-dot"></span>One hardware project per month</li>
     <li><span class="habit-dot"></span>Run every other day, no headphones</li>
     <li><span class="habit-dot"></span>Cook at least three times a week from scratch</li>
+    <li><span class="habit-dot"></span>Fitness — structured strength training, three days a week</li>
+    <li><span class="habit-dot"></span>Rewiring — 20 minutes of deliberate practice on one hard thing daily</li>
   </ul>
 </section>
+
+
 <!-- ═══ PHILOSOPHY ═══ -->
 <section id="tab-philosophy" class="screen">
-  <h1>Philosophy</h1>
-  <p>Beliefs and mental models — concise, updated whenever I change my mind.</p>
-
-  <div style="float:right;margin:0 0 1rem 1.5rem;opacity:0.13;">
-    <svg width="26" height="40" viewBox="0 0 26 40" fill="none">
+  <div class="phil-intro">
+    <div class="phil-intro-text">
+      <h1>Philosophy</h1>
+      <p>Beliefs and mental models — concise, updated whenever I change my mind.</p>
+    </div>
+    <svg class="phil-deco" width="26" height="40" viewBox="0 0 26 40" fill="none">
       <line x1="13" y1="38" x2="13" y2="3" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
       <path d="M13 11 C8 7 2 9 2 9 C2 9 5 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
       <path d="M13 11 C18 7 24 9 24 9 C24 9 21 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
     </svg>
   </div>
 
-  <ul class="mlist" style="margin-top:1.5rem;clear:both;">
+  <ul class="mlist">
     <li class="mi"><span class="mn">i.</span><span class="mt">Most confusion is a naming problem in disguise.</span></li>
     <li class="mi"><span class="mn">ii.</span><span class="mt">The person who asks "why" twice understands more than the one who asked once and stopped.</span></li>
     <li class="mi"><span class="mn">iii.</span><span class="mt">Rigor and wonder are not opposites — they are the same impulse, facing different directions.</span></li>
@@ -346,6 +327,8 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     <li class="mi"><span class="mn">xi.</span><span class="mt">To be a beginner again, in everything — this is the highest aspiration I can name.</span></li>
   </ul>
 </section>
+
+
 <!-- ═══ PROJECTS ═══ -->
 <section id="tab-projects" class="screen">
   <h1>Projects</h1>
@@ -390,11 +373,12 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   <div class="crs"><button class="crsh" onclick="tc(this)"><div><div class="crst">Phase III — Vocabulary &amp; Conversation</div><div class="crss">500 core words, basic dialogues</div></div><span class="chv">▼</span></button><div class="crsb"><div class="lr"><span class="ln">3.1</span>Numbers, Time, Days<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.2</span>Food, Family, Home<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.3</span>Greetings &amp; Social Phrases<span class="lt ts">Soon</span></div><div class="lr"><span class="ln">3.4</span>First Conversation Simulations<span class="lt ts">Soon</span></div></div></div>
 </section>
 
+
 <!-- ═══ WRITING ═══ -->
 <section id="tab-writing" class="screen">
   <h1>Writing</h1>
 
-  <div style="margin-bottom:3.5rem;">
+  <div class="writing-intro">
     <span class="ey">Essays, Blogs &amp; Refined Journal Entries</span>
     <ul class="elist">
       <a class="er" href="#"><div><div class="etitle">On Learning Like a Scientist</div><div class="esub">Why rigor and curiosity are the same thing</div></div><span class="edate">Apr 2025</span></a>
@@ -408,20 +392,23 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 
   <hr class="rule">
   <span class="ey">Stream of Consciousness Journals</span>
-  <p style="margin-bottom:1.5rem;">Raw. Unedited. Click to read.</p>
+  <p style="margin-bottom:1.8rem;">Raw. Unedited. Click to read.</p>
 
   <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">3 a.m. and I'm thinking about eigenvectors again</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Apr 9, 2025</span><span class="soce">+</span></div></button><div class="socb">There's something deeply unsettling about the fact that a matrix has preferred directions. Like the universe has a bias built in. I keep trying to explain this to myself in plain English and it keeps dissolving back into symbols. Maybe that's the point. Maybe the symbol is the understanding, and the plain English is just the comfort blanket.</div></div>
-
   <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">The Farsi word for "nostalgia" doesn't exist</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Mar 22, 2025</span><span class="soce">+</span></div></button><div class="socb">I was looking for it in my Farsi dictionary. They have دلتنگی — daltangi — which is closer to "my heart is tight" or "I miss you" but it's not quite nostalgia. It's more immediate. Maybe every language's untranslatable word is a window into what that culture aches for. Farsi aches for the present. English aches for the past.</div></div>
-
   <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">Ran without headphones for the first time in months</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Mar 5, 2025</span><span class="soce">+</span></div></button><div class="socb">I forgot what it sounds like. My own footsteps. The specific rhythm of breath when you're at that edge between comfortable and not. I've been filling that silence for years. Turns out it's mostly nothing. Which is the point, I think. The nothing is the thing.</div></div>
-
   <div class="soc"><button class="soct" onclick="ts(this)"><span class="soctl">On why I keep abandoning frameworks</span><div style="display:flex;gap:1rem;align-items:center;flex-shrink:0;"><span class="socm">Feb 17, 2025</span><span class="soce">+</span></div></button><div class="socb">Every time I pick up a new framework I feel capable and then I feel hollow. Like I built a sandcastle with a mold. I know it technically looks like a castle. But I didn't learn anything about sand. I didn't learn anything about castles. I keep going back to HTML and vanilla JS not out of nostalgia but because it forces me to know what I'm doing.</div></div>
 </section>
+
 
 <!-- ═══ HOBBIES ═══ -->
 <section id="tab-hobbies" class="screen">
   <h1>Hobbies</h1>
+
+  <div class="hobbies-intro">
+    <p>What I practice, how far I've gotten, and what's worth trying.</p>
+  </div>
+
   <span class="ey">Current</span>
   <div class="hr2"><span class="hn">Guitar</span><span class="hno">Fingerstyle. Currently learning Chet Atkins arrangements. 3 years in.</span></div>
   <div class="hr2"><span class="hn">Running</span><span class="hno">Slow, consistent, outdoors only. No headphones — it's the only quiet I get.</span></div>
@@ -431,8 +418,11 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   <div class="hr2" style="border-bottom:none;"><span class="hn">Amateur Radio</span><span class="hno">Technician licensed. Saving for an HF rig. Want to build antennas from first principles.</span></div>
 
   <hr class="rule">
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;">
-    <div><span class="ey">Future Hobbies</span><p>Things I intend to learn. Committed in writing so I can't forget.</p></div>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:1.4rem;">
+    <div>
+      <span class="ey">Future Hobbies</span>
+      <p>Things I intend to learn. Committed in writing so I can't forget.</p>
+    </div>
     <svg class="deco" width="52" height="38" viewBox="0 0 52 38" fill="none" style="opacity:0.13;flex-shrink:0;">
       <rect x="3" y="10" width="46" height="26" rx="3" stroke="#1A1714" stroke-width="1"/>
       <circle cx="26" cy="23" r="9" stroke="#1A1714" stroke-width="1"/>
@@ -446,6 +436,7 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   <div class="fhc"><div class="fhi">◎</div><div><div class="fhn">Calligraphy (Nastaliq Script)</div><div class="fhno">A natural extension of learning Farsi. Nastaliq is one of the most beautiful scripts in the world — learning to slow down written into the form itself.</div></div></div>
 </section>
 
+
 <!-- ═══ ENTERTAINMENT ═══ -->
 <section id="tab-entertainment" class="screen">
   <h1>Entertainment</h1>
@@ -457,36 +448,177 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     <button class="sbt" data-ent="games">Games</button>
   </div>
 
+  <!-- BOOKS -->
   <div class="ep active" id="ent-books">
-    <div class="ss"><div class="ssl">Currently reading</div><div class="cg"><div class="tc2"><div class="ct">The Double</div><div class="cs">Dostoevsky</div></div><div class="tc2"><div class="ct">The Art of Electronics</div><div class="cs">Horowitz &amp; Hill</div></div></div></div>
-    <div class="ss"><div class="ssl">Read</div><div class="cg"><div class="tc2"><div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div></div><div class="tc2"><div class="ct">The Design of Everyday Things</div><div class="cs">Don Norman</div></div><div class="tc2"><div class="ct">Permanent Record</div><div class="cs">Snowden</div></div><div class="tc2"><div class="ct">Thinking, Fast and Slow</div><div class="cs">Kahneman</div></div><div class="tc2"><div class="ct">Crime and Punishment</div><div class="cs">Dostoevsky</div></div><div class="tc2"><div class="ct">Surely You're Joking, Mr. Feynman</div><div class="cs">Feynman</div></div></div></div>
-    <div class="ss"><div class="ssl">To read</div><div class="cg"><div class="tc2"><div class="ct">The Code Book</div><div class="cs">Simon Singh</div></div><div class="tc2"><div class="ct">Hackers</div><div class="cs">Steven Levy</div></div><div class="tc2"><div class="ct">The Dream Machine</div><div class="cs">M. Mitchell Waldrop</div></div><div class="tc2"><div class="ct">The Brothers Karamazov</div><div class="cs">Dostoevsky</div></div></div></div>
+    <div class="ss">
+      <div class="ssl">Favorite</div>
+      <div class="cg">
+        <div class="tc2-fav"><div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Currently reading</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">The Double</div><div class="cs">Dostoevsky</div></div>
+        <div class="tc2"><div class="ct">The Art of Electronics</div><div class="cs">Horowitz &amp; Hill</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Read</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div></div>
+        <div class="tc2"><div class="ct">The Design of Everyday Things</div><div class="cs">Don Norman</div></div>
+        <div class="tc2"><div class="ct">Permanent Record</div><div class="cs">Snowden</div></div>
+        <div class="tc2"><div class="ct">Thinking, Fast and Slow</div><div class="cs">Kahneman</div></div>
+        <div class="tc2"><div class="ct">Crime and Punishment</div><div class="cs">Dostoevsky</div></div>
+        <div class="tc2"><div class="ct">Surely You're Joking, Mr. Feynman</div><div class="cs">Feynman</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">To read</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">The Code Book</div><div class="cs">Simon Singh</div></div>
+        <div class="tc2"><div class="ct">Hackers</div><div class="cs">Steven Levy</div></div>
+        <div class="tc2"><div class="ct">The Dream Machine</div><div class="cs">M. Mitchell Waldrop</div></div>
+        <div class="tc2"><div class="ct">The Brothers Karamazov</div><div class="cs">Dostoevsky</div></div>
+      </div>
+    </div>
   </div>
 
+  <!-- MOVIES -->
   <div class="ep" id="ent-movies">
-    <div class="ss"><div class="ssl">Currently watching</div><div class="cg"><div class="tc2"><div class="ct">Dune: Part Two</div><div class="cs">Villeneuve, 2024</div></div></div></div>
-    <div class="ss"><div class="ssl">Watched</div><div class="cg"><div class="tc2"><div class="ct">2001: A Space Odyssey</div><div class="cs">Kubrick, 1968</div></div><div class="tc2"><div class="ct">Arrival</div><div class="cs">Villeneuve, 2016</div></div><div class="tc2"><div class="ct">The Tree of Life</div><div class="cs">Malick, 2011</div></div><div class="tc2"><div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div></div><div class="tc2"><div class="ct">Blade Runner 2049</div><div class="cs">Villeneuve, 2017</div></div><div class="tc2"><div class="ct">A Separation</div><div class="cs">Farhadi, 2011</div></div></div></div>
-    <div class="ss"><div class="ssl">To watch</div><div class="cg"><div class="tc2"><div class="ct">Solaris</div><div class="cs">Tarkovsky, 1972</div></div><div class="tc2"><div class="ct">The Mirror</div><div class="cs">Tarkovsky, 1975</div></div><div class="tc2"><div class="ct">Andrei Rublev</div><div class="cs">Tarkovsky, 1966</div></div></div></div>
+    <div class="ss">
+      <div class="ssl">Favorite</div>
+      <div class="cg">
+        <div class="tc2-fav"><div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Currently watching</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Dune: Part Two</div><div class="cs">Villeneuve, 2024</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Watched</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">2001: A Space Odyssey</div><div class="cs">Kubrick, 1968</div></div>
+        <div class="tc2"><div class="ct">Arrival</div><div class="cs">Villeneuve, 2016</div></div>
+        <div class="tc2"><div class="ct">The Tree of Life</div><div class="cs">Malick, 2011</div></div>
+        <div class="tc2"><div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div></div>
+        <div class="tc2"><div class="ct">Blade Runner 2049</div><div class="cs">Villeneuve, 2017</div></div>
+        <div class="tc2"><div class="ct">A Separation</div><div class="cs">Farhadi, 2011</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">To watch</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Solaris</div><div class="cs">Tarkovsky, 1972</div></div>
+        <div class="tc2"><div class="ct">The Mirror</div><div class="cs">Tarkovsky, 1975</div></div>
+        <div class="tc2"><div class="ct">Andrei Rublev</div><div class="cs">Tarkovsky, 1966</div></div>
+      </div>
+    </div>
   </div>
 
+  <!-- SHOWS -->
   <div class="ep" id="ent-shows">
-    <div class="ss"><div class="ssl">Currently watching</div><div class="cg"><div class="tc2"><div class="ct">Severance</div><div class="cs">Apple TV+, S2</div></div></div></div>
-    <div class="ss"><div class="ssl">Watched</div><div class="cg"><div class="tc2"><div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div></div><div class="tc2"><div class="ct">Breaking Bad</div><div class="cs">AMC</div></div><div class="tc2"><div class="ct">Halt and Catch Fire</div><div class="cs">AMC</div></div><div class="tc2"><div class="ct">Mr. Robot</div><div class="cs">USA Network</div></div></div></div>
-    <div class="ss"><div class="ssl">To watch</div><div class="cg"><div class="tc2"><div class="ct">The Wire</div><div class="cs">HBO</div></div><div class="tc2"><div class="ct">Shogun</div><div class="cs">FX, 2024</div></div></div></div>
+    <div class="ss">
+      <div class="ssl">Favorite</div>
+      <div class="cg">
+        <div class="tc2-fav"><div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Currently watching</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Severance</div><div class="cs">Apple TV+, S2</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Watched</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div></div>
+        <div class="tc2"><div class="ct">Breaking Bad</div><div class="cs">AMC</div></div>
+        <div class="tc2"><div class="ct">Halt and Catch Fire</div><div class="cs">AMC</div></div>
+        <div class="tc2"><div class="ct">Mr. Robot</div><div class="cs">USA Network</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">To watch</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">The Wire</div><div class="cs">HBO</div></div>
+        <div class="tc2"><div class="ct">Shogun</div><div class="cs">FX, 2024</div></div>
+      </div>
+    </div>
   </div>
 
+  <!-- ANIME -->
   <div class="ep" id="ent-anime">
-    <div class="ss"><div class="ssl">Currently watching</div><div class="cg"><div class="tc2"><div class="ct">Frieren: Beyond Journey's End</div><div class="cs">Madhouse, 2023</div></div></div></div>
-    <div class="ss"><div class="ssl">Watched</div><div class="cg"><div class="tc2"><div class="ct">Fullmetal Alchemist: Brotherhood</div><div class="cs">Bones, 2009</div></div><div class="tc2"><div class="ct">Steins;Gate</div><div class="cs">White Fox, 2011</div></div><div class="tc2"><div class="ct">Neon Genesis Evangelion</div><div class="cs">Gainax, 1995</div></div><div class="tc2"><div class="ct">Mushishi</div><div class="cs">Artland, 2005</div></div><div class="tc2"><div class="ct">Serial Experiments Lain</div><div class="cs">Triangle Staff, 1998</div></div></div></div>
-    <div class="ss"><div class="ssl">To watch</div><div class="cg"><div class="tc2"><div class="ct">Vinland Saga</div><div class="cs">Wit Studio</div></div><div class="tc2"><div class="ct">Planetes</div><div class="cs">Sunrise, 2003</div></div><div class="tc2"><div class="ct">Legend of the Galactic Heroes</div><div class="cs">Artland</div></div></div></div>
+    <div class="ss">
+      <div class="ssl">Favorite</div>
+      <div class="cg">
+        <div class="tc2-fav"><div class="ct">Mushishi</div><div class="cs">Artland, 2005</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Currently watching</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Frieren: Beyond Journey's End</div><div class="cs">Madhouse, 2023</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Watched</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Fullmetal Alchemist: Brotherhood</div><div class="cs">Bones, 2009</div></div>
+        <div class="tc2"><div class="ct">Steins;Gate</div><div class="cs">White Fox, 2011</div></div>
+        <div class="tc2"><div class="ct">Neon Genesis Evangelion</div><div class="cs">Gainax, 1995</div></div>
+        <div class="tc2"><div class="ct">Mushishi</div><div class="cs">Artland, 2005</div></div>
+        <div class="tc2"><div class="ct">Serial Experiments Lain</div><div class="cs">Triangle Staff, 1998</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">To watch</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Vinland Saga</div><div class="cs">Wit Studio</div></div>
+        <div class="tc2"><div class="ct">Planetes</div><div class="cs">Sunrise, 2003</div></div>
+        <div class="tc2"><div class="ct">Legend of the Galactic Heroes</div><div class="cs">Artland</div></div>
+      </div>
+    </div>
   </div>
 
+  <!-- GAMES -->
   <div class="ep" id="ent-games">
-    <div class="ss"><div class="ssl">Currently playing</div><div class="cg"><div class="tc2"><div class="ct">Elden Ring</div><div class="cs">FromSoftware, 2022</div></div></div></div>
-    <div class="ss"><div class="ssl">Played</div><div class="cg"><div class="tc2"><div class="ct">Hollow Knight</div><div class="cs">Team Cherry, 2017</div></div><div class="tc2"><div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div></div><div class="tc2"><div class="ct">Baba Is You</div><div class="cs">Arvi Teikari, 2019</div></div><div class="tc2"><div class="ct">Portal 2</div><div class="cs">Valve, 2011</div></div></div></div>
-    <div class="ss"><div class="ssl">To play</div><div class="cg"><div class="tc2"><div class="ct">Disco Elysium</div><div class="cs">ZA/UM, 2019</div></div><div class="tc2"><div class="ct">Return of the Obra Dinn</div><div class="cs">Lucas Pope, 2018</div></div></div></div>
+    <div class="ss">
+      <div class="ssl">Favorite</div>
+      <div class="cg">
+        <div class="tc2-fav"><div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Currently playing</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Elden Ring</div><div class="cs">FromSoftware, 2022</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">Played</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Hollow Knight</div><div class="cs">Team Cherry, 2017</div></div>
+        <div class="tc2"><div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div></div>
+        <div class="tc2"><div class="ct">Baba Is You</div><div class="cs">Arvi Teikari, 2019</div></div>
+        <div class="tc2"><div class="ct">Portal 2</div><div class="cs">Valve, 2011</div></div>
+      </div>
+    </div>
+    <div class="ss">
+      <div class="ssl">To play</div>
+      <div class="cg">
+        <div class="tc2"><div class="ct">Disco Elysium</div><div class="cs">ZA/UM, 2019</div></div>
+        <div class="tc2"><div class="ct">Return of the Obra Dinn</div><div class="cs">Lucas Pope, 2018</div></div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <!-- ═══ FOOD ═══ -->
 <section id="tab-food" class="screen">
@@ -642,6 +774,7 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   <div class="hr2" style="border-bottom:none;"><span class="hn">Fermentation</span><span class="hno">Sourdough starter as first experiment. Want to move into miso and kimchi next.</span></div>
 </section>
 
+
 <!-- ═══ QUOTES ═══ -->
 <section id="tab-quotes" class="screen">
   <h1>Quotes</h1>
@@ -666,6 +799,7 @@ p{color:var(--im);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   </ul>
 </section>
 
+</div><!-- /.shell -->
 
 <script>
 /* TAB SWITCHING */
