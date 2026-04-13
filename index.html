@@ -157,7 +157,7 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .fhn{font-family:var(--serif);font-size:1rem;color:var(--ink);margin-bottom:0.2rem;}
 .fhno{font-size:0.84rem;color:var(--ink-mid);}
 
-/* ── ENTERTAINMENT ── */
+/* ── ENTERTAINMENT CARDS ── */
 .subnav{display:flex;border-bottom:1px solid var(--cd);margin-bottom:2.8rem;overflow-x:auto;scrollbar-width:none;}
 .subnav::-webkit-scrollbar{display:none;}
 .sbt{font-size:0.69rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-faint);background:none;border:none;border-bottom:2px solid transparent;padding:0.65rem 0.9rem;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
@@ -168,26 +168,74 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 .ssl{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-faint);font-weight:500;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--cd);}
 .ss{margin-bottom:2.8rem;}
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.85rem;}
-.tc2{display:flex;flex-direction:column;justify-content:flex-end;padding:0.75rem;background:var(--cream-dark);border:1px solid var(--cd);border-radius:4px;aspect-ratio:2/3;transition:transform .22s;}
-.tc2:hover{transform:translateY(-4px);}
+
+/* ── ENTERTAINMENT CARD IMAGE SYSTEM ──
+   Each card (.tc2 / .tc2-fav) is position:relative so the <img class="tc-img">
+   can sit as an absolute full-cover layer beneath the text.
+   .tc-overlay adds a gradient so text stays readable over any photo.
+   When the src path doesn't exist yet the img is hidden via onerror,
+   and the card just shows its default cream background + text. ── */
+.tc2,.tc2-fav{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0.75rem;border:1px solid var(--cd);border-radius:4px;
+  aspect-ratio:2/3;transition:transform .22s;
+  position:relative;overflow:hidden;background:var(--cream-dark);
+}
+.tc2-fav{background:var(--cream);border:1.5px solid var(--gold);}
+.tc2:hover,.tc2-fav:hover{transform:translateY(-4px);}
+.tc2-fav::before{content:'★';position:absolute;top:0.45rem;right:0.5rem;font-size:0.6rem;color:var(--gold);opacity:0.8;z-index:2;}
+
+/* The actual cover image — sits behind text */
+.tc-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;display:block;
+}
+/* Gradient overlay so text is readable on any image */
+.tc-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(20,16,10,0.88) 0%, rgba(20,16,10,0.25) 55%, transparent 100%);
+  z-index:1;pointer-events:none;
+}
+/* Text sits on top */
+.tc2 .ct,.tc2 .cs,.tc2-fav .ct,.tc2-fav .cs{position:relative;z-index:2;}
+
 .tc2 .ct{font-family:var(--serif);font-size:0.8rem;color:var(--ink);line-height:1.3;}
 .tc2 .cs{font-size:0.64rem;color:var(--ink-faint);margin-top:0.2rem;}
-
-/* Favorites card — gold accent */
-.tc2-fav{display:flex;flex-direction:column;justify-content:flex-end;padding:0.75rem;background:var(--cream);border:1.5px solid var(--gold);border-radius:4px;aspect-ratio:2/3;transition:transform .22s;position:relative;}
-.tc2-fav:hover{transform:translateY(-4px);}
-.tc2-fav::before{content:'★';position:absolute;top:0.45rem;right:0.5rem;font-size:0.6rem;color:var(--gold);opacity:0.8;}
 .tc2-fav .ct{font-family:var(--serif);font-size:0.8rem;color:var(--ink);line-height:1.3;}
 .tc2-fav .cs{font-size:0.64rem;color:var(--gold);margin-top:0.2rem;}
 
-/* ── FOOD ── */
+/* When an image IS loaded, bump text to white for readability */
+.tc2:has(.tc-img:not([style*="display:none"])) .ct,
+.tc2-fav:has(.tc-img:not([style*="display:none"])) .ct { color:#F5F1E8; }
+.tc2:has(.tc-img:not([style*="display:none"])) .cs { color:rgba(245,241,232,0.65); }
+.tc2-fav:has(.tc-img:not([style*="display:none"])) .cs { color:var(--gold-light); }
+
+/* ── FOOD CARDS ── */
 .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem;margin-top:0.8rem;}
 @media(max-width:640px){.rgrid{grid-template-columns:1fr;}}
 .rcard{border:1px solid var(--cd);border-radius:6px;overflow:hidden;background:var(--cream);transition:box-shadow .22s,transform .22s;}
 .rcard:hover{box-shadow:0 6px 24px rgba(26,23,20,.09);transform:translateY(-2px);}
-.rimg{width:100%;aspect-ratio:4/3;background:var(--cd);overflow:hidden;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--cd);}
-.rimg img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) contrast(0.9) brightness(0.92);}
+
+/* Food card image area — position:relative so .recipe-img can fill it absolutely */
+.rimg{
+  width:100%;aspect-ratio:4/3;background:var(--cd);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--cd);position:relative;
+}
+/* The actual recipe photo — place your image path on src="" */
+.recipe-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;
+  filter:grayscale(100%) contrast(0.9) brightness(0.92);
+  display:block;z-index:1;
+}
+/* Fallback SVG placeholder visible when img src is empty / broken */
+.rimg-fallback{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:100%;height:100%;position:relative;z-index:0;
+}
 .rimgph{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--ink-faint);text-align:center;padding:1rem;line-height:1.5;}
+
 .rbody{padding:1.3rem 1.4rem;}
 .rname{font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--ink);margin-bottom:0.15rem;}
 .rorig{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:1.1rem;}
@@ -261,26 +309,11 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
   <span class="label">Currently</span>
   <div class="currently-block">
     <span class="block-label">This week</span>
-    <div class="currently-item">
-      <span class="c-type">Reading</span>
-      <span>The Double — Dostoevsky</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Building</span>
-      <span>Late Night Jotter</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Learning</span>
-      <span>Farsi, Guitar, Muay Thai</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Watching</span>
-      <span>N/A</span>
-    </div>
-    <div class="currently-item">
-      <span class="c-type">Listening</span>
-      <span>N/A</span>
-    </div>
+    <div class="currently-item"><span class="c-type">Reading</span><span>The Double — Dostoevsky</span></div>
+    <div class="currently-item"><span class="c-type">Building</span><span>Late Night Jotter</span></div>
+    <div class="currently-item"><span class="c-type">Learning</span><span>Farsi, Guitar, Muay Thai</span></div>
+    <div class="currently-item"><span class="c-type">Watching</span><span>N/A</span></div>
+    <div class="currently-item"><span class="c-type">Listening</span><span>N/A</span></div>
   </div>
 
   <hr class="rule">
@@ -312,7 +345,6 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
       <path d="M13 11 C18 7 24 9 24 9 C24 9 21 20 13 22" stroke="#1A1714" stroke-width="0.9" fill="none" stroke-linecap="round"/>
     </svg>
   </div>
-
   <ul class="mlist">
     <li class="mi"><span class="mn">i.</span><span class="mt">Most confusion is a naming problem in disguise.</span></li>
     <li class="mi"><span class="mn">ii.</span><span class="mt">The person who asks "why" twice understands more than the one who asked once and stopped.</span></li>
@@ -377,7 +409,6 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 <!-- ═══ WRITING ═══ -->
 <section id="tab-writing" class="screen">
   <h1>Writing</h1>
-
   <div class="writing-intro">
     <span class="ey">Essays, Blogs &amp; Refined Journal Entries</span>
     <ul class="elist">
@@ -404,11 +435,9 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 <!-- ═══ HOBBIES ═══ -->
 <section id="tab-hobbies" class="screen">
   <h1>Hobbies</h1>
-
   <div class="hobbies-intro">
     <p>What I practice, how far I've gotten, and what's worth trying.</p>
   </div>
-
   <span class="ey">Current</span>
   <div class="hr2"><span class="hn">Guitar</span><span class="hno">Fingerstyle. Currently learning Chet Atkins arrangements. 3 years in.</span></div>
   <div class="hr2"><span class="hn">Running</span><span class="hno">Slow, consistent, outdoors only. No headphones — it's the only quiet I get.</span></div>
@@ -438,6 +467,31 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 
 
 <!-- ═══ ENTERTAINMENT ═══ -->
+<!--
+  HOW IMAGES WORK IN THESE CARDS
+  ─────────────────────────────────────────────────────────────────────────────
+  Each card has this structure:
+
+    <div class="tc2">
+      <img src="images/books/the-double.jpg" alt="The Double" class="tc-img"
+           onerror="this.style.display='none'">
+      <div class="tc-overlay"></div>   ← gradient so text stays readable
+      <div class="ct">Title</div>
+      <div class="cs">Author</div>
+    </div>
+
+  • When the src path is EMPTY or the file doesn't exist yet → onerror hides
+    the img, the card shows its plain cream background + text as before.
+  • When the src path points to a REAL file → the photo fills the card,
+    the gradient overlays it, and the text is bumped to white automatically.
+
+  Image recommendations:
+  • Size: ~240 × 360 px (2:3 ratio, matching the card)
+  • Format: JPG or WebP
+  • Covers work perfectly — just save them into your images/ folder and
+    update the src path on the matching card below.
+  ─────────────────────────────────────────────────────────────────────────────
+-->
 <section id="tab-entertainment" class="screen">
   <h1>Entertainment</h1>
   <div class="subnav">
@@ -448,172 +502,422 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
     <button class="sbt" data-ent="games">Games</button>
   </div>
 
-  <!-- BOOKS -->
+  <!-- ── BOOKS ── -->
   <div class="ep active" id="ent-books">
     <div class="ss">
       <div class="ssl">Favorite</div>
       <div class="cg">
-        <div class="tc2-fav"><div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div></div>
+        <div class="tc2-fav">
+          <!-- REPLACE src with your cover image, e.g. src="images/books/godel-escher-bach.jpg" -->
+          <img src="" alt="Gödel, Escher, Bach" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Currently reading</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">The Double</div><div class="cs">Dostoevsky</div></div>
-        <div class="tc2"><div class="ct">The Art of Electronics</div><div class="cs">Horowitz &amp; Hill</div></div>
+        <div class="tc2">
+          <!-- REPLACE src with your cover image, e.g. src="images/books/the-double.jpg" -->
+          <img src="" alt="The Double" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Double</div><div class="cs">Dostoevsky</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src with your cover image, e.g. src="images/books/the-art-of-electronics.jpg" -->
+          <img src="" alt="The Art of Electronics" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Art of Electronics</div><div class="cs">Horowitz &amp; Hill</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Read</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div></div>
-        <div class="tc2"><div class="ct">The Design of Everyday Things</div><div class="cs">Don Norman</div></div>
-        <div class="tc2"><div class="ct">Permanent Record</div><div class="cs">Snowden</div></div>
-        <div class="tc2"><div class="ct">Thinking, Fast and Slow</div><div class="cs">Kahneman</div></div>
-        <div class="tc2"><div class="ct">Crime and Punishment</div><div class="cs">Dostoevsky</div></div>
-        <div class="tc2"><div class="ct">Surely You're Joking, Mr. Feynman</div><div class="cs">Feynman</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/godel-escher-bach.jpg" -->
+          <img src="" alt="Gödel, Escher, Bach" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Gödel, Escher, Bach</div><div class="cs">Hofstadter</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/the-design-of-everyday-things.jpg" -->
+          <img src="" alt="The Design of Everyday Things" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Design of Everyday Things</div><div class="cs">Don Norman</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/permanent-record.jpg" -->
+          <img src="" alt="Permanent Record" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Permanent Record</div><div class="cs">Snowden</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/thinking-fast-and-slow.jpg" -->
+          <img src="" alt="Thinking, Fast and Slow" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Thinking, Fast and Slow</div><div class="cs">Kahneman</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/crime-and-punishment.jpg" -->
+          <img src="" alt="Crime and Punishment" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Crime and Punishment</div><div class="cs">Dostoevsky</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/surely-youre-joking-mr-feynman.jpg" -->
+          <img src="" alt="Surely You're Joking, Mr. Feynman" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Surely You're Joking, Mr. Feynman</div><div class="cs">Feynman</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">To read</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">The Code Book</div><div class="cs">Simon Singh</div></div>
-        <div class="tc2"><div class="ct">Hackers</div><div class="cs">Steven Levy</div></div>
-        <div class="tc2"><div class="ct">The Dream Machine</div><div class="cs">M. Mitchell Waldrop</div></div>
-        <div class="tc2"><div class="ct">The Brothers Karamazov</div><div class="cs">Dostoevsky</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/the-code-book.jpg" -->
+          <img src="" alt="The Code Book" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Code Book</div><div class="cs">Simon Singh</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/hackers.jpg" -->
+          <img src="" alt="Hackers" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Hackers</div><div class="cs">Steven Levy</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/the-dream-machine.jpg" -->
+          <img src="" alt="The Dream Machine" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Dream Machine</div><div class="cs">M. Mitchell Waldrop</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/books/the-brothers-karamazov.jpg" -->
+          <img src="" alt="The Brothers Karamazov" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Brothers Karamazov</div><div class="cs">Dostoevsky</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- MOVIES -->
+  <!-- ── MOVIES ── -->
   <div class="ep" id="ent-movies">
     <div class="ss">
       <div class="ssl">Favorite</div>
       <div class="cg">
-        <div class="tc2-fav"><div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div></div>
+        <div class="tc2-fav">
+          <!-- REPLACE src, e.g. src="images/movies/stalker.jpg" -->
+          <img src="" alt="Stalker" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Currently watching</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Dune: Part Two</div><div class="cs">Villeneuve, 2024</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/dune-part-two.jpg" -->
+          <img src="" alt="Dune: Part Two" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Dune: Part Two</div><div class="cs">Villeneuve, 2024</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Watched</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">2001: A Space Odyssey</div><div class="cs">Kubrick, 1968</div></div>
-        <div class="tc2"><div class="ct">Arrival</div><div class="cs">Villeneuve, 2016</div></div>
-        <div class="tc2"><div class="ct">The Tree of Life</div><div class="cs">Malick, 2011</div></div>
-        <div class="tc2"><div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div></div>
-        <div class="tc2"><div class="ct">Blade Runner 2049</div><div class="cs">Villeneuve, 2017</div></div>
-        <div class="tc2"><div class="ct">A Separation</div><div class="cs">Farhadi, 2011</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/2001-a-space-odyssey.jpg" -->
+          <img src="" alt="2001: A Space Odyssey" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">2001: A Space Odyssey</div><div class="cs">Kubrick, 1968</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/arrival.jpg" -->
+          <img src="" alt="Arrival" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Arrival</div><div class="cs">Villeneuve, 2016</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/the-tree-of-life.jpg" -->
+          <img src="" alt="The Tree of Life" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Tree of Life</div><div class="cs">Malick, 2011</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/stalker.jpg" -->
+          <img src="" alt="Stalker" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Stalker</div><div class="cs">Tarkovsky, 1979</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/blade-runner-2049.jpg" -->
+          <img src="" alt="Blade Runner 2049" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Blade Runner 2049</div><div class="cs">Villeneuve, 2017</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/a-separation.jpg" -->
+          <img src="" alt="A Separation" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">A Separation</div><div class="cs">Farhadi, 2011</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">To watch</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Solaris</div><div class="cs">Tarkovsky, 1972</div></div>
-        <div class="tc2"><div class="ct">The Mirror</div><div class="cs">Tarkovsky, 1975</div></div>
-        <div class="tc2"><div class="ct">Andrei Rublev</div><div class="cs">Tarkovsky, 1966</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/solaris.jpg" -->
+          <img src="" alt="Solaris" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Solaris</div><div class="cs">Tarkovsky, 1972</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/the-mirror.jpg" -->
+          <img src="" alt="The Mirror" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Mirror</div><div class="cs">Tarkovsky, 1975</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/movies/andrei-rublev.jpg" -->
+          <img src="" alt="Andrei Rublev" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Andrei Rublev</div><div class="cs">Tarkovsky, 1966</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- SHOWS -->
+  <!-- ── SHOWS ── -->
   <div class="ep" id="ent-shows">
     <div class="ss">
       <div class="ssl">Favorite</div>
       <div class="cg">
-        <div class="tc2-fav"><div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div></div>
+        <div class="tc2-fav">
+          <!-- REPLACE src, e.g. src="images/shows/chernobyl.jpg" -->
+          <img src="" alt="Chernobyl" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Currently watching</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Severance</div><div class="cs">Apple TV+, S2</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/severance.jpg" -->
+          <img src="" alt="Severance" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Severance</div><div class="cs">Apple TV+, S2</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Watched</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div></div>
-        <div class="tc2"><div class="ct">Breaking Bad</div><div class="cs">AMC</div></div>
-        <div class="tc2"><div class="ct">Halt and Catch Fire</div><div class="cs">AMC</div></div>
-        <div class="tc2"><div class="ct">Mr. Robot</div><div class="cs">USA Network</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/chernobyl.jpg" -->
+          <img src="" alt="Chernobyl" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Chernobyl</div><div class="cs">HBO, 2019</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/breaking-bad.jpg" -->
+          <img src="" alt="Breaking Bad" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Breaking Bad</div><div class="cs">AMC</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/halt-and-catch-fire.jpg" -->
+          <img src="" alt="Halt and Catch Fire" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Halt and Catch Fire</div><div class="cs">AMC</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/mr-robot.jpg" -->
+          <img src="/Users/shameemmonjazeb/Documents/Personal Website/Mr.Robot card.jpg" alt="Mr. Robot" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Mr. Robot</div><div class="cs">USA Network</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">To watch</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">The Wire</div><div class="cs">HBO</div></div>
-        <div class="tc2"><div class="ct">Shogun</div><div class="cs">FX, 2024</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/the-wire.jpg" -->
+          <img src="" alt="The Wire" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">The Wire</div><div class="cs">HBO</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/shows/shogun.jpg" -->
+          <img src="" alt="Shogun" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Shogun</div><div class="cs">FX, 2024</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ANIME -->
+  <!-- ── ANIME ── -->
   <div class="ep" id="ent-anime">
     <div class="ss">
       <div class="ssl">Favorite</div>
       <div class="cg">
-        <div class="tc2-fav"><div class="ct">Mushishi</div><div class="cs">Artland, 2005</div></div>
+        <div class="tc2-fav">
+          <!-- REPLACE src, e.g. src="images/anime/mushishi.jpg" -->
+          <img src="" alt="Mushishi" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Mushishi</div><div class="cs">Artland, 2005</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Currently watching</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Frieren: Beyond Journey's End</div><div class="cs">Madhouse, 2023</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/frieren.jpg" -->
+          <img src="" alt="Frieren: Beyond Journey's End" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Frieren: Beyond Journey's End</div><div class="cs">Madhouse, 2023</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Watched</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Fullmetal Alchemist: Brotherhood</div><div class="cs">Bones, 2009</div></div>
-        <div class="tc2"><div class="ct">Steins;Gate</div><div class="cs">White Fox, 2011</div></div>
-        <div class="tc2"><div class="ct">Neon Genesis Evangelion</div><div class="cs">Gainax, 1995</div></div>
-        <div class="tc2"><div class="ct">Mushishi</div><div class="cs">Artland, 2005</div></div>
-        <div class="tc2"><div class="ct">Serial Experiments Lain</div><div class="cs">Triangle Staff, 1998</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/fullmetal-alchemist-brotherhood.jpg" -->
+          <img src="" alt="Fullmetal Alchemist: Brotherhood" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Fullmetal Alchemist: Brotherhood</div><div class="cs">Bones, 2009</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/steins-gate.jpg" -->
+          <img src="" alt="Steins;Gate" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Steins;Gate</div><div class="cs">White Fox, 2011</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/neon-genesis-evangelion.jpg" -->
+          <img src="" alt="Neon Genesis Evangelion" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Neon Genesis Evangelion</div><div class="cs">Gainax, 1995</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/mushishi.jpg" -->
+          <img src="" alt="Mushishi" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Mushishi</div><div class="cs">Artland, 2005</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/serial-experiments-lain.jpg" -->
+          <img src="" alt="Serial Experiments Lain" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Serial Experiments Lain</div><div class="cs">Triangle Staff, 1998</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">To watch</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Vinland Saga</div><div class="cs">Wit Studio</div></div>
-        <div class="tc2"><div class="ct">Planetes</div><div class="cs">Sunrise, 2003</div></div>
-        <div class="tc2"><div class="ct">Legend of the Galactic Heroes</div><div class="cs">Artland</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/vinland-saga.jpg" -->
+          <img src="" alt="Vinland Saga" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Vinland Saga</div><div class="cs">Wit Studio</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/planetes.jpg" -->
+          <img src="" alt="Planetes" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Planetes</div><div class="cs">Sunrise, 2003</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/anime/legend-of-the-galactic-heroes.jpg" -->
+          <img src="" alt="Legend of the Galactic Heroes" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Legend of the Galactic Heroes</div><div class="cs">Artland</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- GAMES -->
+  <!-- ── GAMES ── -->
   <div class="ep" id="ent-games">
     <div class="ss">
       <div class="ssl">Favorite</div>
       <div class="cg">
-        <div class="tc2-fav"><div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div></div>
+        <div class="tc2-fav">
+          <!-- REPLACE src, e.g. src="images/games/outer-wilds.jpg" -->
+          <img src="" alt="Outer Wilds" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Currently playing</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Elden Ring</div><div class="cs">FromSoftware, 2022</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/elden-ring.jpg" -->
+          <img src="" alt="Elden Ring" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Elden Ring</div><div class="cs">FromSoftware, 2022</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">Played</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Hollow Knight</div><div class="cs">Team Cherry, 2017</div></div>
-        <div class="tc2"><div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div></div>
-        <div class="tc2"><div class="ct">Baba Is You</div><div class="cs">Arvi Teikari, 2019</div></div>
-        <div class="tc2"><div class="ct">Portal 2</div><div class="cs">Valve, 2011</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/hollow-knight.jpg" -->
+          <img src="" alt="Hollow Knight" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Hollow Knight</div><div class="cs">Team Cherry, 2017</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/outer-wilds.jpg" -->
+          <img src="" alt="Outer Wilds" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Outer Wilds</div><div class="cs">Mobius, 2019</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/baba-is-you.jpg" -->
+          <img src="" alt="Baba Is You" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Baba Is You</div><div class="cs">Arvi Teikari, 2019</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/portal-2.jpg" -->
+          <img src="" alt="Portal 2" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Portal 2</div><div class="cs">Valve, 2011</div>
+        </div>
       </div>
     </div>
     <div class="ss">
       <div class="ssl">To play</div>
       <div class="cg">
-        <div class="tc2"><div class="ct">Disco Elysium</div><div class="cs">ZA/UM, 2019</div></div>
-        <div class="tc2"><div class="ct">Return of the Obra Dinn</div><div class="cs">Lucas Pope, 2018</div></div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/disco-elysium.jpg" -->
+          <img src="" alt="Disco Elysium" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Disco Elysium</div><div class="cs">ZA/UM, 2019</div>
+        </div>
+        <div class="tc2">
+          <!-- REPLACE src, e.g. src="images/games/return-of-the-obra-dinn.jpg" -->
+          <img src="" alt="Return of the Obra Dinn" class="tc-img" onerror="this.style.display='none'">
+          <div class="tc-overlay"></div>
+          <div class="ct">Return of the Obra Dinn</div><div class="cs">Lucas Pope, 2018</div>
+        </div>
       </div>
     </div>
   </div>
@@ -621,6 +925,20 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 
 
 <!-- ═══ FOOD ═══ -->
+<!--
+  HOW IMAGES WORK IN RECIPE CARDS
+  ─────────────────────────────────────────────────────────────────────────────
+  Each recipe card has a .rimg area. Inside it sits:
+    1. <img class="recipe-img" src=""> — the actual photo (absolute, fills the area)
+    2. .rimg-fallback            — the SVG placeholder shown when no photo yet
+
+  When you add a real src path, the photo covers the fallback automatically.
+  The grayscale filter (grayscale + slight contrast/brightness tweak) matches
+  the existing site aesthetic — remove it if you want full colour.
+
+  Ideal image size: ~600 × 450 px (4:3 ratio, matching the card)
+  ─────────────────────────────────────────────────────────────────────────────
+-->
 <section id="tab-food" class="screen">
   <h1>Food</h1>
   <p>What I'm cooking, learning, and thinking about in the kitchen.</p>
@@ -629,11 +947,14 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
 
   <div class="rgrid">
 
-    <!-- Ghormeh Sabzi -->
+    <!-- ── Ghormeh Sabzi ── -->
     <div class="rcard">
       <div class="rimg">
-        <div style="text-align:center;padding:1.5rem;">
-          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;display:block;margin-left:auto;margin-right:auto;">
+        <!-- REPLACE src with your photo, e.g. src="images/food/ghormeh-sabzi.jpg" -->
+        <img src="" alt="Ghormeh Sabzi" class="recipe-img" onerror="this.style.display='none'">
+        <!-- Fallback placeholder shown until you add a real image -->
+        <div class="rimg-fallback">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;">
             <circle cx="26" cy="26" r="20" stroke="#1A1714" stroke-width="1"/>
             <path d="M14 34 C14 26 20 16 26 14 C32 16 38 26 38 34" stroke="#1A1714" stroke-width="0.9" fill="none"/>
             <ellipse cx="26" cy="34" rx="12" ry="3.5" stroke="#1A1714" stroke-width="0.9"/>
@@ -641,7 +962,7 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
             <line x1="26" y1="16" x2="26" y2="10" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
             <line x1="32" y1="20" x2="32" y2="14" stroke="#1A1714" stroke-width="0.9" stroke-linecap="round"/>
           </svg>
-          <div class="rimgph">Ghormeh Sabzi<br><span style="font-size:0.7rem;opacity:0.65;">replace with your photo</span></div>
+          <div class="rimgph">Ghormeh Sabzi<br><span style="font-size:0.7rem;opacity:0.65;">add photo → src="images/food/ghormeh-sabzi.jpg"</span></div>
         </div>
       </div>
       <div class="rbody">
@@ -674,17 +995,19 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
       </div>
     </div>
 
-    <!-- Sourdough -->
+    <!-- ── Sourdough ── -->
     <div class="rcard">
       <div class="rimg">
-        <div style="text-align:center;padding:1.5rem;">
-          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;display:block;margin-left:auto;margin-right:auto;">
+        <!-- REPLACE src with your photo, e.g. src="images/food/sourdough-boule.jpg" -->
+        <img src="" alt="Sourdough Boule" class="recipe-img" onerror="this.style.display='none'">
+        <div class="rimg-fallback">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;">
             <path d="M8 36 Q12 16 26 14 Q40 16 44 36 Z" stroke="#1A1714" stroke-width="1" fill="none"/>
             <ellipse cx="26" cy="36" rx="18" ry="5" stroke="#1A1714" stroke-width="1"/>
             <path d="M18 24 Q22 20 26 22" stroke="#1A1714" stroke-width="0.8" fill="none" stroke-linecap="round"/>
             <path d="M26 18 Q30 14 34 16" stroke="#1A1714" stroke-width="0.8" fill="none" stroke-linecap="round"/>
           </svg>
-          <div class="rimgph">Sourdough Boule<br><span style="font-size:0.7rem;opacity:0.65;">replace with your photo</span></div>
+          <div class="rimgph">Sourdough Boule<br><span style="font-size:0.7rem;opacity:0.65;">add photo → src="images/food/sourdough-boule.jpg"</span></div>
         </div>
       </div>
       <div class="rbody">
@@ -716,11 +1039,13 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
       </div>
     </div>
 
-    <!-- Shoyu Ramen -->
+    <!-- ── Shoyu Ramen ── -->
     <div class="rcard">
       <div class="rimg">
-        <div style="text-align:center;padding:1.5rem;">
-          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;display:block;margin-left:auto;margin-right:auto;">
+        <!-- REPLACE src with your photo, e.g. src="images/food/shoyu-ramen.jpg" -->
+        <img src="" alt="Shoyu Ramen" class="recipe-img" onerror="this.style.display='none'">
+        <div class="rimg-fallback">
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:0.18;margin-bottom:0.6rem;">
             <path d="M8 28 Q26 14 44 28" stroke="#1A1714" stroke-width="1" fill="none"/>
             <path d="M8 28 Q8 44 26 44 Q44 44 44 28" stroke="#1A1714" stroke-width="1" fill="none"/>
             <ellipse cx="26" cy="36" rx="12" ry="4" stroke="#1A1714" stroke-width="0.8"/>
@@ -728,7 +1053,7 @@ p{color:var(--ink-mid);font-size:0.93rem;max-width:60ch;margin-bottom:1rem;}
             <path d="M26 17 Q27 9 26 5" stroke="#1A1714" stroke-width="0.8" stroke-linecap="round"/>
             <path d="M34 20 Q34 12 34 8" stroke="#1A1714" stroke-width="0.8" stroke-linecap="round"/>
           </svg>
-          <div class="rimgph">Shoyu Ramen<br><span style="font-size:0.7rem;opacity:0.65;">replace with your photo</span></div>
+          <div class="rimgph">Shoyu Ramen<br><span style="font-size:0.7rem;opacity:0.65;">add photo → src="images/food/shoyu-ramen.jpg"</span></div>
         </div>
       </div>
       <div class="rbody">
